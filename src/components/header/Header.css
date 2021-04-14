@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Castoro&display=swap");
+
+header {
+  background-color: white; }
+  header nav {
+    background-color: #c2bb5f; }
+    header nav li {
+      text-align: center; }
+      header nav li a {
+        color: white;
+        font-size: clamp(1rem, 3vw, 1.53rem);
+        margin: 0px 20px; }
+        header nav li a:hover, header nav li a.activo {
+          color: white;
+          background: linear-gradient(90deg, #c2bb5f 0%, rgba(140, 140, 70, 0.6) 50%, #c2bb5f 100%); }
+
+
+@media (max-width: 750.99px) {
+  header .header-logo {
+    text-align: center;
+    /* Centered text */ }
+    header .header-logo img {
+      margin: 0; }
+    header .header-logo p {
+      white-space: pre;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(13px, 7.4vw, 85px);
+      color: #c2bb5f;
+      font-family: "Lobster", cursive; }
+}
+
+@media (min-width: 751px) and (max-width: 99991.98px) {
+  header .header-logo {
+    text-align: center;
+    /* Centered text */ }
+    header .header-logo img {
+      margin: 0; }
+    header .header-logo p {
+      white-space: pre;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(13px, 7.4vw, 85px);
+      color: #c2bb5f;
+      font-family: "Lobster", cursive; }
+    }

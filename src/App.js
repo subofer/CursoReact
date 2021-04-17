@@ -1,10 +1,11 @@
 import './App.css';
 
 import Cabecera from './components/header/Header'
+import ItemListContainer from './components/itemlistcontainer/ItemListContainer'
 
 
 function App() {
-  return (
+return (
     <div className="App">
       <Cabecera
       titulo = 'La cocina de la Pipi' 
@@ -19,8 +20,24 @@ function App() {
               ]
             }
         />
+        <ItemListContainer greetings="Hola Terricolas..."/>
    </div>
   );
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

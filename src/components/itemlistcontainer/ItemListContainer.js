@@ -26,6 +26,7 @@ export default function ItemListContainer(props) {
 
 /*Item List*/
 export function Productos(props){
+  console.log(props)
   return(
     <div className="row" id="lista_productos"> 
       {
@@ -58,18 +59,24 @@ function TarjetaProducto(elemento){
 
 
 /*Componentes del Item*/
-function BotonPop(elemento){
+function BotonAdd(elemento){
   return(
     <span className="ns-btna"><button data-familia={elemento.familia} data-id={elemento.codigo}
       type="button" className="btn btn-danger botonCompra">Agregar al carrito</button></span>
   )
 }
 
-function BotonProducto(props){
-  let icon
-  (props.dir==="dwn")? icon = "minus" : icon = "plus"
+function BotonProducto(elemento){
+  let icon 
+  (elemento.dir==="dwn")? icon = "minus" : icon = "plus"
   return(
-    <span className="ns-btn"><a data-dir={props.dir}><span className={"icon-"+icon}/></a></span>
+    <span className="ns-btn"><a data-dir={elemento.dir}><span className={"icon-"+icon}/></a></span>
+  )
+}
+
+function Cantidad(elemento){
+  return(
+          <input id={"cantidad_" + elemento.codigo} type="text" className="pl-ns-value" value="1" maxLength="2"/>
   )
 }
 
@@ -78,9 +85,9 @@ function InputSpiner(elemento){
     <div className="botonera_productos">
       <div className="number-spinner">
         {<BotonProducto key= {"q_" + elemento.codigo + "dwn"} dir="dwn"/>}
-          <input id={"cantidad_" + elemento.codigo} type="text" className="pl-ns-value" value="1" maxLength="2"/>
-        {<BotonProducto key= {"q_" + elemento.codigo + "up"} dir="up"/>}
-        {<BotonPop {...elemento}/>}
+        {<Cantidad      key= {"q_" + elemento.codigo + "q"  } {...elemento}/>}
+        {<BotonProducto key= {"q_" + elemento.codigo + "up" } dir="up"/>}
+        {<BotonAdd      key= {"q_" + elemento.codigo + "add"} {...elemento}/>}
       </div>
     </div>
   )

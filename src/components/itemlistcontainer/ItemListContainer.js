@@ -9,9 +9,7 @@ export default function ItemListContainer(props) {
         </div>
         <div className="col-10">
             <div className="container">
-                <div className="row" id="lista_productos"> 
-                  <Productos listaProductos = {props.props}/>
-               </div>
+                <Productos listaProductos = {props.props}/>
                 <div className="row justify-content-center">
                     <div className="col-12">
                         <section className="pt-1 mt-3 mx-3">
@@ -28,10 +26,14 @@ export default function ItemListContainer(props) {
 
 /*Item List*/
 export function Productos(props){
-  let prod = props.listaProductos
-
   return(
-    prod.map((item,index)=> <TarjetaProducto key={index} {...item}/>)
+    <div className="row" id="lista_productos"> 
+      {
+        props.listaProductos.map(
+            (item,index) => <TarjetaProducto key={index} {...item}/>
+          )
+      }
+    </div>
   )
 }
 

@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/CursoReact/static/css/main.33041b1a.chunk.css",
+    "main.js": "/CursoReact/static/js/main.d5307926.chunk.js",
+    "main.js.map": "/CursoReact/static/js/main.d5307926.chunk.js.map",
+    "runtime-main.js": "/CursoReact/static/js/runtime-main.f184bafe.js",
+    "runtime-main.js.map": "/CursoReact/static/js/runtime-main.f184bafe.js.map",
+    "static/js/2.991d1508.chunk.js": "/CursoReact/static/js/2.991d1508.chunk.js",
+    "static/js/2.991d1508.chunk.js.map": "/CursoReact/static/js/2.991d1508.chunk.js.map",
+    "static/js/3.f03f9a04.chunk.js": "/CursoReact/static/js/3.f03f9a04.chunk.js",
+    "static/js/3.f03f9a04.chunk.js.map": "/CursoReact/static/js/3.f03f9a04.chunk.js.map",
+    "index.html": "/CursoReact/index.html",
+    "static/css/main.33041b1a.chunk.css.map": "/CursoReact/static/css/main.33041b1a.chunk.css.map",
+    "static/js/2.991d1508.chunk.js.LICENSE.txt": "/CursoReact/static/js/2.991d1508.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f184bafe.js",
+    "static/js/2.991d1508.chunk.js",
+    "static/css/main.33041b1a.chunk.css",
+    "static/js/main.d5307926.chunk.js"
+  ]
+}

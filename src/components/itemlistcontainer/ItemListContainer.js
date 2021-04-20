@@ -9,7 +9,6 @@ export default function ItemListContainer(props) {
         </div>
         <div className="col-10">
             <div className="container">
-                <Productos listaProductos = {props.props}/>
                 <div className="row justify-content-center">
                     <div className="col-12">
                         <section className="pt-1 mt-3 mx-3">
@@ -18,6 +17,7 @@ export default function ItemListContainer(props) {
                         </section>
                     </div>
                 </div>
+                <Productos listaProductos = {props.props}/>
             </div>
         </div>             
     </div>

@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/CursoReact/static/css/main.33041b1a.chunk.css",
-    "main.js": "/CursoReact/static/js/main.777ca1e7.chunk.js",
-    "main.js.map": "/CursoReact/static/js/main.777ca1e7.chunk.js.map",
+    "main.js": "/CursoReact/static/js/main.b5bc3e46.chunk.js",
+    "main.js.map": "/CursoReact/static/js/main.b5bc3e46.chunk.js.map",
     "runtime-main.js": "/CursoReact/static/js/runtime-main.84dc795e.js",
     "runtime-main.js.map": "/CursoReact/static/js/runtime-main.84dc795e.js.map",
     "static/js/2.46aee476.chunk.js": "/CursoReact/static/js/2.46aee476.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.84dc795e.js",
     "static/js/2.46aee476.chunk.js",
     "static/css/main.33041b1a.chunk.css",
-    "static/js/main.777ca1e7.chunk.js"
+    "static/js/main.b5bc3e46.chunk.js"
   ]
 }

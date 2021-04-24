@@ -35,7 +35,8 @@ export default function ItemListContainer() {
 
 
  const size_loading = 10
-const estilo_Spinner = {width: size_loading+"rem", height: size_loading+"rem"}
+ const estilo_Spinner = {width: size_loading+"rem", height: size_loading+"rem"}
+ 
  return(
     <div className="row justify-content-center py-3 mw-100">  
         <div className="col-12 pb-4">

@@ -85,10 +85,7 @@ function InputSpiner(elemento){
     <div className="botonera_productos">
       <div className="number-spinner">
 
-        <BotonProducto dir="minus" />
-              <Contador/>
-        <BotonProducto dir="plus" />
-              <BotonAdd/>
+        <BotonProducto dir="minus" /> <Contador/> <BotonProducto dir="plus" /> <BotonAdd/>
 
       </div>
     </div>

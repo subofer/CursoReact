@@ -21,14 +21,14 @@ return (
 
     <main>
         <Switch>
-              <Route  path='/' component={ItemListContainer}>
+              <Route  path='/' component={ItemListContainer}/>
               
               <Route  path="/precios">
                   <h2>Precios</h2>
               </Route>
               
                   
-              </Route>
+              
               <Route  path="/recetas">
                   <h2>Recetas</h2>
               </Route>

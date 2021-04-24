@@ -10,7 +10,7 @@ import {BrowserRouter, Switch, Route, useRouteMatch} from 'react-router-dom'
 function App() {
 
 return (
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <div className="App">
       
       <Cabecera
@@ -20,9 +20,7 @@ return (
         />
         <main>
 
-      <ItemListContainer/>
-
-        /*  <Switch>
+        <Switch>
               <Route  path="/precios">
                   <h2>Precios</h2>
               </Route>
@@ -40,7 +38,7 @@ return (
                   <h2>Home</h2>
               </Route>
           </Switch>
-          */
+      
         </main>
         
         <Footer/>
@@ -54,7 +52,7 @@ return (
 
 
 
-   
+
   );
 }
 

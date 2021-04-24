@@ -15,7 +15,6 @@ export default function Cabecera(props) {
    <LineaVacia col='2'/>
         <div className="col-8 border-bottom pb-1 header-logo">
             <img className="img-fluid figure-img" src={props.logo} alt={props.titulo} />
-            {console.log(props.logo)}
             <p>{props.titulo}</p>
         </div>
 

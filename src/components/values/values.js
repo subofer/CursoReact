@@ -17,8 +17,9 @@ return ([{
     "nombre":"milanesa de peceto",
     "precio":630,
     "texto" : "Milanesas de Peceto de ternera, preparadas con rebozador de primera calidad, con un toque de avena y condimentos",
-    "img" : "images/productos/mila_peceto_cruda.png",
+    "img" : "/images/productos/mila_peceto_cruda.png",
     "mostrar" : true,
+    "stock":10
   },{
     "codigo":"M002",
     "familia":"milanesas",
@@ -26,8 +27,9 @@ return ([{
     "nombre":"milanesa de nalga",
     "precio":590,
     "texto" : "Milanesas de Nalga de ternera, preparadas con rebozador de primera calidad, con un toque de avena y condimentos",
-    "img" : "images/productos/mila_peceto_cruda.png",
+    "img" : "/images/productos/mila_peceto_cruda.png",
     "mostrar" : true,
+    "stock":10
   },{
     "codigo":"M003",
     "familia":"milanesas",
@@ -35,8 +37,9 @@ return ([{
     "nombre":"milanesa de pollo",
     "precio":380,
     "texto" : "Pechugas frescas de pollo, condimentos de calidad, con el mismo toque de avena que hacen nuestras milanesas tan ricas",
-    "img" : "images/productos/mila_pollo_cruda.png",
+    "img" : "/images/productos/mila_pollo_cruda.png",
     "mostrar" : true,
+    "stock":10
   },{
     "codigo":"M004",
     "familia":"milanesas",
@@ -44,8 +47,9 @@ return ([{
     "nombre":"milanesa de berenjena",
     "precio":270,
     "texto" : "Una opción de milanesas basadas en vegetales, por lo que podríamos decir que son vegetarianas y saludables",
-    "img" : "images/productos/mila_berenjena_cruda.png",
+    "img" : "/images/productos/mila_berenjena_cruda.png",
     "mostrar" : true,
+    "stock":10
   },{
     "codigo":"M005",
     "familia":"milanesas",
@@ -53,8 +57,9 @@ return ([{
     "nombre":"milanesa de calabaza",
     "precio":250,
     "texto" : "Animate a probarlas, son una delicia, nos las pidió una vez una clienta y las empezamos a hacer a pedido.",
-    "img" : "images/productos/mila_calabaza_cocida.png",
+    "img" : "/images/productos/mila_calabaza_cocida.png",
     "mostrar" : true,
+    "stock":10
   },{
     "codigo":"M006",
     "familia":"milanesas",
@@ -62,8 +67,9 @@ return ([{
     "nombre":"milanesa de zucchini",
     "precio":280,
     "texto" : "Animate a probarlas, son una delicia, nos las pidió una vez una clienta y las empezamos a hacer a pedido.",
-    "img" : "images/productos/mila_zucchini_cruda.png",
+    "img" : "/images/productos/mila_zucchini_cruda.png",
     "mostrar" : true,
+    "stock":10
   },{
     "codigo":"H001",
     "familia":"Hamburguesas",
@@ -71,8 +77,9 @@ return ([{
     "nombre":"Hamburguesa de Carne",
     "precio":320,
     "texto" : "Qué se puede decir? Clásicas hamburguesas de carne condimentadas como en casa",
-    "img" :"images/productos/ham_carne_cruda.png",
+    "img" : "/images/productos/ham_carne_cruda.png",
     "mostrar" : true,
+    "stock":10
   },{
     "codigo":"H002",
     "familia":"Hamburguesas",
@@ -80,8 +87,9 @@ return ([{
     "nombre":"Hamburguesa de pollo",
     "precio":370,
     "texto" : "Me quedé completamente sin palabras, pero te puedo decir que estan bárbaras",
-    "img" :"images/productos/ham_pollo_cocida.png",
+    "img" : "/images/productos/ham_pollo_cocida.png",
     "mostrar" : true,
+    "stock":10
   },{
     "codigo":"H003",
     "familia":"Hamburguesas",
@@ -89,8 +97,9 @@ return ([{
     "nombre":"Hamburguesa de Cerdo",
     "precio":370,
     "texto" : "Me quedé completamente sin palabras, pero te puedo decir que estan bárbaras",
-    "img" :"images/productos/ham_cerdo_cruda.png",
+    "img" : "/images/productos/ham_cerdo_cruda.png",
     "mostrar" : true,
+    "stock":10
   },{
     "codigo":"H004",
     "familia":"Hamburguesas",
@@ -98,8 +107,9 @@ return ([{
     "nombre":"Hamburguesa de Brocoli",
     "precio":150,
     "texto" : "Me quedé completamente sin palabras, pero te puedo decir que estan bárbaras",
-    "img" :"images/productos/ham_brocoli_cocida.png",
+    "img" : "/images/productos/ham_brocoli_cocida.png",
     "mostrar" : true,
+    "stock":10
   },{
     "codigo":"H005",
     "familia":"Hamburguesas",
@@ -107,8 +117,34 @@ return ([{
     "nombre":"Hamburguesa de remolacha",
     "precio":150,
     "texto" : "Me quedé completamente sin palabras, pero te puedo decir que estan bárbaras",
-    "img" :"images/productos/ham_remolacha_cruda.png",
+    "img" : "/images/productos/ham_remolacha_cruda.png",
     "mostrar" : true,
+    "stock":10
   }]
   )
 }
+
+
+
+
+
+
+
+/*
+
+const Button = props => {
+  const { kind, ...other } = props;
+  const className = kind === "primary" ? "PrimaryButton" : "SecondaryButton";
+  return <button className={className} {...other} />;
+};
+
+const App = () => {
+  return (
+    <div>
+      <Button kind="primary" onClick={() => console.log("clicked!")}>
+        Hello World!
+      </Button>
+    </div>
+  );
+};
+*/

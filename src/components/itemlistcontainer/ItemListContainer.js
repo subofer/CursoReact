@@ -1,7 +1,23 @@
-import React from 'react'
-import './style.css'
+import React, { useState, useEffect } from 'react'
+import {ListaProductos} from '../values/values'
 
-export default function ItemListContainer(props) {
+import './style.css'
+export default function ItemListContainer() {
+ 
+    const [ListadoProductos, SetListadoProductos] = useState([])
+
+    useEffect( () => {
+      const datos = new Promise( (resolve,reject) => {
+        setTimeout(()=>{
+          resolve(ListaProductos)
+        },2000)
+      })
+      datos.then((resuelto)=>{
+        SetListadoProductos(resuelto)
+      })
+    },[]);
+
+
  return(
     <div className="row justify-content-center py-3 mw-100">  
         <div className="col-12 pb-4">
@@ -17,16 +33,20 @@ export default function ItemListContainer(props) {
                         </section>
                     </div>
                 </div>
-                <Productos listaProductos = {props.props}/>
+                
+
+                {ListadoProductos.length > 0 ? <Productos listaProductos = {ListadoProductos}/> : <h2>Cargando</h2>}
+
+
             </div>
         </div>             
     </div>
  )      
 }
 
+
 /*Item List*/
 export function Productos(props){
-  console.log(props)
   return(
     <div className="row" id="lista_productos"> 
       {
@@ -39,17 +59,22 @@ export function Productos(props){
 }
 
 
+
+
 /*Item*/
 function TarjetaProducto(elemento){
+
   return (
     <div className="col-12 col-md-6 col-xl-4 d-flex align-items-stretch cartas_productos">
-      <div id={elemento.familia + elemento.variedad} className="card mt-3">
-        <img className="card-img-top" src={elemento.img} alt={elemento.nombre}/>
+      <div className="card mt-3">
+        <img className="card-img-top" src={process.env.PUBLIC_URL + elemento.img} alt={elemento.nombre}/>
         <div className="card-body">
           <h5 className="card-title">{elemento.nombre}</h5>
-          {<InputSpiner {...elemento}/>}
           <p className="card-text"></p>
           <p className="card-text">{elemento.texto}</p>
+
+            {<InputSpiner {...elemento}/>}
+
           <p className="card-text"></p>
         </div>
       </div>
@@ -58,37 +83,65 @@ function TarjetaProducto(elemento){
 }
 
 
-/*Componentes del Item*/
-function BotonAdd(elemento){
-  return(
-    <span className="ns-btna"><button data-familia={elemento.familia} data-id={elemento.codigo}
-      type="button" className="btn btn-danger botonCompra">Agregar al carrito</button></span>
-  )
-}
-
-function BotonProducto(elemento){
-  let icon 
-  (elemento.dir==="dwn")? icon = "minus" : icon = "plus"
-  return(
-    <span className="ns-btn"><a data-dir={elemento.dir}><span className={"icon-"+icon}/></a></span>
-  )
-}
-
-function Cantidad(elemento){
-  return(
-          <input id={"cantidad_" + elemento.codigo} type="text" className="pl-ns-value" value="1" maxLength="2"/>
-  )
-}
-
 function InputSpiner(elemento){
+  const [count, setCount] = useState(0);
+  
+    useEffect( () => {
+      },[]);
+
+
+    const BotonAdd = (elemento) =>{
+      return(
+          <span className="ns-btna">
+            <button onClick={Agregar} type="button" className="btn btn-danger botonCompra">
+              Agregar al carrito
+            </button>
+          </span>
+            )
+    }
+
+    const Agregar = () =>{
+      count !== 0 ? alert("Agregaste "+ count + "Kg de" + elemento.nombre ): void(0)
+    }
+
+    const BotonProducto = (elemento) => {
+      return(
+          <span className="ns-btn"><a onClick={()=>cantidad(elemento.dir)} data-dir={elemento.dir}><span className={"icon-"+elemento.dir}/></a></span>
+      )
+    }
+
+    const cantidad = (x) =>{
+      x === "minus" ? (count > 0 ? setCount(count - 1): void(0) ) : (( x === "plus" && elemento.stock - count>0) ? setCount(count + 1) : void(0))
+    }
+
+    const Contador = () => {
+
+      let porcentaje = 100-(count/elemento.stock)*100
+
+      let styles = porcentaje>0 ? {background: "linear-gradient(to right, rgba(0, 255, 0, 0.5) " + porcentaje + "%, white 0%)"} :{background: "rgba(255, 0, 0, 0.5)"}
+
+      return(
+        <input style={styles} type="text" className="pl-ns-value" maxLength="2" defaultValue={count}/>
+       )
+    }
+
+
   return(
     <div className="botonera_productos">
       <div className="number-spinner">
-        {<BotonProducto key= {"q_" + elemento.codigo + "dwn"} dir="dwn"/>}
-        {<Cantidad      key= {"q_" + elemento.codigo + "q"  } {...elemento}/>}
-        {<BotonProducto key= {"q_" + elemento.codigo + "up" } dir="up"/>}
-        {<BotonAdd      key= {"q_" + elemento.codigo + "add"} {...elemento}/>}
+
+        {<BotonProducto dir="plus" />}
+              {<Contador/>}
+        {<BotonProducto dir="minus" />}
+              {<BotonAdd/>}
+
       </div>
     </div>
   )
 }
+
+
+
+
+
+

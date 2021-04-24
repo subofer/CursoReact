@@ -20,9 +20,6 @@ return (
         
         <main>
           <Switch>
-              <Route  path="/home">
-                  <h2>Home</h2>
-              </Route>
               <Route  path="/precios">
                   <h2>Precios</h2>
               </Route>
@@ -34,6 +31,10 @@ return (
               </Route>
               <Route  path="/pedidos">
                   <h2>Pedidos</h2>
+              </Route>
+
+              <Route  path="/">
+                  <h2>Home</h2>
               </Route>
           </Switch>
         </main>

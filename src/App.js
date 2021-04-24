@@ -21,11 +21,12 @@ return (
 
     <main>
         <Switch>
-              <Route  path="//precios">
+              <Route  path='/' component={ItemListContainer}>
+              
+              <Route  path="/precios">
                   <h2>Precios</h2>
               </Route>
               
-              <Route  path='https://subofer.github.io/CursoReact/productos' component={ItemListContainer}>
                   
               </Route>
               <Route  path="/recetas">

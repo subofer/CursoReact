@@ -1,18 +1,6 @@
 import React from 'react'
 
 
-  function toggleClass(elemento) {
-    Array.from(document.getElementsByClassName(elemento.target.classList[0]))
-        .forEach((enlace) => {  enlace.classList.remove('activo')}
-    )
-    elemento.target.classList.add('activo');
-  }
-
-function Enlace(props) {
-    return (
-        <li className='nav-item'><a href={props.url} onClick={toggleClass} className='nav-link'>{props.text}</a></li>
-    )
-}
 
 export default function NavBar(props) {
  return(
@@ -22,12 +10,26 @@ export default function NavBar(props) {
                 {
                     props.enlaces.map(
                         (item,index) => {
-                           return <Enlace key={item[0] + index} tipo='lista' text={item[0]} url={item[1]}/>
+                           return <EnlaceNavBar tipo='lista' text={item[0]} url={item[1]}/>
                         }
                     )
                 }
             </ul>
           </div>
         </nav>
+    )
+}
+
+
+function toggleClass(elemento) {
+    Array.from(document.getElementsByClassName(elemento.target.classList[0]))
+        .forEach((enlace) => {  enlace.classList.remove('activo')}
+    )
+    elemento.target.classList.add('activo');
+  }
+
+function EnlaceNavBar({text,url}) {
+    return (
+        <li className='nav-item'><a href={url} onClick={toggleClass} className='nav-link'>{text}</a></li>
     )
 }

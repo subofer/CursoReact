@@ -1,7 +1,7 @@
 
 export function EnlacesNav(){
   return ([
-           ['Homes','#home'],
+           ['Home','#home'],
            ['Precios','#precios'],
            ['Productos','#productos'],
            ['Recetas','#recetas'],
@@ -19,7 +19,7 @@ return ([{
     "texto" : "Milanesas de Peceto de ternera, preparadas con rebozador de primera calidad, con un toque de avena y condimentos",
     "img" : "/images/productos/mila_peceto_cruda.png",
     "mostrar" : true,
-    "stock":10
+    "stock":100
   },{
     "codigo":"M002",
     "familia":"milanesas",
@@ -29,7 +29,7 @@ return ([{
     "texto" : "Milanesas de Nalga de ternera, preparadas con rebozador de primera calidad, con un toque de avena y condimentos",
     "img" : "/images/productos/mila_peceto_cruda.png",
     "mostrar" : true,
-    "stock":10
+    "stock":18
   },{
     "codigo":"M003",
     "familia":"milanesas",
@@ -39,7 +39,7 @@ return ([{
     "texto" : "Pechugas frescas de pollo, condimentos de calidad, con el mismo toque de avena que hacen nuestras milanesas tan ricas",
     "img" : "/images/productos/mila_pollo_cruda.png",
     "mostrar" : true,
-    "stock":10
+    "stock":23
   },{
     "codigo":"M004",
     "familia":"milanesas",
@@ -49,7 +49,7 @@ return ([{
     "texto" : "Una opción de milanesas basadas en vegetales, por lo que podríamos decir que son vegetarianas y saludables",
     "img" : "/images/productos/mila_berenjena_cruda.png",
     "mostrar" : true,
-    "stock":10
+    "stock":4
   },{
     "codigo":"M005",
     "familia":"milanesas",
@@ -59,7 +59,7 @@ return ([{
     "texto" : "Animate a probarlas, son una delicia, nos las pidió una vez una clienta y las empezamos a hacer a pedido.",
     "img" : "/images/productos/mila_calabaza_cocida.png",
     "mostrar" : true,
-    "stock":10
+    "stock":2
   },{
     "codigo":"M006",
     "familia":"milanesas",
@@ -69,7 +69,7 @@ return ([{
     "texto" : "Animate a probarlas, son una delicia, nos las pidió una vez una clienta y las empezamos a hacer a pedido.",
     "img" : "/images/productos/mila_zucchini_cruda.png",
     "mostrar" : true,
-    "stock":10
+    "stock":0
   },{
     "codigo":"H001",
     "familia":"Hamburguesas",

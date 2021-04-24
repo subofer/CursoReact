@@ -36,7 +36,7 @@ export default function ItemListContainer() {
                     </div>
                 </div>
 
-                {ListadoProductos.length > 0 ? <Productos listaProductos = {ListadoProductos}/> : <h2>Cargando</h2>}
+                {ListadoProductos.length > 0 ? <Productos listaProductos = {ListadoProductos}/> : <h2>Cargando...............</h2>}
 
             </div>
         </div>             

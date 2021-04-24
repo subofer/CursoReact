@@ -4,10 +4,11 @@ import Cabecera from './components/header/Header'
 import Footer from './components/footer/footer'
 import ItemListContainer from './components/itemlistcontainer/ItemListContainer'
 import {EnlacesNav } from './components/values/values'
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import {BrowserRouter, Switch, Route, useRouteMatch} from 'react-router-dom'
 
 
 function App() {
+
 return (
   <BrowserRouter>
     <div className="App">
@@ -17,19 +18,18 @@ return (
       logo = {process.env.PUBLIC_URL + '/images/logo-transparente.png'}
       enlaces={EnlacesNav()}
         />
-        
         <main>
           <Switch>
-              <Route  path="./precios">
+              <Route  path="CursoReact/precios">
                   <h2>Precios</h2>
               </Route>
-              <Route  path="./productos">
+              <Route  path='/CursoReact/productos'>
                   <ItemListContainer/>
               </Route>
-              <Route  path="./recetas">
+              <Route  path="/recetas">
                   <h2>Recetas</h2>
               </Route>
-              <Route  path="./pedidos">
+              <Route  path="/pedidos">
                   <h2>Pedidos</h2>
               </Route>
 

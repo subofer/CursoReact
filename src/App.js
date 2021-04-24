@@ -4,28 +4,29 @@ import Cabecera from './components/header/Header'
 import Footer from './components/footer/footer'
 import ItemListContainer from './components/itemlistcontainer/ItemListContainer'
 import {EnlacesNav } from './components/values/values'
-import {BrowserRouter, Switch, Route, useRouteMatch} from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, useRouteMatch} from 'react-router-dom'
 
 
 function App() {
 
 return (
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
+  <Router basename={process.env.PUBLIC_URL}>
     <div className="App">
-      
-      <Cabecera
-      titulo = 'La cocina de la Pipi' 
-      logo = {process.env.PUBLIC_URL + '/images/logo-transparente.png'}
-      enlaces={EnlacesNav()}
-        />
-        <main>
 
+      <Cabecera
+                titulo = 'La cocina de la Pipi' 
+                logo = {process.env.PUBLIC_URL + '/images/logo-transparente.png'}
+                enlaces={EnlacesNav()}
+     />
+
+    <main>
         <Switch>
-              <Route  path="/precios">
+              <Route  path="//precios">
                   <h2>Precios</h2>
               </Route>
-              <Route  path='/productos'>
-                  <ItemListContainer/>
+              
+              <Route  path='https://subofer.github.io/CursoReact/productos' component={ItemListContainer}>
+                  
               </Route>
               <Route  path="/recetas">
                   <h2>Recetas</h2>
@@ -38,21 +39,12 @@ return (
                   <h2>Home</h2>
               </Route>
           </Switch>
-      
         </main>
-        
+
         <Footer/>
 
     </div>
-   </BrowserRouter>
-
-
-
-
-
-
-
-
+   </Router>
   );
 }
 

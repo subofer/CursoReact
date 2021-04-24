@@ -20,6 +20,8 @@ export default function ItemListContainer() {
     },[]);
 
 
+ const size_loading = 6
+
  return(
     <div className="row justify-content-center py-3 mw-100">  
         <div className="col-12 pb-4">
@@ -36,7 +38,7 @@ export default function ItemListContainer() {
                     </div>
                 </div>
 
-                {ListadoProductos.length > 0 ? <Productos listaProductos = {ListadoProductos}/> : <h2>Cargando...............</h2>}
+                {ListadoProductos.length > 0 ? <Productos listaProductos = {ListadoProductos}/> : <div className="spinner-border text-primary m-5" style={{width: size_loading+"rem", height: size_loading+"rem"}} role="status"><span className="sr-only">Loading...</span></div> }
 
             </div>
         </div>             

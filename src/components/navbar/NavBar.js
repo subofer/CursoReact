@@ -10,7 +10,7 @@ export default function NavBar(props) {
                 {
                     props.enlaces.map(
                         (item,index) => {
-                           return <EnlaceNavBar tipo='lista' text={item[0]} url={item[1]}/>
+                           return <EnlaceNavBar key={index} tipo='lista' text={item[0]} url={item[1]}/>
                         }
                     )
                 }

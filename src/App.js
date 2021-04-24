@@ -1,6 +1,7 @@
 import './App.css';
 
 import Cabecera from './components/header/Header'
+import Footer from './components/footer/footer'
 import ItemListContainer from './components/itemlistcontainer/ItemListContainer'
 import {EnlacesNav } from './components/values/values'
 
@@ -18,6 +19,7 @@ return (
                 <ItemListContainer/>
       
         </main>
+        <Footer/>
 
    </div>
   );

@@ -36,7 +36,7 @@ return (
                   <h2>Pedidos</h2>
               </Route>
 
-              <Route  path="/">
+              <Route  path="/home">
                   <h2>Home</h2>
               </Route>
           </Switch>

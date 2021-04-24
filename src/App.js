@@ -20,16 +20,16 @@ return (
         
         <main>
           <Switch>
-              <Route  path="/precios">
+              <Route  path="./precios">
                   <h2>Precios</h2>
               </Route>
-              <Route  path="/productos">
+              <Route  path="./productos">
                   <ItemListContainer/>
               </Route>
-              <Route  path="/recetas">
+              <Route  path="./recetas">
                   <h2>Recetas</h2>
               </Route>
-              <Route  path="/pedidos">
+              <Route  path="./pedidos">
                   <h2>Pedidos</h2>
               </Route>
 

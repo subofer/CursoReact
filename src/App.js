@@ -17,28 +17,27 @@ return (
       logo = {process.env.PUBLIC_URL + '/images/logo-transparente.png'}
       enlaces={EnlacesNav()}
         />
+        
         <main>
-
-  <Switch>
-      <Route exact path="/home">
-          <h2>Home</h2>
-      </Route>
-      <Route exact path="/precios">
-          <h2>Precios</h2>
-      </Route>
-      <Route exact path="/productos">
-          <ItemListContainer/>
-      </Route>
-      <Route exact path="/recetas">
-          <h2>Recetas</h2>
-      </Route>
-      <Route exact path="/pedidos">
-          <h2>Pedidos</h2>
-      </Route>
-  </Switch>
-
-
+          <Switch>
+              <Route  path="/home">
+                  <h2>Home</h2>
+              </Route>
+              <Route  path="/precios">
+                  <h2>Precios</h2>
+              </Route>
+              <Route  path="/productos">
+                  <ItemListContainer/>
+              </Route>
+              <Route  path="/recetas">
+                  <h2>Recetas</h2>
+              </Route>
+              <Route  path="/pedidos">
+                  <h2>Pedidos</h2>
+              </Route>
+          </Switch>
         </main>
+        
         <Footer/>
 
     </div>

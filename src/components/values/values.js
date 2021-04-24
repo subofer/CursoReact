@@ -1,11 +1,11 @@
 
 export function EnlacesNav(){
   return ([
-           ['Home','/home'],
-           ['Precios','/precios'],
-           ['Productos','/productos'],
-           ['Recetas','/recetas'],
-           ['Pedidos','/pedidos'],
+           ['Home','./home'],
+           ['Precios','./precios'],
+           ['Productos','./productos'],
+           ['Recetas','./recetas'],
+           ['Pedidos','./pedidos'],
   ])  
 }
 

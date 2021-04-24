@@ -19,11 +19,14 @@ return (
       enlaces={EnlacesNav()}
         />
         <main>
-          <Switch>
-              <Route  path="CursoReact/precios">
+
+      <ItemListContainer/>
+
+        /*  <Switch>
+              <Route  path="/precios">
                   <h2>Precios</h2>
               </Route>
-              <Route  path='/CursoReact/productos'>
+              <Route  path='/productos'>
                   <ItemListContainer/>
               </Route>
               <Route  path="/recetas">
@@ -37,12 +40,21 @@ return (
                   <h2>Home</h2>
               </Route>
           </Switch>
+          */
         </main>
         
         <Footer/>
 
     </div>
    </BrowserRouter>
+
+
+
+
+
+
+
+   
   );
 }
 

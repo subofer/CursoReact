@@ -1,5 +1,6 @@
 import React from 'react'
 
+/*Al footer le falta hacer mucho, es nada mas que el HTML pasado a function*/
 export default function Footer(){
    return(
     <div className="row porta_footer justify-content-center mb-0 pb-0">

@@ -39,11 +39,10 @@ function TarjetaProducto(elemento){
 
 function InputSpiner(elemento){
   const [count, setCount] = useState(0);
+  const [porcentaje, setPorcentaje] = useState(100-(count/elemento.stock)*100);
   
   useEffect( () => {
-      
-
-      },[]);
+  },[]);
 
 
   const BotonAdd = () =>{
@@ -72,8 +71,8 @@ function InputSpiner(elemento){
 
   const Contador = () => {
 
-      let porcentaje = 100-(count/elemento.stock)*100
-
+      setPorcentaje(100-(count/elemento.stock)*100)
+      
       let styles = porcentaje>0 ? {background: "linear-gradient(to right, rgba(0, 255, 0, 0.5) " + porcentaje + "%, white 0%)"} :{background: "rgba(255, 0, 0, 0.5)"}
 
     return(
@@ -86,10 +85,10 @@ function InputSpiner(elemento){
     <div className="botonera_productos">
       <div className="number-spinner">
 
-        {<BotonProducto dir="minus" />}
-              {<Contador/>}
-        {<BotonProducto dir="plus" />}
-              {<BotonAdd/>}
+        <BotonProducto dir="minus" />
+              <Contador/>
+        <BotonProducto dir="plus" />
+              <BotonAdd/>
 
       </div>
     </div>

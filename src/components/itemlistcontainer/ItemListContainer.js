@@ -9,6 +9,19 @@ export default function ItemListContainer() {
     const [ListadoProductos, SetListadoProductos] = useState([])
 
     useEffect( () => {
+      /*
+          fetch("https://la-cocina-de-la-pipi-default-rtdb.firebaseio.com/")
+            .then(response => {
+              return response.json()
+            })
+            .then(data => {
+                SetListadoProductos(data)    
+                return data;
+            }, error => {
+                console.error('onRejected function called: ' + error.message);
+            })
+*/
+
       const datos = new Promise( (resolve,reject) => {
         setTimeout(()=>{
           resolve(ListaProductos)
@@ -17,11 +30,12 @@ export default function ItemListContainer() {
       datos.then((resuelto)=>{
         SetListadoProductos(resuelto)
       })
+
     },[]);
 
 
- const size_loading = 6
-
+ const size_loading = 10
+const estilo_Spinner = {width: size_loading+"rem", height: size_loading+"rem"}
  return(
     <div className="row justify-content-center py-3 mw-100">  
         <div className="col-12 pb-4">
@@ -38,7 +52,7 @@ export default function ItemListContainer() {
                     </div>
                 </div>
 
-                {ListadoProductos.length > 0 ? <Productos listaProductos = {ListadoProductos}/> : <div className="spinner-border text-primary m-5" style={{width: size_loading+"rem", height: size_loading+"rem"}} role="status"><span className="sr-only">Loading...</span></div> }
+                {ListadoProductos.length > 0 ? <Productos listaProductos = {ListadoProductos}/> : <div className="spinner-border text-primary m-5" style={estilo_Spinner} role="status"><span className="sr-only">Loading...</span></div> }
 
             </div>
         </div>             

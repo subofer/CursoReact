@@ -1,5 +1,5 @@
 {
-  "homepage":"https://subofer.github.io/CursoReact",
+  "homepage": "https://subofer.github.io/CursoReact",
   "name": "cocina",
   "version": "0.1.0",
   "private": true,
@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.8.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.1"
   },
@@ -18,9 +19,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "stop": "taskkill -F -IM node.exe",
-	"predeploy":"npm run build",
-	"deploy":"gh-pages -d build",
-	"mandar":"npm run build && npm run deploy"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "mandar": "npm run build && npm run deploy"
   },
   "eslintConfig": {
     "extends": [

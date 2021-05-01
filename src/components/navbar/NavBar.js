@@ -32,12 +32,11 @@ export default function NavBar(props) {
                                                 <NavLink className="dropdown-item" to={item[1]}>{item[0]}</NavLink>
                                               {
                                                 item.slice(2 , item.lenght).map((menu, index) => 
-                                                  <NavLink key={index} className="dropdown-item" to={"/productos/" + menu} >{May(menu)}</NavLink>
+                                                  <NavLink key={index} className="dropdown-item" to={item[1] + "/" + menu} >{May(menu)}</NavLink>
                                                   )
                                               }
                                             </div>
                                           </li>
-                                        
                                         )
                                     }
                                   </React.Fragment>  

@@ -1,11 +1,11 @@
 
 export function EnlacesNav(){
   return ([
-           ['Home','./home'],
-           ['Precios','./precios'],
-           ['Productos','./productos'],
-           ['Recetas','./recetas'],
-           ['Pedidos','./pedidos'],
+           ['Home','/home'],
+           ['Precios','/precios'],
+           ['Productos','/productos','milanesas','hamburguesas'],
+           ['Recetas','/recetas'],
+           ['Pedidos','/pedidos'],
   ])  
 }
 
@@ -72,7 +72,7 @@ return ([{
     "stock":0
   },{
     "codigo":"H001",
-    "familia":"Hamburguesas",
+    "familia":"hamburguesas",
     "variedad":"Carne",
     "nombre":"Hamburguesa de Carne",
     "precio":320,
@@ -82,7 +82,7 @@ return ([{
     "stock":10
   },{
     "codigo":"H002",
-    "familia":"Hamburguesas",
+    "familia":"hamburguesas",
     "variedad":"pollo",
     "nombre":"Hamburguesa de pollo",
     "precio":370,
@@ -92,7 +92,7 @@ return ([{
     "stock":10
   },{
     "codigo":"H003",
-    "familia":"Hamburguesas",
+    "familia":"hamburguesas",
     "variedad":"Cerdo",
     "nombre":"Hamburguesa de Cerdo",
     "precio":370,
@@ -102,7 +102,7 @@ return ([{
     "stock":10
   },{
     "codigo":"H004",
-    "familia":"Hamburguesas",
+    "familia":"hamburguesas",
     "variedad":"brocoli y arvejas",
     "nombre":"Hamburguesa de Brocoli",
     "precio":150,
@@ -112,7 +112,7 @@ return ([{
     "stock":10
   },{
     "codigo":"H005",
-    "familia":"Hamburguesas",
+    "familia":"hamburguesas",
     "variedad":"remolacha",
     "nombre":"Hamburguesa de remolacha",
     "precio":150,

@@ -45,16 +45,16 @@ export default function Footer(){
                                 
                                 
                                 <div className="col-6">                     
-                                    <li className="nav-item pading_redes"><a target="_blank" href="https://www.facebook.com/"><img src={process.env.PUBLIC_URL + "/images/icon/redes/white/facebook.png"}/></a>
+                                    <li className="nav-item pading_redes"><a target="_blank"  rel="noreferrer" href="https://www.facebook.com/"><img alt="facebook" src={process.env.PUBLIC_URL + "/images/icon/redes/white/facebook.png"}/></a>
                                     </li>
-                                    <li className="nav-item pading_redes"><a target="_blank" href="https://www.twitter.com/"><img src={process.env.PUBLIC_URL + "/images/icon/redes/white/twitter.png"}/></a>
+                                    <li className="nav-item pading_redes"><a target="_blank" rel="noreferrer" href="https://www.twitter.com/"><img alt="twitter" src={process.env.PUBLIC_URL + "/images/icon/redes/white/twitter.png"}/></a>
                                     </li>
                                 </div>
                                 
                                 <div className="col-6">                     
-                                    <li className="nav-item pading_redes"><a target="_blank" href="https://www.instagram.com/"><img src={process.env.PUBLIC_URL + "/images/icon/redes/white/instagram.png"}/></a>
+                                    <li className="nav-item pading_redes"><a target="_blank" rel="noreferrer" href="https://www.instagram.com/"><img alt="instagram" src={process.env.PUBLIC_URL + "/images/icon/redes/white/instagram.png"}/></a>
                                     </li>
-                                    <li className="nav-item pading_redes"><a target="_blank" href="https://www.linkdin.com/"><img src={process.env.PUBLIC_URL + "/images/icon/redes/white/linkdin.png"}/></a>
+                                    <li className="nav-item pading_redes"><a target="_blank" rel="noreferrer" href="https://www.linkdin.com/"><img alt="linkedin" src={process.env.PUBLIC_URL + "/images/icon/redes/white/linkdin.png"}/></a>
                                     </li>
                                 </div>
         

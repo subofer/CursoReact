@@ -1,62 +1,47 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import {Link} from 'react-router-dom'
+import {May} from '../../helpers/helpers'
+import ProductCard from './ItemCard'
 
 /*Item List generator*/
-export default function Productos(props){
+export default function Productos({listaProductos}){
   return(
     <div className="row" id="lista_productos"> 
       {
-        props.listaProductos.map(
-            (item,index) => <TarjetaProducto key={index} {...item}/>
+        listaProductos.map(
+            (item,index) => 
+                <ProductCard  
+                  key={index} 
+                  nombre={May(item.nombre)} 
+                  texto={item.texto} 
+                  img={item.img} 
+                  stock={item.stock}
+                  botonera = <InputSpiner nombre={item.nombre} stock={item.stock} />
+                  detalle = {<Link to={"../productos/" + item.familia + "/" + item.codigo }>Ver detalle</Link>}
+                />
           )
       }
     </div>
   )
 }
 
-
-/*Tarjeta de producto*/
-function TarjetaProducto(elemento){
-  return (
-    <div className="col-12 col-md-6 col-xl-4 d-flex align-items-stretch cartas_productos">
-      <div className="card mt-3">
-        <img className="card-img-top" src={process.env.PUBLIC_URL + elemento.img} alt={elemento.nombre}/>
-        <div className="card-body">
-          <h5 className="card-title">{elemento.nombre}</h5>
-          <p className="card-text"></p>
-          <p className="card-text">{elemento.texto}</p>
-
-            {<InputSpiner {...elemento}/>}
-
-          <p className="card-text"></p>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-
 /*Spiner numerico con comprobación de Stock*/
-
-function InputSpiner(elemento){
+function InputSpiner({nombre,stock}){
   const [count, setCount] = useState(0);
-  const [porcentaje, setPorcentaje] = useState(100-(count/elemento.stock)*100);
+  const [porcentaje, setPorcentaje] = useState(100-(count/stock)*100);
   
-  useEffect( () => {
-  },[]);
-
-
   const BotonAdd = () =>{
     return(
         <span className="ns-btna">
-          <button onClick={Agregar} type="button" className="btn btn-danger botonCompra">
+          <button onClick={Agregado} type="button" className="btn btn-danger botonCompra">
             Agregar al carrito
           </button>
         </span>
       )
     }
 
-  const Agregar = () =>{
-      count !== 0 ? alert("Agregaste "+ count + "Kg de" + elemento.nombre ): void(0)
+  const Agregado = () =>{
+      count !== 0 ? alert("Agregaste "+ count + "Kg de " + nombre ): void(0)
     }
 
   const BotonProducto = ({dir}) => {
@@ -66,12 +51,12 @@ function InputSpiner(elemento){
     }
 
   const cantidad = (x) =>{
-      x === "minus" ? (count > 0 ? setCount(count - 1): void(0) ) : (( x === "plus" && elemento.stock - count>0) ? setCount(count + 1) : void(0))
+      x === "minus" ? (count > 0 ? setCount(count - 1): void(0) ) : (( x === "plus" && stock - count>0) ? setCount(count + 1) : void(0))
     }
 
   const Contador = () => {
 
-      setPorcentaje(100-(count/elemento.stock)*100)
+      setPorcentaje(100-(count/stock)*100)
       
       let styles = porcentaje>0 ? {background: "linear-gradient(to right, rgba(0, 255, 0, 0.5) " + porcentaje + "%, white 0%)"} :{background: "rgba(255, 0, 0, 0.5)"}
 

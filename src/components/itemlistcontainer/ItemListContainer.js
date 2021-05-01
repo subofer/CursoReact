@@ -1,43 +1,37 @@
 import React, { useState, useEffect } from 'react'
-import {ListaProductos} from '../values/values'
+import {useParams} from 'react-router-dom'
+
 import Productos from './ItemContainer'
-
-
+import {Loading} from '../../helpers/helpers'
 import './style.css'
-export default function ItemListContainer() {
+
+export default function ItemListContainer({listado}) {
  
     const [ListadoProductos, SetListadoProductos] = useState([])
+    const {familia,id} = useParams()
 
-    useEffect( () => {
-      /*
-          fetch("https://la-cocina-de-la-pipi-default-rtdb.firebaseio.com/")
-            .then(response => {
-              return response.json()
-            })
-            .then(data => {
-                SetListadoProductos(data)    
-                return data;
-            }, error => {
-                console.error('onRejected function called: ' + error.message);
-            })
-*/
+    useEffect(() => {
 
-      const datos = new Promise( (resolve,reject) => {
+      const datos = new Promise((resolve,reject) => {
         setTimeout(()=>{
-          resolve(ListaProductos)
-        },2000)
-      })
-      datos.then((resuelto)=>{
-        SetListadoProductos(resuelto)
+          resolve(listado())
+        },1000) /*aca deberia ir 2000 pero no queria seguir esperando 2 segundos cada vez que entro en la pagina*/
       })
 
-    },[]);
+      datos.then((res)=>{
+        SetListadoProductos(
+          id      ? res.filter(i => i.codigo === id) 
+            : 
+          familia ? res.filter(i => i.familia === familia) : res
+        )
+      })
+
+    },[familia,id]);
 
 
- const size_loading = 10
- const estilo_Spinner = {width: size_loading+"rem", height: size_loading+"rem"}
- 
+
  return(
+    
     <div className="row justify-content-center py-3 mw-100">  
         <div className="col-12 pb-4">
             <h1>No nos guardamos ning&uacute;n secreto, lo hacemos con amor.</h1>
@@ -53,18 +47,14 @@ export default function ItemListContainer() {
                     </div>
                 </div>
 
-                {ListadoProductos.length > 0 ? <Productos listaProductos = {ListadoProductos}/> : <div className="spinner-border text-primary m-5" style={estilo_Spinner} role="status"><span className="sr-only">Loading...</span></div> }
-
-            </div>
+                {ListadoProductos.length > 0 ? 
+                  <Productos listaProductos = {ListadoProductos}/>
+                    :
+                  <Loading size="10" space="5"/>
+                }
+             </div>
         </div>             
     </div>
- )      
+
+ )  
 }
-
-
-
-
-
-
-
-

@@ -1,4 +1,6 @@
 import React from 'react'
+import {NavLink} from "react-router-dom";
+import {May} from '../../helpers/helpers'
 
 
 
@@ -10,7 +12,36 @@ export default function NavBar(props) {
                 {
                     props.enlaces.map(
                         (item,index) => {
-                           return <EnlaceNavBar key={index} tipo='lista' text={item[0]} url={item[1]}/>
+                           return ( 
+                                  <React.Fragment>
+                                    {!item[2] ? (
+                                        <li key={index} className='nav-item'>
+                                          <NavLink key={index} className='nav-link' to={item[1]}  activeClassName="activo" >{item[0]}</NavLink>
+                                        </li>
+                                        
+                                        ):(
+                                        
+                                          <li className="nav-item dropdown">
+                                              <NavLink key={index} className='nav-link dropdown-toggle'
+                                              aria-haspopup="true" aria-expanded="false"
+                                              id="navbarDropdown" role="button"
+                                              data-toggle="dropdown"
+                                              to={item[1]}  activeClassName="activo" >{item[0]}</NavLink>
+                                                
+                                            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                                <NavLink className="dropdown-item" to={item[1]}>{item[0]}</NavLink>
+                                              {
+                                                item.slice(2 , item.lenght).map((menu, index) => 
+                                                  <NavLink key={index} className="dropdown-item" to={"/productos/" + menu} >{May(menu)}</NavLink>
+                                                  )
+                                              }
+                                            </div>
+                                          </li>
+                                        
+                                        )
+                                    }
+                                  </React.Fragment>  
+                            )
                         }
                     )
                 }
@@ -21,15 +52,3 @@ export default function NavBar(props) {
 }
 
 
-function toggleClass(elemento) {
-    Array.from(document.getElementsByClassName(elemento.target.classList[0]))
-        .forEach((enlace) => {  enlace.classList.remove('activo')}
-    )
-    elemento.target.classList.add('activo');
-  }
-
-function EnlaceNavBar({text,url}) {
-    return (
-        <li className='nav-item'><a href={url} onClick={toggleClass} className='nav-link'>{text}</a></li>
-    )
-}

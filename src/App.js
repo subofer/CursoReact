@@ -8,7 +8,7 @@ import ItemListContainer from './components/itemlistcontainer/ItemListContainer'
 import {TablaPrecios} from './components/pricelist/pricelist'
 
 
-import {EnlacesNav} from './components/values/values'
+import {EnlacesNav,enlacesNav} from './components/values/values'
 import {ListaProductos} from './components/values/values'
 import Home from './components/pages/home'
 
@@ -22,7 +22,7 @@ return (
       <Cabecera
                 titulo = 'La cocina de la Pipi' 
                 logo = {process.env.PUBLIC_URL + '/images/logo-transparente.png'}
-                enlaces={EnlacesNav()}
+                enlaces={enlacesNav}
       />
 
     <main>

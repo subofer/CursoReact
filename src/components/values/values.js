@@ -1,13 +1,13 @@
+export const enlacesNav = [
+  ['Home','/home'],
+  ['Precios','/precios'],
+  ['Productos','/productos','milanesas','hamburguesas'],
+  ['Recetas','/recetas'],
+  ['Pedidos','/pedidos'],
+]
 
-export function EnlacesNav(){
-  return ([
-           ['Home','/home'],
-           ['Precios','/precios'],
-           ['Productos','/productos','milanesas','hamburguesas'],
-           ['Recetas','/recetas'],
-           ['Pedidos','/pedidos'],
-  ])  
-}
+
+export const listaProductos = ListaProductos();
 
 export function ListaProductos(){
 return ([{

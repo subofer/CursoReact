@@ -1,3 +1,5 @@
+
+//Enlaces de la NavBar, titulo, ruta principal, categorias
 export const enlacesNav = [
   ['Home','/home'],
   ['Precios','/precios'],

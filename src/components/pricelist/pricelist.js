@@ -29,15 +29,15 @@ export function TablaPrecios({listado}) {
 
 function Tabla({listaProductos}) {
  return(
-        <div class="row justify-content-center py-3 mw-100">  
-            <div class="col-12 pb-4">
+        <div className="row justify-content-center py-3 mw-100">  
+            <div className="col-12 pb-4">
               <h1>Productos y precios</h1>
             </div>
             
-            <div class="col-10">  
+            <div className="col-10">  
               <section id="tabla_precios">
                 
-                  <table key="tabla1" class="table table-hover" id="productos">
+                  <table key="tabla1" className="table table-hover" id="productos">
                     <thead>
                       <tr>
                         <th scope="col" colSpan="1">Producto</th>
@@ -60,7 +60,7 @@ function TableContent({items}){
       return(
         <tbody>
           <tr key={index*100}>
-            <th key={index} class="align-middle" scope="row" rowSpan={item.cantidad}>{May(item.tipo)}</th>
+            <th key={index} className="align-middle" scope="row" rowSpan={item.cantidad}>{May(item.tipo)}</th>
           </tr>
           {item.productos.map((producto,index)=>{
             return( <tr key={(index*10)+1}>

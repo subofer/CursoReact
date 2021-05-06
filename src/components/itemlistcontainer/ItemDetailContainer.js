@@ -1,34 +1,47 @@
-import React, { useState } from 'react'
-import {Link} from 'react-router-dom'
-import {May} from '../../helpers/helpers'
-import ProductCard from './ItemCard'
+import React, { useState, useEffect } from 'react'
+import {useParams} from 'react-router-dom'
 
+import ItemDetail from './ItemDetail'
+import {Loading} from '../../helpers/helpers'
+import {InputSpiner} from '../ItemContainer'
 
+import './style.css'
 
-/*Item List generator*/
-export default function Productos({listaProductos}){
-  return(
-    <div className="row" id="lista_productos"> 
-      {
-        listaProductos.map(
-            (item,index) => 
-                <ProductCard  
-                  key={index} 
-                  nombre={May(item.nombre)} 
-                  texto={item.texto} 
-                  img={item.img} 
-                  stock={item.stock}
-                  botonera = <InputSpiner nombre={item.nombre} stock={item.stock} />
-                  detalle = {<Link to={"../productos/" + item.familia + "/" + item.codigo }>Ver detalle</Link>}
-                />
-          )
-      }
-    </div>
-  )
+export default function ItemDetailContainer({listado}) {
+ 
+    const [ListadoProductos, SetListadoProductos] = useState([])
+    const {id} = useParams()
+
+    useEffect(() => {
+
+      const datos = new Promise((resolve,reject) => {
+        setTimeout(()=>{
+          resolve(listado())
+        },1000) /*aca deberia ir 2000 pero no queria seguir esperando 2 segundos cada vez que entro en la pagina*/
+      })
+
+      datos.then((res)=>{
+        SetListadoProductos( res.filter(i => i.codigo === id) )
+      })
+
+    },[id]);
+
+return(
+  ListadoProductos.length > 0 ? 
+    <ItemDetail 
+        {...ListadoProductos[0]}
+        //botonera = <InputSpiner nombre={ListadoProductos[0].nombre} stock={ListadoProductos[0].stock} />
+        botonera = <InputSpiner {...ListadoProductos[0]} />
+    />
+      :
+    <Loading size="10" space="5"/>
+
+ )  
 }
 
+
 /*Spiner numerico con comprobación de Stock*/
-export function InputSpiner({nombre,stock}){
+function InputSpiner({nombre,stock}){
   const [count, setCount] = useState(0);
   const [porcentaje, setPorcentaje] = useState(100-(count/stock)*100);
   

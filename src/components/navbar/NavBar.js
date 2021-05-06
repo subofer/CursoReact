@@ -32,7 +32,7 @@ export default function NavBar(props) {
                         <li key={index + item[0] + "li"} className="nav-item dropdown">
                           <NavLink  key={index+ item[0] + "nav"} 
                                     className='nav-link dropdown-toggle'
-                                    aria-haspopup="true" aria-expanded="false"
+                                    aria-haspopup="true" aria-expanded="true"
                                     id="navbarDropdown" 
                                     role="button"
                                     data-toggle="dropdown"
@@ -62,8 +62,7 @@ export default function NavBar(props) {
                             }
                           </div>
                         </li>
-                        
-                      }
+                        }
                     </React.Fragment>  
                   )
                 }

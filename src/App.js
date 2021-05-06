@@ -1,20 +1,23 @@
 import './App.css';
-
 import {BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
 
 import Cabecera from './components/header/Header'
-import Footer from './components/footer/footer'
-import ItemListContainer from './components/itemlistcontainer/ItemListContainer'
-import {TablaPrecios} from './components/pricelist/pricelist'
+import {enlacesNav} from './components/values/values'
 
-
-import {EnlacesNav,enlacesNav} from './components/values/values'
-import {ListaProductos} from './components/values/values'
 import Home from './components/pages/home'
 
+import ItemListContainer from './components/itemlistcontainer/ItemListContainer'
+import ItemDetailContainer from './components/itemlistcontainer/ItemDetailContainer'
+import ItemDetail from './components/itemlistcontainer/itemDetail'
+
+import {ListaProductos} from './components/values/values'
+
+import {TablaPrecios} from './components/pricelist/pricelist'
+
+import Footer from './components/footer/footer'
 
 export default function App() {
-  console.log(process.env.PUBLIC_URL)
+
 return (
   <Router basename={process.env.PUBLIC_URL}>
     <div className="App">
@@ -32,7 +35,7 @@ return (
           </Route>
               
           <Route path="/productos/:familia/:id">
-            <ItemListContainer listado={ListaProductos} />
+            <ItemDetailContainer listado={ListaProductos} />
           </Route>
 
           <Route path="/productos/:familia">
@@ -43,6 +46,10 @@ return (
             <ItemListContainer listado={ListaProductos} />
           </Route>
           
+          <Route path="/detalle">
+            <ItemDetail listado={ListaProductos} />
+          </Route>
+
           <Route path="/recetas">
             <h2>Recetas</h2>
           </Route>
@@ -65,7 +72,9 @@ return (
       <Footer
         titulo = 'La cocina de la Pipi'
         logo = {process.env.PUBLIC_URL + '/images/logo-transparente.png'}
-        enlaces={EnlacesNav()}
+        enlaces={enlacesNav}
+        telefono="11 15 41234-1234"
+        correo="pedidos@correo.com"
       />
 
     </div>

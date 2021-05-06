@@ -28,8 +28,6 @@ export default function ItemListContainer({listado}) {
 
     },[familia,id]);
 
-
-
  return(
     
     <div className="row justify-content-center py-3 mw-100">  
@@ -47,7 +45,8 @@ export default function ItemListContainer({listado}) {
                     </div>
                 </div>
 
-                {ListadoProductos.length > 0 ? 
+                {
+                  ListadoProductos.length > 0 ? 
                   <Productos listaProductos = {ListadoProductos}/>
                     :
                   <Loading size="10" space="5"/>

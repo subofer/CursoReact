@@ -8,7 +8,7 @@ import Home from './components/pages/home'
 
 import ItemListContainer from './components/itemlistcontainer/ItemListContainer'
 import ItemDetailContainer from './components/itemlistcontainer/ItemDetailContainer'
-import ItemDetail from './components/itemlistcontainer/itemDetail'
+import ItemDetail from './components/itemlistcontainer/ItemDetail'
 
 import {ListaProductos} from './components/values/values'
 

@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom'
 
 import ItemDetail from './ItemDetail'
 import {Loading} from '../../helpers/helpers'
-import {InputSpiner} from '../ItemContainer'
+import {InputSpiner} from './ItemList'
 
 import './style.css'
 
@@ -41,7 +41,7 @@ return(
 
 
 /*Spiner numerico con comprobación de Stock*/
-function InputSpiner({nombre,stock}){
+function IInputSpiner({nombre,stock}){
   const [count, setCount] = useState(0);
   const [porcentaje, setPorcentaje] = useState(100-(count/stock)*100);
   

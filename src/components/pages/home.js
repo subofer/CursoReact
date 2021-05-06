@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 export default function Home(){
 
 const imagenes_carrousel = [
@@ -65,6 +66,8 @@ return(
         <p className="pt-4">Nuestro objetivo es simple, compartir el amor que le ponemos a la comida, para que todos puedan comer rico y sano =)</p>
     </div> 
 </div> 
+
+
 </>
 )
 }

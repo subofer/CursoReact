@@ -10,6 +10,8 @@ import ItemListContainer from './components/itemlistcontainer/ItemListContainer'
 import ItemDetailContainer from './components/itemlistcontainer/ItemDetailContainer'
 import ItemDetail from './components/itemlistcontainer/ItemDetail'
 
+import CartIcon from './components/cart/cartIcon'
+
 import {ListaProductos} from './components/values/values'
 
 import {TablaPrecios} from './components/pricelist/pricelist'
@@ -27,7 +29,7 @@ return (
                 logo = {process.env.PUBLIC_URL + '/images/logo-transparente.png'}
                 enlaces={enlacesNav}
       />
-
+      <CartIcon/>
     <main>
         <Switch>
           <Route path="/precios">

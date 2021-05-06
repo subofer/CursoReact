@@ -8,7 +8,7 @@ import './style.css'
 export default function ItemListContainer({listado}) {
  
     const [ListadoProductos, SetListadoProductos] = useState([])
-    const {familia,id} = useParams()
+    const {familia} = useParams()
 
     useEffect(() => {
 
@@ -19,14 +19,10 @@ export default function ItemListContainer({listado}) {
       })
 
       datos.then((res)=>{
-        SetListadoProductos(
-          id      ? res.filter(i => i.codigo === id) 
-            : 
-          familia ? res.filter(i => i.familia === familia) : res
-        )
+        SetListadoProductos( familia ? res.filter(i => i.familia === familia) : res  )
       })
 
-    },[familia,id]);
+    },[familia]);
 
  return(
     
@@ -49,7 +45,7 @@ export default function ItemListContainer({listado}) {
                   ListadoProductos.length > 0 ? 
                   <Productos listaProductos = {ListadoProductos}/>
                     :
-                  <Loading size="10" space="5"/>
+                  <Loading size="8" space="5"/>
                 }
              </div>
         </div>             

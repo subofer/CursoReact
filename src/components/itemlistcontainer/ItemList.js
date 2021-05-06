@@ -26,11 +26,15 @@ export default function Productos({listaProductos}){
   )
 }
 
+
 /*Spiner numerico con comprobación de Stock*/
 export function InputSpiner({nombre,stock}){
-  const [count, setCount] = useState(0);
-  const [porcentaje, setPorcentaje] = useState(100-(count/stock)*100);
+  const porcentual = (c,s) => 100-(c/s)*100
   
+  const [count, setCount] = useState(0);
+  const [porcentaje, setPorcentaje] = useState(porcentual(count,stock));
+  
+
   const BotonAdd = () =>{
     return(
         <span className="ns-btna">
@@ -42,12 +46,14 @@ export function InputSpiner({nombre,stock}){
     }
 
   const Agregado = () =>{
-      count !== 0 ? alert("Agregaste "+ count + "Kg de " + nombre ): void(0)
+      count !== 0 ? alert("Agregaste "+ count + "Kg de " + nombre ): alert("Tiene que elegir una cantidad" )
     }
 
   const BotonProducto = ({dir}) => {
     return(
-        <span className="ns-btn"><a onClick={()=>cantidad(dir)} data-dir={dir}><span className={"icon-"+dir}/></a></span>
+        <span className="ns-btn">
+          <a onClick={()=>cantidad(dir)} data-dir={dir}><span className={"icon-"+dir}/></a>
+        </span>
       )
     }
 
@@ -57,28 +63,32 @@ export function InputSpiner({nombre,stock}){
 
   const Contador = () => {
 
-      setPorcentaje(100-(count/stock)*100)
-      
-      let styles = porcentaje>0 ? {background: "linear-gradient(to right, rgba(0, 255, 0, 0.5) " + porcentaje + "%, white 0%)"} :{background: "rgba(255, 0, 0, 0.5)"}
+      setPorcentaje(porcentual(count,stock))
 
     return(
-        <input style={styles} type="text" className="pl-ns-value" maxLength="2" defaultValue={count}/>
+        <input  style={porcentaje > 0 ? 
+                        {background: "linear-gradient(to right, rgba(0, 255, 0, 0.5)"+porcentaje+"%, white 0%)"} 
+                          :
+                        {background: "rgba(255, 0, 0, 0.5)"}
+                      } 
+                type="text" 
+                className="pl-ns-value" 
+                maxLength="2" 
+                defaultValue={count}
+        />
        )
     }
-
 
   return(
     <div className="botonera_productos">
       <div className="number-spinner">
-
         <BotonProducto dir="minus" /> <Contador/> <BotonProducto dir="plus" /> <BotonAdd/>
-
       </div>
     </div>
   )
 }
 
-function ProductCard({nombre,texto,img,stock,botonera,detalle}){
+export function ProductCard({nombre,texto,img,stock,botonera,detalle}){
   return (
     <div className="col-12 col-md-6 col-xl-4 d-flex align-items-stretch cartas_productos">
       <div className="card mt-3">

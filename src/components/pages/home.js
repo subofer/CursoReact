@@ -38,55 +38,34 @@ return(
     </div>
 </div>
 
+
+
 <div className="row justify-content-center">
+    <div className="col-6">
+        <div id="calesita" className="carousel slide" data-bs-ride="carousel">
+            <div className="carousel-inner">
+                {imagenes_carrousel.map((imagen,index)=>
+                    <div key={index} className={index === 0 ? "carousel-item active" : "carousel-item"}>  
+                        <img key={index+1} className="d-block w-100" src={"./"+imagen.src} alt={imagen.alt}/>                            
+                    </div>
+                    )
+                }
+            </div>
 
-    <div className="col-1"></div>
-    <div className="col-10">
+            <a class="carousel-control-prev" href="#calesita" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+             </a>
+            <a class="carousel-control-next" href="#calesita" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
 
-    <Calesita imagenes={imagenes_carrousel} id="calesita"/>
-
+        </div>
         <p className="pt-4">Nuestro objetivo es simple, compartir el amor que le ponemos a la comida, para que todos puedan comer rico y sano =)</p>
     </div> 
-    <div className="col-1"></div>             
 </div> 
 </>
 )
 }
 
-function Calesita({id,imagenes}){
-
-return (
-        <div id={id} className="carousel slide carousel-fade" data-ride="carousel">  
-            <ol className="carousel-indicators">
-                {imagenes.map((imagen,index)=>
-                    <li key={index} data-target="#calesita" data-slide-to={index}/>
-                )
-            }
-            </ol>
-             <div className="carousel-inner">
-                {imagenes.map((imagen,index)=>
-                        <div key={index} className="carousel-item active">  
-                            <img key={index+1} className="d-block w-100" src={imagen.src} alt={imagen.alt}/>                            
-                        </div>
-                    )
-                }
-            </div>
-
-            <a className="carousel-control-prev" href="#calesita" role="button" data-slide="prev">
-                <span className="carousel-control-prev-icon" aria-hidden="true"/>
-                <span className="sr-only">Previous</span>
-            </a>
-            <a className="carousel-control-next" href="#calesita" role="button" data-slide="next">
-                <span className="carousel-control-next-icon" aria-hidden="true"/>
-                <span className="sr-only">Next</span>
-            </a>
-            
-        </div> 
-
-    )
-
-
-}
-
-
-          

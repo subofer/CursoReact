@@ -17,8 +17,8 @@ export default function NavBar(props) {
                     <React.Fragment>
                       {!item[2] ?
                         
-                        <li key={index + item[0] + "li"} className='nav-item'>
-                          <NavLink  key={index + item[0] +"nav"} 
+                        <li key={item+"nav1"} className='nav-item'>
+                          <NavLink  key={item + "link"+index} 
                                     className='nav-link' 
                                     to={item[1]}  
                                     activeClassName="activo" >
@@ -29,8 +29,8 @@ export default function NavBar(props) {
                         
                         :
                         
-                        <li key={index + item[0] + "li"} className="nav-item dropdown">
-                          <NavLink  key={index+ item[0] + "nav"} 
+                        <li key={item} className="nav-item dropdown">
+                          <NavLink  key={item +index} 
                                     className='nav-link dropdown-toggle'
                                     aria-haspopup="true" aria-expanded="true"
                                     id="navbarDropdown" 
@@ -44,18 +44,13 @@ export default function NavBar(props) {
                           </NavLink>
                                         
                           <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <NavLink key={index + item[0] +"nav"} 
-                                      className="dropdown-item" 
-                                      to={item[1]}>
-                          
-                                      {item[0]}
-                          
+                            <NavLink key={item+1+"nav"} className="dropdown-item" to={item[1]}>
+                              {item[0]}
                             </NavLink>
                           
-                            {item.slice(2 , item.lenght).map((menu, index) => 
-                                <NavLink  key={index + item[1] +"drop_nav"} 
+                            {item.slice(2,item.lenght).map((menu, index) => 
+                                <NavLink  key={item+"drop"+index} 
                                           className="dropdown-item" to={item[1] + "/" + menu} >
-
                                           {May(menu)}
                                 </NavLink>
                               )

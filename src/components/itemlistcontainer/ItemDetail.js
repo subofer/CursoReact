@@ -23,7 +23,7 @@ return (
         </div>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">{texto}</li>
-          <li className="list-group-item"><h6>Stock disponible: {stock}</h6></li>
+          <li className="list-group-item"><h6>Stock disponible: {stock} Kg.</h6></li>
           <li className="list-group-item">Precio: <strong>${precio}</strong></li>
         </ul>
         <div className="card-body">

@@ -1,5 +1,6 @@
 import './App.css';
 import {BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
+import {Carrito} from './context/cartContext'
 
 import Cabecera from './components/header/Header'
 import {enlacesNav} from './components/values/values'
@@ -32,42 +33,54 @@ return (
       <CartIcon/>
     <main>
         <Switch>
-          <Route path="/precios">
-            <TablaPrecios listado={ListaProductos} />
-          </Route>
-              
-          <Route path="/productos/:familia/:id">
-            <ItemDetailContainer listado={ListaProductos} />
-          </Route>
-
-          <Route path="/productos/:familia">
-            <ItemListContainer listado={ListaProductos} />
-          </Route>
-
-          <Route path="/productos">
-            <ItemListContainer listado={ListaProductos} />
-          </Route>
           
-          <Route path="/detalle">
-            <ItemDetail listado={ListaProductos} />
-          </Route>
-
-          <Route path="/recetas">
-            <h2>Recetas</h2>
-          </Route>
-          
-          <Route path="/pedidos">
-            <h2>Pedidos</h2>
-          </Route>
-
           <Route path="/home">
             <Home/>
           </Route>
+          
+          <Route path="/recetas">
+            <h2>Recetas</h2>
+          </Route>
+              
+          <Route path="/precios">
+            <TablaPrecios listado={ListaProductos} />
+          </Route>
+         
 
+          <Route path="/productos/:familia/:id">
+            <Carrito>      
+              <ItemDetailContainer listado={ListaProductos} />
+            </Carrito> 
+          </Route>
+
+          <Route path="/productos/:familia">
+          <Carrito>      
+            <ItemListContainer listado={ListaProductos} />
+            </Carrito> 
+          </Route>
+
+          <Route path="/productos">
+          <Carrito>      
+            <ItemListContainer listado={ListaProductos} />
+            </Carrito> 
+          </Route>
+          
+          <Route path="/detalle">
+          <Carrito>      
+            <ItemDetail listado={ListaProductos} />
+            </Carrito> 
+          </Route>
+
+          <Route path="/pedidos">
+          <Carrito>      
+            <h2>Pedidos</h2>
+            </Carrito> 
+          </Route>
+     
           <Route path="/">
             <OnLoadPage/>
           </Route>
-              
+         
         </Switch>
       </main>
 

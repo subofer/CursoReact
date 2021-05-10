@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useContext } from 'react'
 import {useParams} from 'react-router-dom'
 
 import Productos from './ItemList'
 import {Loading} from '../../helpers/helpers'
+import { CartContext } from '../../context/cartContext'
 import './style.css'
 
 export default function ItemListContainer({listado}) {

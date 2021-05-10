@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {Link} from 'react-router-dom'
 import {May} from '../../helpers/helpers'
+import { CartContext } from '../../context/cartContext'
 
 
 
@@ -10,16 +11,17 @@ export default function Productos({listaProductos}){
     <div className="row" id="lista_productos"> 
       {
         listaProductos.map(
-            (item,index) => 
-                <ProductCard  
+            (item,index) =>
+              <ProductCard  
                   key={index} 
                   nombre={May(item.nombre)} 
                   texto={item.texto} 
                   img={item.img} 
                   stock={item.stock}
-                  botonera = <InputSpiner nombre={item.nombre} stock={item.stock} />
+                  botonera = <InputSpiner nombre={item.nombre} stock={item.stock} {...item}/>
                   detalle = {<Link to={"../productos/" + item.familia + "/" + item.codigo }>Ver detalle</Link>}
                 />
+          
           )
       }
     </div>
@@ -28,26 +30,42 @@ export default function Productos({listaProductos}){
 
 
 /*Spiner numerico con comprobación de Stock*/
-export function InputSpiner({nombre,stock}){
+export function InputSpiner(item){
+  
+
+let nombre = item.nombre
+let stock = item.stock
+
   const porcentual = (c,s) => 100-(c/s)*100
   
+
+  const [cart, setCart] = useContext(CartContext)
+
   const [count, setCount] = useState(0);
   const [porcentaje, setPorcentaje] = useState(porcentual(count,stock));
   
-
-  const BotonAdd = () =>{
+  const BotonAdd = (item) =>{
     return(
         <span className="ns-btna">
-          <button onClick={Agregado} type="button" className="btn btn-danger botonCompra">
+          <button onClick={()=>Agregado(item)} type="button" className="btn btn-danger botonCompra">
             Agregar al carrito
           </button>
         </span>
       )
     }
 
-  const Agregado = () =>{
-      count !== 0 ? alert("Agregaste "+ count + "Kg de " + nombre ): alert("Tiene que elegir una cantidad" )
+  const Agregado = (item) =>{
+      count !== 0 ? pushToCart(item,count): alert("Tiene que elegir una cantidad" )
     }
+
+  const pushToCart = (producto,cant) =>{
+    console.log(producto.item)
+    let item = producto.item
+
+    setCart(cart => cart.push({"producto":producto.item, "cantidad":cant}))
+    
+
+  }
 
   const BotonProducto = ({dir}) => {
     return(
@@ -58,8 +76,11 @@ export function InputSpiner({nombre,stock}){
     }
 
   const cantidad = (x) =>{
-      x === "minus" ? (count > 0 ? setCount(count - 1): void(0) ) : (( x === "plus" && stock - count>0) ? setCount(count + 1) : void(0))
-    }
+      
+    x === "minus" &&    count > 0     && setCount(count - 1)  
+
+    x === "plus"  && stock - count>0  && setCount(count + 1)
+  }
 
   const Contador = () => {
 
@@ -82,7 +103,7 @@ export function InputSpiner({nombre,stock}){
   return(
     <div className="botonera_productos">
       <div className="number-spinner">
-        <BotonProducto dir="minus" /> <Contador/> <BotonProducto dir="plus" /> <BotonAdd/>
+        <BotonProducto dir="minus" /> <Contador/> <BotonProducto dir="plus" /> <BotonAdd item={item}/>
       </div>
     </div>
   )

@@ -12,6 +12,8 @@ import ItemDetailContainer from './components/itemlistcontainer/ItemDetailContai
 import ItemDetail from './components/itemlistcontainer/ItemDetail'
 
 import CartIcon from './components/cart/cartIcon'
+import CartIconContainer from './components/cart/cartIconContainer'
+
 
 import {ListaProductos} from './components/values/values'
 
@@ -30,7 +32,12 @@ return (
                 logo = {process.env.PUBLIC_URL + '/images/logo-transparente.png'}
                 enlaces={enlacesNav}
       />
-      <CartIcon/>
+     
+
+     <Carrito>     
+      <CartIconContainer/>
+    </Carrito>    
+    
     <main>
         <Switch>
           
@@ -47,34 +54,26 @@ return (
           </Route>
          
 
-          <Route path="/productos/:familia/:id">
-            <Carrito>      
+      <Carrito>      
+          <Route exact path="/productos/:familia/:id">
               <ItemDetailContainer listado={ListaProductos} />
-            </Carrito> 
           </Route>
 
-          <Route path="/productos/:familia">
-          <Carrito>      
-            <ItemListContainer listado={ListaProductos} />
-            </Carrito> 
+          <Route exact path="/productos/:familia">
+              <ItemListContainer listado={ListaProductos} />
           </Route>
 
-          <Route path="/productos">
-          <Carrito>      
-            <ItemListContainer listado={ListaProductos} />
-            </Carrito> 
+          <Route exact path="/productos">
+              <ItemListContainer listado={ListaProductos} />
           </Route>
           
           <Route path="/detalle">
-          <Carrito>      
-            <ItemDetail listado={ListaProductos} />
-            </Carrito> 
+              <ItemDetail listado={ListaProductos} />
           </Route>
+      </Carrito> 
 
           <Route path="/pedidos">
-          <Carrito>      
-            <h2>Pedidos</h2>
-            </Carrito> 
+              <h2>Pedidos</h2>
           </Route>
      
           <Route path="/">

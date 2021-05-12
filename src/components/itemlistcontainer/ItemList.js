@@ -9,20 +9,18 @@ import { CartContext } from '../../context/cartContext'
 export default function Productos({listaProductos}){
   return(
     <div className="row" id="lista_productos"> 
-      {
-        listaProductos.map(
-            (item,index) =>
-              <ProductCard  
-                  key={index} 
-                  nombre={May(item.nombre)} 
-                  texto={item.texto} 
-                  img={item.img} 
-                  stock={item.stock}
-                  botonera = <InputSpiner nombre={item.nombre} stock={item.stock} {...item}/>
-                  detalle = {<Link to={"../productos/" + item.familia + "/" + item.codigo }>Ver detalle</Link>}
-                />
-          
-          )
+      {listaProductos.map(
+        (item,index) =>
+          <ProductCard  
+            key={index} 
+            nombre={May(item.nombre)} 
+            texto={item.texto} 
+            img={item.img} 
+            stock={item.stock}
+            botonera = <InputSpiner {...item}/>
+            detalle = {<Link to={"../productos/" + item.familia + "/" + item.codigo }>Ver detalle</Link>}
+          />
+        )
       }
     </div>
   )
@@ -32,16 +30,13 @@ export default function Productos({listaProductos}){
 /*Spiner numerico con comprobación de Stock*/
 export function InputSpiner(item){
   
-
-let nombre = item.nombre
-let stock = item.stock
+  let nombre = item.nombre
+  let stock = item.stock
 
   const porcentual = (c,s) => 100-(c/s)*100
   
-
-  const [cart, setCart] = useContext(CartContext)
-
   const [count, setCount] = useState(0);
+  const [cart, setCart] = useContext(CartContext)
   const [porcentaje, setPorcentaje] = useState(porcentual(count,stock));
   
   const BotonAdd = (item) =>{
@@ -55,17 +50,8 @@ let stock = item.stock
     }
 
   const Agregado = (item) =>{
-      count !== 0 ? pushToCart(item,count): alert("Tiene que elegir una cantidad" )
+      count !== 0 ? setCart([...cart,{...item.item, "cantidad":count}]): alert("Tiene que elegir una cantidad" )
     }
-
-  const pushToCart = (producto,cant) =>{
-    console.log(producto.item)
-    let item = producto.item
-
-    setCart(cart => cart.push({"producto":producto.item, "cantidad":cant}))
-    
-
-  }
 
   const BotonProducto = ({dir}) => {
     return(
@@ -76,29 +62,26 @@ let stock = item.stock
     }
 
   const cantidad = (x) =>{
-      
-    x === "minus" &&    count > 0     && setCount(count - 1)  
-
-    x === "plus"  && stock - count>0  && setCount(count + 1)
+      (x === "minus" &&  count > 0) ? setCount(count - 1) : (x === "plus" && stock - count > 1  && setCount(count + 1))
   }
 
   const Contador = () => {
-
-      setPorcentaje(porcentual(count,stock))
+    setPorcentaje(porcentual(count,stock))
 
     return(
-        <input  style={porcentaje > 0 ? 
-                        {background: "linear-gradient(to right, rgba(0, 255, 0, 0.5)"+porcentaje+"%, white 0%)"} 
-                          :
-                        {background: "rgba(255, 0, 0, 0.5)"}
-                      } 
-                type="text" 
-                className="pl-ns-value" 
-                maxLength="2" 
-                defaultValue={count}
-        />
-       )
-    }
+      <input  
+        style={porcentaje > 0 ? 
+                  {background: "linear-gradient(to right, rgba(0, 255, 0, 0.5)"+porcentaje+"%, white 0%)"} 
+                  :
+                  {background: "rgba(255, 0, 0, 0.5)"}
+                } 
+        type="text" 
+        className="pl-ns-value" 
+        maxLength="2" 
+        defaultValue={count}
+      />
+    )
+  }
 
   return(
     <div className="botonera_productos">

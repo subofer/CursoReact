@@ -1,6 +1,9 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
-export default function CartIcon(){
+export default function CartIcon({cart}){
+
+ 
+console.log("cart",cart)
 
 return(
 	  <div id="pedidos">
@@ -21,7 +24,7 @@ return(
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Hace tu pedido!</h5>
+                                <h5 className="modal-title" id="exampleModalLabel">Hace tu pedido! {cart[0]}</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

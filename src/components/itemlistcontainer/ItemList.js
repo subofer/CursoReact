@@ -30,14 +30,11 @@ export default function Productos({listaProductos}){
 /*Spiner numerico con comprobación de Stock*/
 export function InputSpiner(item){
   
-  let nombre = item.nombre
-  let stock = item.stock
-
   const porcentual = (c,s) => 100-(c/s)*100
   
   const [count, setCount] = useState(0);
   const [cart, setCart] = useContext(CartContext)
-  const [porcentaje, setPorcentaje] = useState(porcentual(count,stock));
+  const [porcentaje, setPorcentaje] = useState(porcentual(count,item.stock));
   
   const BotonAdd = (item) =>{
     return(
@@ -62,11 +59,11 @@ export function InputSpiner(item){
     }
 
   const cantidad = (x) =>{
-      (x === "minus" &&  count > 0) ? setCount(count - 1) : (x === "plus" && stock - count > 1  && setCount(count + 1))
+      (x === "minus" &&  count > 0) ? setCount(count - 1) : (x === "plus" && item.stock - count > 1  && setCount(count + 1))
   }
 
   const Contador = () => {
-    setPorcentaje(porcentual(count,stock))
+    setPorcentaje(porcentual(count,item.stock))
 
     return(
       <input  

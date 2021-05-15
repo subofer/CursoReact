@@ -35,6 +35,8 @@ export const Carrito = ({children}) => {
 	
 	//borra todo el cart.
 	task.clearCart   = () => setCart        (      carroVacio      )
+
+	task.alertarCart = pepe => alert("Me borraste el Carritoooooo " + pepe)
 	
 
 	return (

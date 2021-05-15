@@ -68,6 +68,7 @@ export function InputSpiner(item){
   const borrado = () => {
    
     cartTask.clearCart()
+    cartTask.alertarCart("chabon")
     setTerminar(terminar?false:true)
   }
   

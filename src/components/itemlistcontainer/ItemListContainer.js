@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom'
 
 import Productos from './ItemList'
 import {Loading} from '../../helpers/helpers'
-import { CartContext } from '../../context/cartContext'
+import  {useCartContext} from '../../context/cartContext'
 import './style.css'
 
 export default function ItemListContainer({listado}) {

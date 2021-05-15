@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import {Link} from 'react-router-dom'
 import {May} from '../../helpers/helpers'
-import { CartContext } from '../../context/cartContext'
+import {useCartContext} from '../../context/cartContext'
 
 
 
@@ -32,15 +32,13 @@ export function InputSpiner(item){
   
   const porcentual = (c,s) => 100-(c/s)*100 
   
-  const [cart, setCart, cartTask] = useContext(CartContext)
+  const [cart, setCart, cartTask] = useCartContext() //useContext(CartContext)
   const [count, setCount] = useState(0);
   const [terminar, setTerminar] = useState(false);
   const [porcentaje, setPorcentaje] = useState(0);
   
   const BotonAdd = (item) =>{
-    
-    
-
+   
    return(
       <span className="ns-btna">
         {!terminar?
@@ -48,16 +46,18 @@ export function InputSpiner(item){
               Agregar al carrito
             </button>
           :
-//          Con este boton, cumple con el desafio de enviarme al carrito de compra.    
-//          <Link to="\pedidos">
-//            <button type="button" className="btn btn-danger botonCompra">
+  //        Con este boton, cumple con el desafio de enviarme al carrito de compra.    
+          <Link to="/pedidos">
+            <button type="button" className="btn btn-danger botonCompra">
+              Ir al carrito
+            </button>
+          </Link>
+            
+ //           :  
+
+//           <button onClick={()=>borrado()} type="button" className="btn btn-danger botonCompra">
 //              Borrar pedido
 //            </button>
-//          </Link">
-    
-           <button onClick={()=>borrado()} type="button" className="btn btn-danger botonCompra">
-              Borrar pedido
-            </button>
         }
       </span>
     )
@@ -66,9 +66,7 @@ export function InputSpiner(item){
 
 
   const borrado = () => {
-   
     cartTask.clearCart()
-    cartTask.alertarCart("mama")
     setTerminar(terminar?false:true)
   }
   
@@ -76,10 +74,10 @@ export function InputSpiner(item){
 
   const Agregado = (item) =>{
 
-      count !== 0 ? cartTask.addToCart(item.item , count) : console.log("Tiene que elegir una cantidad" )
+      count !== 0 ? (cartTask.addToCart(item.item , count) && setTerminar(terminar?false:true)) : console.log("Tiene que elegir una cantidad" )
 
-      count !== 0 && setTerminar(terminar?false:true)
-
+      
+      
     }
 
   const BotonProducto = ({dir}) => {

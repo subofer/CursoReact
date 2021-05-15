@@ -15,6 +15,9 @@ export default function ItemDetailContainer({listado}) {
 
     useEffect(() => {
 
+
+
+
       const datos = new Promise((resolve,reject) => {
         setTimeout(()=>{
           resolve(listado())

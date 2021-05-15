@@ -1,31 +1,31 @@
 import React ,{useContext, useEffect}from 'react'
 import CartIcon from './cartIcon'
 
-import { CartContext } from '../../context/cartContext'
+import {useCartContext} from '../../context/cartContext'
 
 
 
 
 export default function CartIconContainer(){
 
-	const [cart, setCart, cartTask] = useContext(CartContext)
-
+	const [cart, setCart, cartTask] = useCartContext()
+	
 	useEffect(()=>{
 
 		console.log("carta",cart)
-
+		DetallePedido()
+		console.log("largo",cart.length)
 
 	},[cart])
 
 
-	
 
 	
-	const DetallePedido = (lista) => {
+	const DetallePedido = () => {
 		return(
 			<ul>
-				{lista.lenght ?
-					lista.map(item => <li>{item.codigo}</li>)
+				{cart.length ?
+					cart.map(item => <li>{item.codigo}</li>)
 					:
 					<>
 					<li>nada</li>
@@ -42,6 +42,7 @@ export default function CartIconContainer(){
 			cartTask = {cartTask}
 			setCart = {setCart}
 			valores ={cart}
+			texto = {cart.length}
 			DetallePedido = {DetallePedido}
 		/>
 	)

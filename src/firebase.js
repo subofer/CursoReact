@@ -1,9 +1,8 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import 'firebase/auth'
+//import 'firebase/auth'
 
-
-const app = firebase.initalizeApp( {
+const app = firebase.initializeApp({
     apiKey: "AIzaSyB01-3puILPI-r0yT9zSGOGdkw-ULRtVDw",
     authDomain: "la-cocina-de-la-pipi.firebaseapp.com",
     databaseURL: "https://la-cocina-de-la-pipi-default-rtdb.firebaseio.com",
@@ -12,13 +11,8 @@ const app = firebase.initalizeApp( {
     messagingSenderId: "321255239429",
     appId: "1:321255239429:web:46a9952644af1dc393d16c",
     measurementId: "G-QDBG6YWM8F"
-  })
+  });
+
 
 export const getFirebase  = () => app
-
 export const getFirestore = () => firebase.firetore(app)
-
-
-
-
-

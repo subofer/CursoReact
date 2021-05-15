@@ -1,16 +1,20 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect,useContext} from 'react'
 
 
 export const CartContext = React.createContext([])
 
+export const useCartContext = () => useContext(CartContext)
+
 
 export const Carrito = ({children}) => {
 
-	const [cart, setCart] = useState([])
 	const carroVacio = []
+	const [cart, setCart] = useState(carroVacio)
 	
 	useEffect(() => {
+		
 		console.log("en cambio de cart",cart)
+		
 		},[cart])
 
 	//Incio objeto de herramientas del carrito para transportar.
@@ -22,6 +26,8 @@ export const Carrito = ({children}) => {
 	 		cart [ task.indexOf(i.codigo) ].cantidad += q 
 	 	: 
 	 		setCart( [  ...cart , {"cantidad": q  , ...i} ] )
+
+	 	return true;
 	}
 	
 	//remover un item en particular.
@@ -38,7 +44,7 @@ export const Carrito = ({children}) => {
 
 	task.alertarCart = pepe => alert("Me borraste el Carritoooooo " + pepe)
 	
-
+console.log(task)
 	return (
 	    <CartContext.Provider value={[cart, setCart, task]}>
 	      {children}

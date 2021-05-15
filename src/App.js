@@ -11,7 +11,6 @@ import ItemListContainer from './components/itemlistcontainer/ItemListContainer'
 import ItemDetailContainer from './components/itemlistcontainer/ItemDetailContainer'
 import ItemDetail from './components/itemlistcontainer/ItemDetail'
 
-import CartIcon from './components/cart/cartIcon'
 import CartIconContainer from './components/cart/cartIconContainer'
 
 

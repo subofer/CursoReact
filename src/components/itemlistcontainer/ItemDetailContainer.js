@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom'
 import ItemDetail from './ItemDetail'
 import {Loading} from '../../helpers/helpers'
 import {InputSpiner} from './ItemList'
+import {getFirestore} from '../../firebase'
 
 import './style.css'
 

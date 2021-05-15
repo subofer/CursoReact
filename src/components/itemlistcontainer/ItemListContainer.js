@@ -13,10 +13,13 @@ export default function ItemListContainer({listado}) {
 
     useEffect(() => {
 
+
+      fetch("https://la-cocina-de-la-pipi-default-rtdb.firebaseio.com/").then(x=>console.log("aca",x))
+
       const datos = new Promise((resolve,reject) => {
         setTimeout(()=>{
           resolve(listado())
-        },1000) /*aca deberia ir 2000 pero no queria seguir esperando 2 segundos cada vez que entro en la pagina*/
+        },500) /*aca deberia ir 2000 pero no queria seguir esperando 2 segundos cada vez que entro en la pagina*/
       })
 
       datos.then((res)=>{

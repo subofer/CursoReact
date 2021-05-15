@@ -48,7 +48,7 @@ export function InputSpiner(item){
               Agregar al carrito
             </button>
           :
-    
+//          Con este boton, cumple con el desafio de enviarme al carrito de compra.    
 //          <Link to="\pedidos">
 //            <button type="button" className="btn btn-danger botonCompra">
 //              Borrar pedido
@@ -68,7 +68,7 @@ export function InputSpiner(item){
   const borrado = () => {
    
     cartTask.clearCart()
-    cartTask.alertarCart("chabon")
+    cartTask.alertarCart("mama")
     setTerminar(terminar?false:true)
   }
   
@@ -79,8 +79,6 @@ export function InputSpiner(item){
       count !== 0 ? cartTask.addToCart(item.item , count) : console.log("Tiene que elegir una cantidad" )
 
       count !== 0 && setTerminar(terminar?false:true)
-
-      console.log(count)
 
     }
 
@@ -100,9 +98,13 @@ export function InputSpiner(item){
     
     setPorcentaje(porcentual(count,item.stock))
     
-    let estilo = porcentaje === 0 || isNaN(porcentaje) ? 
-      {background: "rgba(255, 0, 0, 0.5)"} : {background: "linear-gradient(to right, rgba(0, 255, 0, 0.5)" + porcentaje + "%, white 0%)"} 
-    
+    let estilo = { background: (porcentaje === 0 || isNaN(porcentaje)) ? 
+      "rgba(255, 0, 0, 0.3)" 
+        : 
+      "linear-gradient(to right, rgba(0, 255, 0, 0.3)" + porcentaje + "%, white 0%)"
+    }
+
+
     return(
       <input 
         type="text" 

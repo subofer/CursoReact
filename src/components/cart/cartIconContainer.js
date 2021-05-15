@@ -8,43 +8,43 @@ import { CartContext } from '../../context/cartContext'
 
 export default function CartIconContainer(){
 
- const [cart, setCart] = useContext(CartContext)
+	const [cart, setCart, cartTask] = useContext(CartContext)
 
-useEffect(()=>{
+	useEffect(()=>{
 
-	console.log("carta",cart)
-
-},[cart])
-
-console.log("carta",cart)
+		console.log("carta",cart)
 
 
+	},[cart])
 
 
-const vaciarCarrito = () => {
-	setCart([])
-}
+	
 
-const DetallePedido = () => {
-
-	return(cart.map(item => <li>{item.codigo}</li>)
-
-	)
-}
-
-
-return(	
-
+	
+	const DetallePedido = (lista) => {
+		return(
+			<ul>
+				{lista.lenght ?
+					lista.map(item => <li>{item.codigo}</li>)
+					:
+					<>
+					<li>nada</li>
+					<li>nada 2</li>
+					</>
+				}
+			</ul>
+		)
+	}
+	
+	
+	return(	
 		<CartIcon 
-			vaciarCart = {vaciarCarrito}
+			cartTask = {cartTask}
+			setCart = {setCart}
 			valores ={cart}
-			Detalle = {DetallePedido}
+			DetallePedido = {DetallePedido}
 		/>
-		
-
-		
 	)
-
 }
 
 

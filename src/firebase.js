@@ -1,5 +1,6 @@
-import firebase from 'firebase/firebase.app'
+import firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/auth'
 
 
 const app = firebase.initalizeApp( {

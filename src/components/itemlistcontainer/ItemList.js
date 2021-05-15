@@ -17,7 +17,7 @@ export default function Productos({listaProductos}){
             texto={item.texto} 
             img={item.img} 
             stock={item.stock}
-            botonera = <InputSpiner {...item}/>
+            /*botonera = <InputSpiner {...item}/>*/
             detalle = {<Link to={"../productos/" + item.familia + "/" + item.codigo }>Ver detalle</Link>}
           />
         )
@@ -30,24 +30,57 @@ export default function Productos({listaProductos}){
 /*Spiner numerico con comprobación de Stock*/
 export function InputSpiner(item){
   
-  const porcentual = (c,s) => 100-(c/s)*100
+  const porcentual = (c,s) => 100-(c/s)*100 
   
+  const [cart, setCart, cartTask] = useContext(CartContext)
   const [count, setCount] = useState(0);
-  const [cart, setCart] = useContext(CartContext)
-  const [porcentaje, setPorcentaje] = useState(porcentual(count,item.stock));
+  const [terminar, setTerminar] = useState(false);
+  const [porcentaje, setPorcentaje] = useState(0);
   
   const BotonAdd = (item) =>{
-    return(
-        <span className="ns-btna">
-          <button onClick={()=>Agregado(item)} type="button" className="btn btn-danger botonCompra">
-            Agregar al carrito
-          </button>
-        </span>
-      )
-    }
+    
+    
+
+   return(
+      <span className="ns-btna">
+        {!terminar?
+            <button onClick={()=>Agregado(item)} type="button" className="btn btn-danger botonCompra">
+              Agregar al carrito
+            </button>
+          :
+    
+//          <Link to="\pedidos">
+//            <button type="button" className="btn btn-danger botonCompra">
+//              Borrar pedido
+//            </button>
+//          </Link">
+    
+           <button onClick={()=>borrado()} type="button" className="btn btn-danger botonCompra">
+              Borrar pedido
+            </button>
+        }
+      </span>
+    )
+  }
+
+
+
+  const borrado = () => {
+   
+    cartTask.clearCart()
+    setTerminar(terminar?false:true)
+  }
+  
+
 
   const Agregado = (item) =>{
-      count !== 0 ? setCart([...cart,{...item.item, "cantidad":count}]): alert("Tiene que elegir una cantidad" )
+
+      count !== 0 ? cartTask.addToCart(item.item , count) : console.log("Tiene que elegir una cantidad" )
+
+      count !== 0 && setTerminar(terminar?false:true)
+
+      console.log(count)
+
     }
 
   const BotonProducto = ({dir}) => {
@@ -59,20 +92,20 @@ export function InputSpiner(item){
     }
 
   const cantidad = (x) =>{
-      (x === "minus" &&  count > 0) ? setCount(count - 1) : (x === "plus" && item.stock - count > 1  && setCount(count + 1))
+      (x === "minus" &&  count > 0) ? setCount(count - 1) : (x === "plus" && item.stock - count > 0  && setCount(count + 1))
   }
 
   const Contador = () => {
+    
     setPorcentaje(porcentual(count,item.stock))
-
+    
+    let estilo = porcentaje === 0 || isNaN(porcentaje) ? 
+      {background: "rgba(255, 0, 0, 0.5)"} : {background: "linear-gradient(to right, rgba(0, 255, 0, 0.5)" + porcentaje + "%, white 0%)"} 
+    
     return(
-      <input  
-        style={porcentaje > 0 ? 
-                  {background: "linear-gradient(to right, rgba(0, 255, 0, 0.5)"+porcentaje+"%, white 0%)"} 
-                  :
-                  {background: "rgba(255, 0, 0, 0.5)"}
-                } 
+      <input 
         type="text" 
+        style={estilo}
         className="pl-ns-value" 
         maxLength="2" 
         defaultValue={count}

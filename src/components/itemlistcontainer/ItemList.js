@@ -17,7 +17,7 @@ export default function Productos({listaProductos}){
             texto={item.texto} 
             img={item.img} 
             stock={item.stock}
-            /*botonera = <InputSpiner {...item}/>*/
+            /*botonera = <InputSpiner {...item}/>/*Se retiro el spiner del detalle.*/
             detalle = {<Link to={"../productos/" + item.familia + "/" + item.codigo }>Ver detalle</Link>}
           />
         )
@@ -72,25 +72,23 @@ export function InputSpiner(item){
   
 
 
-  const Agregado = (item) =>{
-
-      count !== 0 ? (cartTask.addToCart(item.item , count) && setTerminar(terminar?false:true)) : console.log("Tiene que elegir una cantidad" )
-
-      
-      
-    }
+  const Agregado = (item) => cartTask.addToCart(item.item , count) //&& //setTerminar(terminar?false:true)
 
   const BotonProducto = ({dir}) => {
     return(
-        <span className="ns-btn">
-          <a onClick={()=>cantidad(dir)} data-dir={dir}><span className={"icon-"+dir}/></a>
-        </span>
-      )
-    }
+      <span className="ns-btn">
+        <a onClick={()=>cantidad(dir)} data-dir={dir}><span className={"icon-"+dir}/></a>
+      </span>
+    )
+  }
 
   const cantidad = (x) =>{
       (x === "minus" &&  count > 0) ? setCount(count - 1) : (x === "plus" && item.stock - count > 0  && setCount(count + 1))
   }
+
+  
+
+
 
   const Contador = () => {
     
@@ -114,6 +112,8 @@ export function InputSpiner(item){
     )
   }
 
+
+
   return(
     <div className="botonera_productos">
       <div className="number-spinner">
@@ -122,6 +122,11 @@ export function InputSpiner(item){
     </div>
   )
 }
+
+
+
+
+
 
 export function ProductCard({nombre,texto,img,stock,botonera,detalle}){
   return (

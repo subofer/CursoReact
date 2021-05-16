@@ -23,6 +23,8 @@ import Footer from './components/footer/footer'
 export default function App() {
 
 return (
+<Carrito>     
+
   <Router basename={process.env.PUBLIC_URL}>
     <div className="App">
 
@@ -33,9 +35,8 @@ return (
       />
      
 
-     <Carrito>     
-      <CartIconContainer/>
-    </Carrito>    
+    <CartIconContainer/>
+  
     
     <main>
         <Switch>
@@ -51,9 +52,7 @@ return (
           <Route path="/precios">
             <TablaPrecios listado={ListaProductos} />
           </Route>
-         
-
-      <Carrito>      
+   
           <Route exact path="/productos/:familia/:id">
               <ItemDetailContainer listado={ListaProductos} />
           </Route>
@@ -69,7 +68,6 @@ return (
           <Route path="/detalle">
               <ItemDetail listado={ListaProductos} />
           </Route>
-      </Carrito> 
 
           <Route path="/pedidos">
               <h2>Pedidos</h2>
@@ -92,6 +90,8 @@ return (
 
     </div>
    </Router>
+
+</Carrito> 
   );
 }
 

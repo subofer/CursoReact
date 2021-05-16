@@ -1,22 +1,18 @@
 import React from 'react'
 
+export default function CartIcon({nombre,cart,cartTask,DetallePedido}){
 
 
-
-export default function CartIcon({nombre,valores,cartTask,setCart,DetallePedido,texto}){
-
-console.log("nada",valores)
- 
 	return(
 	
 		  <div id="pedidos">
 			<div id="botoncompra">
 				<button data-toggle="modal" type="button" className="btn btn-danger btn-lg order_desktop" data-target="#pedido_online" >
 					Carrito 
-					<span id="total_carro_d" className="badge bg-secondary">{texto}</span>
+					<span id="total_carro_d" className="badge bg-secondary">{cart.length>0?cart.length:""}</span>
 			    </button>
 			    <button data-toggle="modal" type="button" className="btn btn-danger btn-lg order_mobile"  data-target="#pedido_online" >
-			    	<span id="total_carro_m" className="badge bg-secondary">{valores.lenght}</span>    
+			    	<span id="total_carro_m" className="badge bg-secondary">{cart.length>0?cart.length:""}</span>    
 			   	</button>
 			</div>
 	
@@ -30,10 +26,9 @@ console.log("nada",valores)
 	                        </button>
 	                    </div>
 	                    <div className="modal-body">
-	                    	<p>Hace tu pedido desde <a href="#productos" data-toggle="modal">aqui</a>, seleccionando los productos</p>
+
 	                        	<DetallePedido/>
-	                        <div id="detallepedido">
-	                        </div>
+
 	                        <form  target="_blank">
 	                        	<div className="form-group">
 	                            	Aquí se completa el mensaje codificado para el comercio.

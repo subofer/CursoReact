@@ -14,5 +14,48 @@ const app = firebase.initializeApp({
   });
 
 
+console.log(app)
+
+/*
+var db = firebase.database();
+
 export const getFirebase  = () => app
 export const getFirestore = () => firebase.firetore(app)
+
+
+
+
+
+const productos = [{
+  
+    "codigo":"M001",
+    "familia":"milanesas",
+    "variedad":"peceto",
+    "nombre":"milanesa de peceto",
+    "precio":630,
+    "texto" : "Milanesas de Peceto de ternera, preparadas con rebozador de primera calidad, con un toque de avena y condimentos",
+    "img" : "/images/productos/mila_peceto_cruda.png",
+    "mostrar" : true,
+    "stock":100
+  }
+]
+
+
+
+
+
+
+
+productos.forEach((producto) => {
+    
+   
+    db.collection("productos").add(producto)
+
+    .then((docRef) => {
+        console.log("Producto registrado con ID: ", docRef.id);
+    })
+    .catch((error) => {
+        console.error("Error al agregar un documento: ", error);
+    });
+});
+*/

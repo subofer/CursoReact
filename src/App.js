@@ -70,7 +70,7 @@ return (
           </Route>
 
           <Route path="/pedidos">
-              <h2>Pedidos</h2>
+              <CartIconContainer/>
           </Route>
      
           <Route path="/">

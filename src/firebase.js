@@ -2,60 +2,76 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 //import 'firebase/auth'
 
-const app = firebase.initializeApp({
-    apiKey: "AIzaSyB01-3puILPI-r0yT9zSGOGdkw-ULRtVDw",
-    authDomain: "la-cocina-de-la-pipi.firebaseapp.com",
-    databaseURL: "https://la-cocina-de-la-pipi-default-rtdb.firebaseio.com",
-    projectId: "la-cocina-de-la-pipi",
-    storageBucket: "la-cocina-de-la-pipi.appspot.com",
-    messagingSenderId: "321255239429",
-    appId: "1:321255239429:web:46a9952644af1dc393d16c",
-    measurementId: "G-QDBG6YWM8F"
-  });
+import {ListaProductos} from './components/values/values'
 
 
-console.log(app)
+const configFirebase = {
+  apiKey: "AIzaSyB01-3puILPI-r0yT9zSGOGdkw-ULRtVDw",
+  authDomain: "la-cocina-de-la-pipi.firebaseapp.com",
+  databaseURL: "https://la-cocina-de-la-pipi-default-rtdb.firebaseio.com",
+  projectId: "la-cocina-de-la-pipi",
+  storageBucket: "la-cocina-de-la-pipi.appspot.com",
+  messagingSenderId: "321255239429",
+  appId: "1:321255239429:web:46a9952644af1dc393d16c",
+  measurementId: "G-QDBG6YWM8F"
+}
+
 
 /*
-var db = firebase.database();
+const configFirebase = {
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+}
+*/
 
-export const getFirebase  = () => app
-export const getFirestore = () => firebase.firetore(app)
+const app = firebase.initializeApp(configFirebase)
+//export const getFirebase  = () => app
+//export const getFirestore = () => firebase.firetore(app)
 
-
-
-
-
-const productos = [{
-  
-    "codigo":"M001",
-    "familia":"milanesas",
-    "variedad":"peceto",
-    "nombre":"milanesa de peceto",
-    "precio":630,
-    "texto" : "Milanesas de Peceto de ternera, preparadas con rebozador de primera calidad, con un toque de avena y condimentos",
-    "img" : "/images/productos/mila_peceto_cruda.png",
-    "mostrar" : true,
-    "stock":100
-  }
-]
+export const db = firebase.firestore();
 
 
 
+export const setFireCollection = (collecion, listado) => {
+  listado.map(prod => {
 
-
-
-
-productos.forEach((producto) => {
-    
-   
-    db.collection("productos").add(producto)
-
-    .then((docRef) => {
-        console.log("Producto registrado con ID: ", docRef.id);
+    db.collection(collecion).doc(prod.codigo).set(prod)
+      .then((docRef) => {
+     
+      console.log("Document written with ID: ", docRef.id)
     })
     .catch((error) => {
-        console.error("Error al agregar un documento: ", error);
+
+      console.error("Error adding document: ", error)
+
+    })
+  })
+}
+
+//setFireCollection("items",ListaProductos())
+
+export const gettFireCollection = (callback, collecion) => {
+    db.collection(collecion).get().then(callback)
+};
+
+//gettFireCollection(x => console.log(x),"items")
+
+
+
+
+
+db.collection("items").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        console.log("nada", doc.data());
     });
 });
-*/
+
+
+
+
+

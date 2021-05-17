@@ -47,10 +47,10 @@ export const Carrito = ({children}) => {
 	task.indexOf     = id => cart.findIndex ( x => x.codigo === id ) 
 	
 //remover un item en particular.
-	task.removeItem  = i => cart.splice( task.indexOf(i.codigo) , 1 ) &&	task.set()
+	task.removeItem  = i => cart.splice( task.indexOf(i.codigo) , 1 ) && task.set()
 
 //Devuelve el totald de la compra
-	task.getTotal    = () => cart.reduce ( (p,i) => i.cantidad * i.precio + p,0)
+	task.getTotal    = () => cart.reduce ( (p,i) => i.cantidad * i.precio + p , 0)
 
 
 //Sube o baja cantidad
@@ -58,9 +58,13 @@ export const Carrito = ({children}) => {
 		let index = task.indexOf(i.codigo)
 			cart[index].cantidad += dir
 
-			cart[index].cantidad == 0 && task.removeItem(i.codigo)
-			
-			task.set()
+			cart[index].cantidad > cart[index].stock ? 
+				
+				cart[index].cantidad = cart[index].stock 
+			: 
+				cart[index].cantidad == 0 && task.removeItem(i.codigo)
+	
+		task.set()
 	}
 
 	return (

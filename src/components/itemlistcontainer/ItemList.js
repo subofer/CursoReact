@@ -17,7 +17,7 @@ export default function Productos({listaProductos}){
             texto={item.texto} 
             img={item.img} 
             stock={item.stock}
-            /*botonera = <InputSpiner {...item}/>/*Se retiro el spiner del detalle.*/
+            botonera = <InputSpiner {...item}/>/*Se retiro el spiner del detalle.*/
             detalle = {<Link to={"../productos/" + item.familia + "/" + item.codigo }>Ver detalle</Link>}
           />
         )

@@ -56,7 +56,7 @@ return (
           </Route>
           
           <Route path="/recetas">
-          
+           <h2>No hay recetas por el momento</h2> 
           </Route>
               
           <Route path="/precios">

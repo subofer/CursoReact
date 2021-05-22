@@ -1,9 +1,12 @@
 import './App.css';
 import {BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
+
+import {TransitionGroup,CSSTransition} from "react-transition-group"
+
+
 import {Carrito} from './context/cartContext'
 
 import Cabecera from './components/header/Header'
-import {enlacesNav} from './components/values/values'
 
 import Home from './components/pages/home'
 
@@ -12,11 +15,9 @@ import ItemDetailContainer from './components/itemlistcontainer/ItemDetailContai
 import ItemDetail from './components/itemlistcontainer/ItemDetail'
 
 import CartIconContainer from './components/cart/cartIconContainer'
+import CartListContainer from './components/cart/cartListContainer'
 
-
-import {ListaProductos} from './components/values/values'
-
-import {TablaPrecios} from './components/pricelist/pricelist'
+import TablaPrecios from './components/pricelist/pricelist'
 
 import Footer from './components/footer/footer'
 
@@ -31,46 +32,55 @@ return (
       <Cabecera
                 titulo = 'La cocina de la Pipi' 
                 logo = {process.env.PUBLIC_URL + '/images/logo-transparente.png'}
-                enlaces={enlacesNav}
+                enlaces="seccionesNavBar"
       />
      
 
     <CartIconContainer/>
-  
-    
+   
     <main>
+
+
+
+
+    <TransitionGroup>
+          <CSSTransition
+            key={1}
+            classNames="fade"
+            timeout={300}
+          >
         <Switch>
-          
+         
           <Route path="/home">
             <Home/>
           </Route>
           
           <Route path="/recetas">
-            <h2>Recetas</h2>
+          
           </Route>
               
           <Route path="/precios">
-            <TablaPrecios listado={ListaProductos} />
+            <TablaPrecios/>
           </Route>
    
           <Route exact path="/productos/:familia/:id">
-              <ItemDetailContainer listado={ListaProductos} />
+              <ItemDetailContainer/>
           </Route>
 
           <Route exact path="/productos/:familia">
-              <ItemListContainer listado={ListaProductos} />
+              <ItemListContainer/>
           </Route>
 
           <Route exact path="/productos">
-              <ItemListContainer listado={ListaProductos} />
+              <ItemListContainer/>
           </Route>
           
           <Route path="/detalle">
-              <ItemDetail listado={ListaProductos} />
+              <ItemDetail/>
           </Route>
 
           <Route path="/pedidos">
-              <CartIconContainer/>
+              <CartListContainer/>
           </Route>
      
           <Route path="/">
@@ -78,12 +88,15 @@ return (
           </Route>
          
         </Switch>
+
+                  </CSSTransition>
+        </TransitionGroup>
       </main>
 
       <Footer
         titulo = 'La cocina de la Pipi'
         logo = {process.env.PUBLIC_URL + '/images/logo-transparente.png'}
-        enlaces={enlacesNav}
+        enlaces="seccionesNavBar"
         telefono="11 15 41234-1234"
         correo="pedidos@correo.com"
       />

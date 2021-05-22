@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
 import {May} from '../../helpers/helpers'
 import {useCartContext} from '../../context/cartContext'
@@ -18,7 +18,7 @@ export default function Productos({listaProductos}){
             img={item.img} 
             stock={item.stock}
             botonera = <InputSpiner {...item}/>/*Se retiro el spiner del detalle.*/
-            detalle = {<Link to={"../productos/" + item.familia + "/" + item.codigo }>Ver detalle</Link>}
+            detalle = {<Link to={"../productos/" + item.familia + "/" + item.codigo }> Ver detalle </Link>}
           />
         )
       }
@@ -27,12 +27,14 @@ export default function Productos({listaProductos}){
 }
 
 
+
+
 /*Spiner numerico con comprobación de Stock*/
 export function InputSpiner(item){
   
   const porcentual = (c,s) => 100-(c/s)*100 
   
-  const [cart, setCart, cartTask] = useCartContext() //useContext(CartContext)
+  const [cart, cartTask] = useCartContext()
   const [count, setCount] = useState(0);
   const [terminar, setTerminar] = useState(false);
   const [porcentaje, setPorcentaje] = useState(0);
@@ -46,15 +48,13 @@ export function InputSpiner(item){
               Agregar al carrito
             </button>
           :
-  //        Con este boton, cumple con el desafio de enviarme al carrito de compra.    
+//        Con este boton, cumple con el desafio de enviarme al carrito de compra.    
           <Link to="/pedidos">
             <button type="button" className="btn btn-danger botonCompra">
               Ir al carrito
             </button>
           </Link>
-            
- //           :  
-
+//           :  
 //           <button onClick={()=>borrado()} type="button" className="btn btn-danger botonCompra">
 //              Borrar pedido
 //            </button>
@@ -64,15 +64,15 @@ export function InputSpiner(item){
   }
 
 
-
+/*
   const borrado = () => {
     cartTask.clearCart()
     setTerminar(terminar?false:true)
   }
-  
+*/
 
 
-  const Agregado = (item) => cartTask.addToCart(item.item , count) //&& //setTerminar(terminar?false:true)
+  const Agregado = (item) => cartTask.addToCart(item.item , count) && setTerminar(terminar?false:true)
 
   const BotonProducto = ({dir}) => {
     return(
@@ -83,36 +83,41 @@ export function InputSpiner(item){
   }
 
   const cantidad = (x) =>{
-      (x === "minus" &&  count > 0) ? setCount(count - 1) : (x === "plus" && item.stock - count > 0  && setCount(count + 1))
+      (x === "minus" &&  count > 0) ? 
+          setCount(count - 1) 
+        : 
+          (x === "plus" && item.stock - count > 0  && setCount(count + 1))
   }
 
   
-
-
-
-  const Contador = () => {
-    
-    setPorcentaje(porcentual(count,item.stock))
-    
-    let estilo = { background: (porcentaje === 0 || isNaN(porcentaje)) ? 
+const styleSpiner = () => {
+//Si hago esta función, tira un error React, anda pero da error.
+//setPorcentaje(porcentual(count,item.stock))
+ 
+     let estilo = { background: (porcentaje === 0 || isNaN(porcentaje)) ? 
       "rgba(255, 0, 0, 0.3)" 
         : 
       "linear-gradient(to right, rgba(0, 255, 0, 0.3)" + porcentaje + "%, white 0%)"
     }
 
+    estilo = {background:"white"}
+return estilo
+}
 
+
+
+  const Contador = () => {
+   
     return(
       <input 
         type="text" 
-        style={estilo}
+        style={styleSpiner()}
         className="pl-ns-value" 
         maxLength="2" 
         defaultValue={count}
       />
     )
   }
-
-
 
   return(
     <div className="botonera_productos">
@@ -122,11 +127,6 @@ export function InputSpiner(item){
     </div>
   )
 }
-
-
-
-
-
 
 export function ProductCard({nombre,texto,img,stock,botonera,detalle}){
   return (

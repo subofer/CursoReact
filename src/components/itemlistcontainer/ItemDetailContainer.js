@@ -1,42 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import {useParams} from 'react-router-dom'
 
-import ItemDetail from './ItemDetail'
 import {Loading} from '../../helpers/helpers'
+import {getFireCollection} from '../../firebase'
+
+import ItemDetail from './ItemDetail'
 import {InputSpiner} from './ItemList'
-import {getFirestore} from '../../firebase'
 
 import './style.css'
 
-export default function ItemDetailContainer({listado}) {
+export default function ItemDetailContainer() {
  
     const [ListadoProductos, SetListadoProductos] = useState([])
     const {id} = useParams()
 
     useEffect(() => {
+      let opciones = {doc:id}
 
-
-
-
-      const datos = new Promise((resolve,reject) => {
-        setTimeout(()=>{
-          resolve(listado())
-        },500) /*aca deberia ir 2000 pero no queria seguir esperando 2 segundos cada vez que entro en la pagina*/
-      })
-
-      datos.then((res)=>{
-        SetListadoProductos( res.filter(i => i.codigo === id) )
-      })
+      getFireCollection(SetListadoProductos,"items",opciones)
+      
 
     },[id]);
 
 return(
   ListadoProductos.length > 0 ? 
-    <ItemDetail 
-        {...ListadoProductos[0]}
-        botonera = <InputSpiner {...ListadoProductos[0]} />
-    />
-      :
+    <ItemDetail botonera = <InputSpiner {...ListadoProductos[0]}/> {...ListadoProductos[0]}  />
+  :
     <Loading size="8" space="5"/>
  )  
 }

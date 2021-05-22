@@ -1,97 +1,61 @@
 import React from 'react'
 import {NavLink} from "react-router-dom";
-import {May} from '../../helpers/helpers'
 
 
-//Devuelve la nav bar, con la lista de enlaces.
-export default function NavBar(props) {
-  return( barra (contenido_NavBar (props) ) )
-}
-  
+export default function NavBar({listaNav}) {
 
+  const EnlaceNav = ({id,contenido,to,drop}) => {
+    return ( !drop?
+       
+      <li key={id} className='nav-item'>
+        <NavLink key={id+"nav"} activeClassName="activo"  className='nav-link' to={to}>
 
-const barra = (listado_de_enlaces) => {
+          {contenido}
 
-  return (
+        </NavLink>
+      </li>
+    
+    :
+    
+      <li key={id+"li"} className="nav-item dropdown">
+        <NavLink  key={id+"nav"} activeClassName="activo" className='nav-link dropdown-toggle' aria-haspopup="true" 
+                  aria-expanded="true" id="navbarDropdown" role="button" data-toggle="dropdown" to={to}>
+          
+          {contenido}
+        
+        </NavLink>
+        
+        <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <NavLink  key="original-drop-item" className="dropdown-item" to={to}>                 
+        
+            {contenido}
+        
+          </NavLink>
+        {drop.map( (dropItem, index) => 
+          <NavLink  key = {index+"drop-item"} className="dropdown-item" to={to+dropItem.enlace}>
+        
+            {dropItem.nombre}
+        
+          </NavLink>
+        )}
 
-      <nav key="NavBar" id='barra_nav' className='col-12 p-0 justify-content-center navbar navbar-expand-md no-gutters'>
-        <div key="navbar-collapse" className='collapse navbar-collapse justify-content-center' id='navbarSupportedContent'>
-          <ul key ="navBar00" className='navbar-nav '>
+        </div>
+      </li> 
+    )    
+  }
 
-          {listado_de_enlaces}
-
+  return(
+    <nav key="NavBar" id='barra_nav' className='col-12 p-0 justify-content-center navbar navbar-expand-md no-gutters'>
+      <div key="navbar-collapse" className='collapse navbar-collapse justify-content-center' id='navbarSupportedContent'>
+        <ul key ="navBar00" className='navbar-nav '>
+      {listaNav.length > 0 ? 
+           listaNav.map( (en,index) => <EnlaceNav key={index} id={index} contenido={en.nombre} to={en.enlace} drop={en.drop}/>)
+          :    
+           <EnlaceNav key="cargando_enlaces" id={1} contenido={" - Bienvenidos - "} to="/nothere2"/>    
+      }
         </ul>
       </div>
     </nav>
   )
 }
-    
-
-
-const contenido_NavBar = (props) =>
-    props.enlaces.map( (item,index) => {
-    //Si el item del array tiene mas de 2 elementos, compone un drop down para ese elemento.
-    return ( 
-      <React.Fragment>
-        {!item[2] ?
-                  
-                    <li key={item[1]} className='nav-item'>
-                      <NavLink  key={item[1]+"nav0"}
-                                activeClassName="activo"  
-                                className='nav-link' 
-                                to={item[1]}  
-
-                      >
-                        {item[0]}
-                          
-                      </NavLink>
-                    </li>
-                :
-                    <li key={item[1]+"li"} className="nav-item dropdown">
-                      <NavLink  key={item[1]+"nav1"}
-                                activeClassName="activo"
-                                className='nav-link dropdown-toggle'
-                                
-                                aria-haspopup="true" 
-                                aria-expanded="true"
-                                
-                                id="navbarDropdown" 
-                                role="button" 
-                                data-toggle="dropdown"
-                                to={item[1]}  
-                      >
-                      
-                        {item[0]}
-                      
-                      </NavLink>
-                                        
-                      <div key={item[1]+"divDrop"} className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <NavLink  key={item[1]+"nav2"}
-                                  className="dropdown-item" 
-                                  to={item[1]}> 
-                          {item[0]} 
-                        </NavLink>
-                        
-                      {
-                        item.map( (menu, index) =>
-                        index > 1 && 
-                        <NavLink  key={menu + "nav3"}
-                                  className="dropdown-item" 
-                                  to={item[1] + "/" + menu} >
-                                  
-                                  {May(menu)}
-                        </NavLink>
-
-                        )
-                      }
-                      </div>
-                    </li>
-                  }
-                </React.Fragment>  
-              )
-
-
-            })
-
-
 

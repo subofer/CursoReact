@@ -8,6 +8,41 @@ export const enlacesNav = [
   ['Pedidos','/pedidos'],
 ]
 
+/*
+export const seccionesNavBar = [
+		{
+			orden:1,
+			nombre: "Home", 
+			enlace:"/home"
+		},{
+			orden:2,
+			nombre: "Precios", 
+			enlace:"/precios"
+		},{	
+			orden:3,
+			nombre: "Productos", 
+			enlace:"/productos", 
+			drop:[{
+					nombre:"milanesas",
+					enlace:"/milanesas"
+				},{
+					nombre:"hamburguesas",
+					enlace:"/hamburguesas"
+				}]
+		},{
+			orden:4,
+			nombre: "Recetas", 
+			enlace:"/recetas"
+		},{	
+			orden:5,
+			nombre: "Pedidos", 
+			enlace:"/pedidos"
+		}
+]
+
+*/
+
+
 
 export const listaProductos = ListaProductos();
 

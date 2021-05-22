@@ -37,7 +37,7 @@ export default function CartIcon({nombre,cart,cartTask,DetallePedido}){
 	                            <div className="modal-footer">
 	                            	<button type="reset" onClick={() => cartTask.clearCart()} className="btn btn-secondary">Vaciar carrito</button>
 	                                <button type="reset button" className="btn btn-secondary" data-dismiss="modal">Seguir comprando</button>
-	                                <button type="submit button" value="Enviar" className="btn btn-primary">Enviar</button>
+	                                <button type="button" onClick={() => cartTask.buy()} value="Enviar" className="btn btn-primary">Enviar</button>
 	                            </div>
 	                        </form>
 	                    </div>

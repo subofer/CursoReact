@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import {Loading, May} from '../../helpers/helpers'
+import {getFireCollection} from '../../firebase'
 
-export function TablaPrecios({listado}) {
+export default function TablaPrecios({listado}) {
   const [ListadoProductos, SetListadoProductos] = useState([])
 
     useEffect( () => {
-      const datos = new Promise((resolve,reject) => {
-        setTimeout(()=>{
-          resolve(listado)
-        },1000)
-      })
-      datos.then((resuelto)=>{
-        SetListadoProductos(resuelto)
-      })
+        
+        getFireCollection(SetListadoProductos,"items")
 
     },[listado]);
 
@@ -58,8 +53,8 @@ function TableContent({items}){
   return(
     items.map((item,index)=>{
       return(
-        <tbody>
-          <tr key={index*100}>
+        <tbody key={index+1}>
+          <tr key={index*10}>
             <th key={index} className="align-middle" scope="row" rowSpan={item.cantidad}>{May(item.tipo)}</th>
           </tr>
           {item.productos.map((producto,index)=>{

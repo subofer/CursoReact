@@ -1,59 +1,20 @@
-import React, { useState, useEffect,useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import {useParams} from 'react-router-dom'
 
 import Productos from './ItemList'
 import {Loading} from '../../helpers/helpers'
-import  {useCartContext} from '../../context/cartContext'
-import {db} from '../../firebase'
+import {getFireCollection} from '../../firebase'
 
 import './style.css'
 
-export default function ItemListContainer({listado}) {
+export default function ItemListContainer() {
  
     const [ListadoProductos, SetListadoProductos] = useState([])
     const {familia} = useParams()
 
-/*
-    useEffect(() => {
-
-      const datos = new Promise((resolve,reject) => {
-        setTimeout(()=>{
-          resolve(listado())
-        },500) /*aca deberia ir 2000 pero no queria seguir esperando 2 segundos cada vez que entro en la pagina
-      })
-
-      datos.then((res)=>{
-        SetListadoProductos( familia ? res.filter(i => i.familia === familia) : res  )
-      })
-
-    },[familia]);
-
-*/
  useEffect(() => {
-         db.collection("items").get().then( (querySnapshot) => {
-            let salida = []
-            querySnapshot.forEach((doc) => {
-              salida.push({...doc.data()})
-          })
-              SetListadoProductos(salida)
-          }
-      )
- },[familia]);
-
-
- useEffect(() => {
-  familia && (
-         db.collection("items").where("familia","==",familia).get()
-         .then( (querySnapshot) => {
-            let salida = []
-            querySnapshot.forEach((doc) => {
-              salida.push({...doc.data()})
-          })
-              SetListadoProductos(salida)
-          }
-      )
-)
-
+    let opciones = {where:familia?["familia","==",familia]:false}
+    getFireCollection(SetListadoProductos,"items",opciones)
 
  },[familia]);
 

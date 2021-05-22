@@ -1,5 +1,5 @@
 import React ,{useEffect}from 'react'
-import CartIcon from './cartIcon'
+import CartList from './cartList'
 import {Link} from "react-router-dom";
 
 import {useCartContext} from '../../context/cartContext'
@@ -19,7 +19,7 @@ return(
 	<>
  	{cart.length>0 ?
     	<table className="table table-hover" id="tabla_pedidos_compuesta">
-    		<thead><tr><th scope="col">Producto</th><th scope="col">Cantidad</th><th scope="col">Precio</th><th scope="col"></th></tr></thead>
+    		<thead><tr><th scope="col">Producto</th><th scope="col">Cantidad</th><th scope="col">Precio</th><th scope="col">Parcial</th><th scope="col"></th></tr></thead>
       {cart.map((producto,index) => {
 		return(
 			<tbody key={index}>
@@ -31,15 +31,25 @@ return(
 	   	        	<button className="boton_mas"   onClick={()=>cartTask.cantidades(producto,1)}/>
 	   	        </td>
 	   	        <td>{producto.precio}$</td>
+	   	        <td>{producto.precio*producto.cantidad}$</td>
 	   	        <td><button onClick={()=>cartTask.removeItem(producto)}>X</button></td>
 	   	    </tr>
 	   	    </tbody>
 	  )})}
     	    <tbody>
 	    		<tr>
-	    			<td></td> 
-	    			<th>Total</th>
+
+	    			<th colSpan="3">Total</th>
 	    			<th>{cartTask.getTotal()}$</th>
+	    			<th colSpan="1"><button onClick={()=>cartTask.clearCart()}>Borrar</button></th>
+	    		
+				</tr>
+	    		<tr>
+	    			
+	    			<th colSpan="2"><button className="btn" onClick={()=>cartTask.buy()}>Guardar pedido</button></th>
+	    			<th colSpan="1"><button className="btn" disabled={cartTask.order==null} onClick={()=>cartTask.update(cartTask.order)}>Actualizar pedido</button></th>
+	    			<th colSpan="2"><button className="btn" disabled={cartTask.order==null} onClick={()=>cartTask.clearBuy(cartTask.order)}>Eliminar pedido</button></th>
+					
 				</tr>
 			</tbody>
 		</table>
@@ -65,7 +75,7 @@ return(
 }
 
 	return(	
-		<CartIcon 
+		<CartList 
 			cartTask = {cartTask}
 			cart ={cart}
 			DetallePedido = {TablaPedidos}

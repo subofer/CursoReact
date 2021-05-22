@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import {NavLink} from "react-router-dom";
+import {getFireCollection} from '../../firebase'
 
 /*Al footer le falta hacer mucho, es nada mas que el HTML pasado a function*/
 export default function Footer(props){
+
+   const [listaNav, setListaNav] = useState([])
+    
+    useEffect(() => {
+        let opciones = {sort:{key:"orden",order:"asc"}}
+        getFireCollection(setListaNav, props.enlaces, opciones)
+    },[]);
+
    return(
     <div className="row porta_footer justify-content-center mb-0 pb-0">
         <footer className="row justify-content-center align-items-top pt-5 pb-0">
@@ -20,10 +29,10 @@ export default function Footer(props){
                 <div className="row justify-content-center align-items-top mx-4">
                     <div className="col-12 col-md-5 col-lg-3">
                         <ul className="list-group-vertical justify-content-lef" aria-label="Enlaces">
-                        {props.enlaces.map((item,index) => 
-                            <li key={index + item[0] + "li"} className='nav-item'>
-                                <NavLink  activeClassName="activo" key={index + item[0] +"nav"} to={item[1]}>
-                                    {item[0]}
+                        {listaNav.map((item,index) => 
+                            <li key={index + "li"} className='nav-item'>
+                                <NavLink  activeClassName="activo" key={index +"nav"} to={item.enlace}>
+                                    {item.nombre}
                                 </NavLink>
                             </li>
                             )

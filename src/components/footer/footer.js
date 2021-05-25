@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import {NavLink} from "react-router-dom";
-import {getFireCollection} from '../../firebase'
+import {fire} from '../../firebase'
 
 /*Al footer le falta hacer mucho, es nada mas que el HTML pasado a function*/
 export default function Footer(props){
@@ -9,7 +9,7 @@ export default function Footer(props){
     
     useEffect(() => {
         let opciones = {sort:{key:"orden",order:"asc"}}
-        getFireCollection(setListaNav, props.enlaces, opciones)
+        fire.getCollection(setListaNav, props.enlaces, opciones)
     },[]);
 
    return(

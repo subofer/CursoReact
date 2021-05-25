@@ -30,10 +30,6 @@ export default function CartIcon({nombre,cart,cartTask,DetallePedido}){
 	                        	<DetallePedido/>
 
 	                        <form  target="_blank">
-	                        	<div className="form-group">
-	                            	Aquí se completa el mensaje codificado para el comercio.
-	                                <textarea className="form-control"  id="text" name="text" rows="1" placeholder=""></textarea>
-	                            </div>
 	                            <div className="modal-footer">
 	                            	<button type="reset" onClick={() => cartTask.clearCart()} className="btn btn-secondary">Vaciar carrito</button>
 	                                <button type="reset button" className="btn btn-secondary" data-dismiss="modal">Seguir comprando</button>

@@ -1,30 +1,31 @@
 import './App.css';
 import {BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
 
-import {TransitionGroup,CSSTransition} from "react-transition-group"
-
-
 import {Carrito} from './context/cartContext'
+import {FireUser} from './context/userContext'
 
-import Cabecera from './components/header/Header'
+
 
 import Home from './components/pages/home'
+import Login from './components/pages/login'
+
 
 import ItemListContainer from './components/itemlistcontainer/ItemListContainer'
 import ItemDetailContainer from './components/itemlistcontainer/ItemDetailContainer'
-import ItemDetail from './components/itemlistcontainer/ItemDetail'
+
 
 import CartIconContainer from './components/cart/cartIconContainer'
 import CartListContainer from './components/cart/cartListContainer'
 
 import TablaPrecios from './components/pricelist/pricelist'
 
+import Cabecera from './components/header/Header'
 import Footer from './components/footer/footer'
-
 export default function App() {
 
 return (
-<Carrito>     
+<FireUser>
+  <Carrito>     
 
   <Router basename={process.env.PUBLIC_URL}>
     <div className="App">
@@ -34,29 +35,16 @@ return (
                 logo = {process.env.PUBLIC_URL + '/images/logo-transparente.png'}
                 enlaces="seccionesNavBar"
       />
-     
-
     <CartIconContainer/>
-   
     <main>
-
-
-
-
-    <TransitionGroup>
-          <CSSTransition
-            key={1}
-            classNames="fade"
-            timeout={300}
-          >
         <Switch>
          
           <Route path="/home">
             <Home/>
           </Route>
           
-          <Route path="/recetas">
-           <h2>No hay recetas por el momento</h2> 
+          <Route path="/login">
+            <Login/>
           </Route>
               
           <Route path="/precios">
@@ -74,10 +62,6 @@ return (
           <Route exact path="/productos">
               <ItemListContainer/>
           </Route>
-          
-          <Route path="/detalle">
-              <ItemDetail/>
-          </Route>
 
           <Route path="/pedidos">
               <CartListContainer/>
@@ -88,9 +72,6 @@ return (
           </Route>
          
         </Switch>
-
-                  </CSSTransition>
-        </TransitionGroup>
       </main>
 
       <Footer
@@ -104,7 +85,8 @@ return (
     </div>
    </Router>
 
-</Carrito> 
+  </Carrito> 
+</FireUser>
   );
 }
 

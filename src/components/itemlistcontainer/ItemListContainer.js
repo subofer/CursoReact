@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom'
 
 import Productos from './ItemList'
 import {Loading} from '../../helpers/helpers'
-import {getFireCollection} from '../../firebase'
+import {fire} from '../../firebase'
 
 import './style.css'
 
@@ -13,8 +13,9 @@ export default function ItemListContainer() {
     const {familia} = useParams()
 
  useEffect(() => {
+   
     let opciones = {where:familia?["familia","==",familia]:false}
-    getFireCollection(SetListadoProductos,"items",opciones)
+    fire.getCollection(SetListadoProductos,"items",opciones)
 
  },[familia]);
 

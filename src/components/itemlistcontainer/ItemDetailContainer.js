@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {useParams} from 'react-router-dom'
 
 import {Loading} from '../../helpers/helpers'
-import {getFireCollection} from '../../firebase'
+import {fire} from '../../firebase'
 
 import ItemDetail from './ItemDetail'
 import {InputSpiner} from './ItemList'
@@ -17,7 +17,7 @@ export default function ItemDetailContainer() {
     useEffect(() => {
       let opciones = {doc:id}
 
-      getFireCollection(SetListadoProductos,"items",opciones)
+      fire.getCollection(SetListadoProductos,"items",opciones)
       
 
     },[id]);

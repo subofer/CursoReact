@@ -1,5 +1,5 @@
 import React, {useState,useEffect,useContext} from 'react'
-import {setFireCollection,updateFireCollection,deleteFireCollectionDoc} from '../firebase'
+import {fire} from '../firebase'
 
 
 export const CartContext = React.createContext([])
@@ -11,15 +11,36 @@ export const Carrito = ({children}) => {
 
 	const carroVacio = []
 	const [cart, setCart] = useState(carroVacio)
-	const [order, setOrder] = useState(null)
 
-	useEffect(()=>{
-			
-	},[order])
+	const [order, setOrder] = useState(null)
+	const [user, setUser] = useState({})
+
+	const [stockItem, setStockItem] = useState(carroVacio)
+
+	
+		useEffect(()=>{
+				console.log(order)
+		},[order])
+
+	
+		useEffect(()=>{
+
+		},[cart])
+	
+
+		useEffect(()=>{
+
+		},[stockItem])
+	
+
+		useEffect(()=>{
+			console.log(user)
+		},[user])
 
 
 //Incio objeto caja de herramientas del carrito.
 	const task = {}
+
 	task.order = order
 	task.setOrder = setOrder
 
@@ -50,8 +71,7 @@ export const Carrito = ({children}) => {
 	task.indexOf     = id => cart.findIndex ( x => x.codigo === id ) 
 	
 //remover un item en particular.
-	//task.removeItem  = i => cart.splice( task.indexOf(i.codigo) , 1 ) && task.set()
-	task.removeItem  = i => setCart( cart.filter(x => x.codigo !== i.codigo ) )
+	task.removeItem  = i => cart.splice( task.indexOf(i.codigo) , 1 ) && task.set()
 
 //Devuelve el totald de la compra
 	task.getTotal    = () => cart.reduce ( (p,i) => i.cantidad * i.precio + p , 0)
@@ -65,17 +85,20 @@ export const Carrito = ({children}) => {
 				
 				cart[index].cantidad = cart[index].stock 
 			: 
-				cart[index].cantidad === 0 && task.removeItem(i.codigo)
-	
+				cart[index].cantidad <= 0 && task.removeItem(i)
+
 		task.set()
 	}
 
 	task.buy = (buyer) => {
-			//setFireCollection("items",ListaProductos(),"codigo")
+			//fire.setCollection("items",ListaProductos(),"codigo")
 				
+			fire.activeUser(setUser)
+			console.log("aca",user)
+
 			let buyCollection = {
 				
-				buyer:{name:"Pedro",phone:"123",email:"pepe@pepe.com"},
+				buyer:{...user},
 
 				cart,
 
@@ -84,10 +107,11 @@ export const Carrito = ({children}) => {
 				total: task.getTotal()
 				
 				}
-	!order ?
-		setFireCollection("orders",[buyCollection],"",setOrder)
+
+	order ?
+		task.update(order)
 		:
-		updateFireCollection("orders",order,buyCollection)
+		fire.setCollection("orders",[buyCollection],"",setOrder)
 
 		task.set()
 	}
@@ -98,20 +122,38 @@ export const Carrito = ({children}) => {
 				cart,
 				total: task.getTotal()
 				}
-		updateFireCollection("orders",order,buyCollection)
+		fire.updateCollectionDoc("orders",order,buyCollection)
 		task.set()
 	}
 
 
 	task.clearBuy = (order) => {
-		order &&	deleteFireCollectionDoc("orders",order,setOrder)
+		order &&	fire.deleteCollectionDoc("orders",order,setOrder)
+	}
+
+
+	
+	task.updatesStock = () => {
+
+		//tengo que poner en firebase, el batch, para cambiar los stocks.
+
+			cart.forEach(item => {
+
+					fire.updateCollectionDoc("items",item.codigo,{stock:item.stock-item.cantidad})
+
+
+			})
+  
+
 	}
 
 
 
 	return (
 	    <CartContext.Provider value={[cart, task]}>
+	      
 	      {children}
+	    
 	    </CartContext.Provider>
 	 )
 

@@ -2,7 +2,7 @@ import React from 'react'
 import {NavLink} from "react-router-dom";
 
 
-export default function NavBar({listaNav}) {
+export default function NavBar({listaNav,user,setUser}) {
 
   const EnlaceNav = ({id,contenido,to,drop}) => {
     return ( !drop?
@@ -59,3 +59,5 @@ export default function NavBar({listaNav}) {
   )
 }
 
+
+            //<EnlaceNav key="email" id={1} contenido={user} to=""/> 

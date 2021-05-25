@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/auth'
 
 const configFirebase = {
   appId: process.env.REACT_APP_APP_ID,
@@ -12,14 +13,24 @@ const configFirebase = {
 }
 
 firebase.initializeApp(configFirebase)
+
+const auth = firebase.auth(); 
 const db  = firebase.firestore();
 
-export const getFireCollection = (callback,collection,opt={}) => {
-  /*options = { 
+
+//Creo un objeto para transportar las funciones de Firebase.
+export const fire = {}
+
+fire.auth = auth
+
+fire.getCollection = (callback,collection,opt={}) => {
+  /*
+  options = { 
             where:["familia","==","milanesas"]
             sort:{key:"orden",order:"asc"},
             doc:"id"
-          }*/
+          }
+  */
 let fireGet = db.collection(collection);
 
   let dc    =  opt.doc   ? fireGet.doc(opt.doc)                                 : fireGet
@@ -37,7 +48,11 @@ let fireGet = db.collection(collection);
   .catch( error => {console.error("Error geting documents: ", error)} )
 };
 
-export const setFireCollection = (collectionName, array, id,callback) => {
+
+
+
+
+fire.setCollection = (collectionName, array, id,callback) => {
   let fire = db.collection(collectionName)
   array.forEach(item => 
     { item[id]? 
@@ -54,7 +69,7 @@ export const setFireCollection = (collectionName, array, id,callback) => {
   )
 }
 
-export const updateFireCollection = (collectionName, doc, values) => {
+fire.updateCollectionDoc = (collectionName, doc, values) => {
   db.collection(collectionName)
     .doc(doc)
     .update(values)
@@ -62,17 +77,66 @@ export const updateFireCollection = (collectionName, doc, values) => {
 }
 
 
-export const deleteFireCollectionDoc = (collectionName, doc,callback) => {
+fire.deleteCollectionDoc = (collectionName, doc,callback) => {
     db.collection(collectionName).doc(doc).delete()
     callback(null)
 }
 
 
-//import {ListaProductos} from './components/values/values'
-//setFireCollection("items",ListaProductos(),"codigo")
-//setFireCollection("items",ListaProductos())
 
-/*
+
+fire.activeUser = (callback) => {
+  let us = {}
+  auth.onAuthStateChanged((user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    var uid = user.uid;
+  us.name = user.displayName;
+  us.email = user.email;
+  us.photoUrl = user.photoURL;
+  us.emailVerified = user.emailVerified;
+  us.uid = user.uid;
+  
+  
+  
+  callback && callback(us)
+  
+    
+    // ...
+  } else {
+    // User is signed out
+    // ...
+  }
+});
+}
+
+
+
+fire.getActiveUserOrders = (callback) =>{
+
+fire.activeUser(callback)
+
+
+
+}
+
+
+
+//fire.login("pepe@hotmail.com","123456",console.log)
+//fireLogin("marcos@hotmail.com","1234567",console.log)
+
+//fireRegisterUser("marcos@hotmail.com","1234567",console.log)
+
+//fireLogin("marcos@hotmail.com","12345",console.log)
+
+
+
+//import {ListaProductos} from './components/values/values'
+//fire.setCollection("items",ListaProductos(),"codigo")
+//fire.setCollection("items",ListaProductos())
+
+
 
 export const seccionesNavBar = [
     {
@@ -95,14 +159,14 @@ export const seccionesNavBar = [
           enlace:"/hamburguesas"
         }]
     },{
-      orden:4,
-      nombre: "Recetas", 
-      enlace:"/recetas"
-    },{ 
       orden:5,
+      nombre: "Login", 
+      enlace:"/login"
+    },{ 
+      orden:4,
       nombre: "Pedidos", 
       enlace:"/pedidos"
     }
 ]
-*/
-//setFireCollection("seccionesNavBar",seccionesNavBar,"nombre")
+
+//fire.setCollection("seccionesNavBar",seccionesNavBar,"nombre")

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import {Loading, May} from '../../helpers/helpers'
-import {getFireCollection} from '../../firebase'
+import {fire} from '../../firebase'
 
 export default function TablaPrecios({listado}) {
   const [ListadoProductos, SetListadoProductos] = useState([])
 
     useEffect( () => {
         
-        getFireCollection(SetListadoProductos,"items")
+        fire.getCollection(SetListadoProductos,"items")
 
     },[listado]);
 

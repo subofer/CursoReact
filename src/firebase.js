@@ -159,11 +159,11 @@ export const seccionesNavBar = [
           enlace:"/hamburguesas"
         }]
     },{
-      orden:5,
-      nombre: "Login", 
-      enlace:"/login"
-    },{ 
       orden:4,
+      nombre: "Recetas", 
+      enlace:"/recetas"
+    },{ 
+      orden:5,
       nombre: "Pedidos", 
       enlace:"/pedidos"
     }

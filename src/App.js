@@ -7,8 +7,8 @@ import {FireUser} from './context/userContext'
 
 
 import Home from './components/pages/home'
-import Login from './components/pages/login'
-
+import Profile from './components/pages/profile'
+   
 
 import ItemListContainer from './components/itemlistcontainer/ItemListContainer'
 import ItemDetailContainer from './components/itemlistcontainer/ItemDetailContainer'
@@ -43,14 +43,17 @@ return (
             <Home/>
           </Route>
           
-          <Route path="/login">
-            <Login/>
-          </Route>
+
               
           <Route path="/precios">
             <TablaPrecios/>
           </Route>
    
+          <Route path="/profile">
+            <Profile/>
+          </Route>
+   
+
           <Route exact path="/productos/:familia/:id">
               <ItemDetailContainer/>
           </Route>

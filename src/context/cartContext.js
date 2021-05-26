@@ -1,9 +1,11 @@
 import React, {useState,useEffect,useContext} from 'react'
 import {fire} from '../firebase'
+import {useUserContext} from './userContext'
+
+
 
 
 export const CartContext = React.createContext([])
-
 export const useCartContext = () => useContext(CartContext)
 
 
@@ -11,15 +13,15 @@ export const Carrito = ({children}) => {
 
 	const carroVacio = []
 	const [cart, setCart] = useState(carroVacio)
+	const [user,userTask] = useUserContext()
 
 	const [order, setOrder] = useState(null)
-	const [user, setUser] = useState({})
 
 	const [stockItem, setStockItem] = useState(carroVacio)
 
 	
 		useEffect(()=>{
-				console.log(order)
+				order && console.log(order)
 		},[order])
 
 	
@@ -34,7 +36,7 @@ export const Carrito = ({children}) => {
 	
 
 		useEffect(()=>{
-			console.log(user)
+			
 		},[user])
 
 
@@ -93,12 +95,15 @@ export const Carrito = ({children}) => {
 	task.buy = (buyer) => {
 			//fire.setCollection("items",ListaProductos(),"codigo")
 				
-			fire.activeUser(setUser)
+			//fire.activeUser(setUser)
 			console.log("aca",user)
+
+			if(user && user.emailVerified){
+				console.log(user)
 
 			let buyCollection = {
 				
-				buyer:{...user},
+				//buyer:{...user},
 
 				cart,
 
@@ -112,7 +117,7 @@ export const Carrito = ({children}) => {
 		task.update(order)
 		:
 		fire.setCollection("orders",[buyCollection],"",setOrder)
-
+		}
 		task.set()
 	}
 

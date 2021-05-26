@@ -15,83 +15,63 @@ export const FireUser = ({children}) => {
 	task.setUser = setUser
 	const auth = fire.auth
 
-task.login = (userEmail,password,callback) => {
+	useEffect(() => {
+		task.active()
+	}, [user])
+
+
+task.login = (userEmail,password) => {
  		auth.signInWithEmailAndPassword(userEmail, password)
 	    .then((userCredential) => {
-	    	console.log(userCredential.user.emailVerified)
-	    	
-userCredential.user.emailVerified?
-	    	callback(userCredential.user.email)
-	    	:
-	    	callback(null)
-    	})
+	    	setUser(userCredential.user)
+	    })
     	.catch((error) => {
-	   		callback({error})
+	   		setUser(null)
     	});
 	}
 
 
-task.logout = (callback) => {
+task.logout = () => {
 		auth.signOut().then(() => {
-  				// Sign-out successful.
-  				task.active()
-  				callback(null)
+  					setUser(null)
 			}).catch((error) => {
-  				// An error happened.
   				console.log("error",error)
 		});
 	}
 
 
-task.create = (userEmail,password,callback) =>{
-		auth.createUserWithEmailAndPassword(userEmail,password)
-  			.then((userCredential) => {
-    // Signed in
-    const user = userCredential.user;
+task.create = (userEmail,password) =>{
+	auth.createUserWithEmailAndPassword(userEmail,password)
+  		.then((userCredential) => {
 
-    console.log(user)
-
-	auth.currentUser.sendEmailVerification()
-  		.then(function() {
-    		// Verification email sent.
+	    	setUser(userCredential.user)
+			//Verificacion de correo.
+			task.verificateEmail()
   		})
-  		.catch(function(error) {
-    		// Error occurred. Inspect error.code.
+  		.catch((error) => {
+  			//mensajes de error, notificaciones
+    		console.log(error)
   		});
+}
 
-
-
-
-
-
-
-
-
-
-
-    callback(user.email)
-  })
-  .catch((error) => {
-    console.log(error)
-  });
-
+task.verificateEmail = () =>{
+	auth.currentUser.sendEmailVerification()
+		.then(function() {
+			// Verification email sent.
+		})
+		.catch(function(error) {
+			// Error occurred. Inspect error.code.
+  		});
 }
 
 task.active = () =>{
- let us = {}
- auth.onAuthStateChanged(user => {
-  if (user) {
-    			  us.uid = user.uid;
-  			  	 us.name = user.displayName;
-  			 	us.email = user.email;
-  			 us.photoUrl = user.photoURL;
-  		us.emailVerified = user.emailVerified;
-   } 
- });
- return us
+	auth.onAuthStateChanged(us => {
+  		setUser(us)
+ 	})
 }
-task.recuperarCuenta = (userEmail) =>{
 
+
+task.recuperarCuenta = (userEmail) =>{
 	auth.sendPasswordResetEmail(userEmail).then(() => {
   		// Email sent.
 	}).catch(error => {

@@ -3,33 +3,31 @@ import React, {useEffect,useState}from 'react'
 import {useUserContext} from '../../context/userContext'
 
 
-export default function Login(){
+export default function Profile(){
     const [user,userTask] = useUserContext()
 
     const [email,setEmail] = useState('')
     const [pass,setPass] = useState('')
 
 useEffect(() => {
-    console.log(user)
-    console.log(userTask.active())
+
 }, [user])
 
 
 
 const sender = (event) => {
     event.preventDefault()
-    userTask.login(email,pass,userTask.setUser)
+    userTask.login(email,pass)
 }
 
 const logOut = (event) => {
     event.preventDefault()
-    userTask.logout(userTask.setUser)
-    userTask.logout(console.log)
+    userTask.logout()
 }
 
 const nueva = (event) => {
     event.preventDefault()
-    userTask.create(email,pass,userTask.setUser)
+    userTask.create(email,pass)
 }
 
 const recuperarCuenta = (event) => {
@@ -63,7 +61,7 @@ return(
                   required/>
                 </div>
                 <br/>
-                <button className="btn btn-lg btn-primary btn-block btn-signin" id="logIn" onClick={sender}>Entrar</button>
+                <button className="btn btn-lg btn-primary btn-block btn-signin" id="logIn" onClick={sender}>Entrar - La academia</button>
                 <button className="btn btn-lg btn-primary btn-block btn-signin" id="logIn" onClick={nueva}>guardar nueva cuenta</button>
                 <button className="btn btn-lg btn-primary btn-block btn-signin" id="LogOut" onClick={logOut}>Salir</button>
                 <div className="opcioncontra"><a href="" onClick={recuperarCuenta}>Olvidaste tu contraseña?</a></div>

@@ -21,7 +21,7 @@ export default function Login({classNameCont}) {
 
     const clearForm = {mail:"",pass:"",name:"",action:null}
     const [form,setForm] = useState(clearForm)
-    const [mensaje,setMensaje] = useState('Iniciar sesion')
+    const [mensaje,setMensaje] = useState(user ? user.displayName:"Iniciar sesion")
     const [activeTab,setActiveTab] = useState(0)
 
     const [loading,setLoading] = useState(false)
@@ -33,17 +33,16 @@ export default function Login({classNameCont}) {
 
     useEffect(() => {
         setLoading(false)
-
     }, [user])  
 
     useEffect(() => {
       setLoading(false)
-      
-    }, [userTask.error,mensaje])      
+     }, [userTask.error,mensaje])      
 
     useEffect(() => {
        user && document.getElementById("botonCls").click()
        setTimeout(() => {setMensaje(user ? user.displayName:"Iniciar sesion")}, 500);
+
      }, [user])
 
     useEffect(() => {

@@ -38,7 +38,6 @@ task.login = (userEmail,password) => {
 	console.log(userEmail,password)
  		auth.signInWithEmailAndPassword(userEmail, password)
 	    .then((userCredential) => {
-	    	//setUser(userCredential.user)
 	    	task.active() 
 	    })
 		.catch(e => task.errores(e));
@@ -60,8 +59,8 @@ task.create = (userEmail,password,name) =>{
 
 	auth.createUserWithEmailAndPassword(userEmail,password)
   		.then((userCredential) => {
-	    	setUser(userCredential.user)
 			//Enviar la Verificacion del correo al usuario.
+	    	setUser(userCredential.user)
   			task.updateAccountName(name)
 			task.verificateEmail()
   		})

@@ -91,14 +91,14 @@ task.updateUserProfile = (objetoUsuario,correo) =>{
 	//La coleccion va con el doc en correo electronico.
 }
 
-task.getUserProfile = (correo) =>{
+task.getUserProfile = (correo,id) =>{
 	//primero me aseguro que el usuario este logueado
 	//crear una coleccion con los usuarios y asignarle campos adicionales en Firebase.
 	//Nombre, apellido, Pais, provincia, localidad, calle, numero, telefono, telefono alternativo
 	//La coleccion va con el doc en correo electronico.
 }
 
-task.deleteUserProfile = (correo) =>{
+task.deleteUserProfile = (correo,id) =>{
 	//primero me aseguro que el usuario este logueado, esto borra al usuario completamente de la base de datos.
 	//crear una coleccion con los usuarios y asignarle campos adicionales en Firebase.
 	//Nombre, apellido, Pais, provincia, localidad, calle, numero, telefono, telefono alternativo

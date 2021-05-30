@@ -2,8 +2,6 @@ import React from 'react'
 
 
 export default function MultiInput({inputList,error,active}){
-
-
     return (
         inputList.map((input,index) =>
             <div key={index} style={   {display: (input.in.includes(parseInt(active))|| input.in.includes("*"))?"":"none"}   }>

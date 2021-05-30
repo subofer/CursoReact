@@ -15,6 +15,7 @@ export default function Login({classNameCont}) {
 
     const idForm = "FireLogin"
     const idModalSesion = "Inicia_Sesion"
+    const tabInicial = 0
 
     const [user,userTask] = useUserContext()
 
@@ -29,8 +30,6 @@ export default function Login({classNameCont}) {
     useEffect(() => {
         userTask.active()
     }, [])  
-
-
 
     useEffect(() => {
         setLoading(false)
@@ -52,6 +51,7 @@ export default function Login({classNameCont}) {
           userTask.[form.action](form.mail,form.pass,form.name)
           setLoading(true)
         }
+        console.log(form)
      }, [form])
 
 
@@ -69,10 +69,17 @@ export default function Login({classNameCont}) {
       setForm(inputs(false,run))
     }
 
+    const onModalOpen = () => {
+      inputs(true)
+      setActiveTab(tabInicial)
+      userTask.clearError()
+   }
+
+
  return (
     <div className={classNameCont}>
         <BotonLogin idModalDestino = {idModalSesion}
-                    click = {()=>{inputs(true); setActiveTab(0)}}
+                    click = {()=>{onModalOpen()}}
                     textoBoton={mensaje}
                     menu={[ 
                             {titulo:"Mis Pedidos"        ,to:"/mispedidos"},
@@ -87,7 +94,7 @@ export default function Login({classNameCont}) {
           <div>
            <Tabs tabcontrol={[activeTab,setActiveTab]} tabs={[ {name:"Iniciar Sesion"},{name:"Crear cuenta"} ]}></Tabs>
             <form id={idForm} name="fireLogin" >
-                 <MultiInput active={activeTab} error={userTask}
+                 <MultiInput active={activeTab} error={userTask} form={form} seter={setForm}
                              inputList={[
                                      {in:["*"] , name:"mail" , type:"email"    , place:"Ingrese su correo"      , disabled:user},
                                      {in:["*"] , name:"pass" , type:"password" , place:"Ingrese una Contraseña" , disabled:user},

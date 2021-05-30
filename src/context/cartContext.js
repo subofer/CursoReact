@@ -3,6 +3,11 @@ import {fire} from '../firebase'
 import {useUserContext} from './userContext'
 
 
+//agregar, guardar el cart en el local storage y recuperarlo...
+//restar stock de la base de datos una vez generada la orden del usuario o una vez "despachado"
+	//general la task.dispachOrder()
+	//generar la task.calcularEnvio() que recupere la direccion del usuario y calcule la distancia del envio
+//recuperar el stock si la orden se cancela.
 
 
 export const CartContext = React.createContext([])
@@ -91,37 +96,27 @@ export const Carrito = ({children}) => {
 
 		task.set()
 	}
-
+//Completa el pedido, lo guarda en Firebase
 	task.buy = (buyer) => {
-			//fire.setCollection("items",ListaProductos(),"codigo")
-				
-			//fire.activeUser(setUser)
-			console.log("aca",user)
-
-			if(user && user.emailVerified){
-				console.log(user)
-
+		
+		if(user && user.emailVerified){
+			
 			let buyCollection = {
-				
-				//buyer:{...user},
-
-				cart,
-
-				date: new Date(),
-
-				total: task.getTotal()
-				
+			buyer:{id:user.uid,email:user.email,name:user.displayName},
+			cart,
+			date: new Date(),
+			total: task.getTotal()
 				}
-
-	order ?
-		task.update(order)
-		:
-		fire.setCollection("orders",[buyCollection],"",setOrder)
+		order ?
+			task.update(order)
+			:
+			fire.setCollection("orders",[buyCollection],"",setOrder)
 		}
+		
 		task.set()
 	}
 
-	
+//Modifica el pedido ya guardado en Firebase.	
 	task.update = (order) => {
 			let buyCollection = {
 				cart,
@@ -131,27 +126,27 @@ export const Carrito = ({children}) => {
 		task.set()
 	}
 
-
+//Bora el pedido guardado en Firebase
 	task.clearBuy = (order) => {
-		order &&	fire.deleteCollectionDoc("orders",order,setOrder)
+		order && fire.deleteCollectionDoc("orders",order,setOrder)
 	}
 
 
-	
+//Actualiza	el stock de la base de datos, con respecto al pedido
 	task.updatesStock = () => {
-
 		//tengo que poner en firebase, el batch, para cambiar los stocks.
-
 			cart.forEach(item => {
-
 					fire.updateCollectionDoc("items",item.codigo,{stock:item.stock-item.cantidad})
-
-
 			})
-  
-
 	}
 
+//Devuelve la cantidad total de items en el carrito.
+	task.getCantidadTotal = cart.reduce ( (p,i) => i.cantidad + p , 0)
+
+//
+	task.errores = (e) => {
+		//agregar manejo de errores del cart.. para otro dia.
+	}
 
 
 	return (

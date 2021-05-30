@@ -19,7 +19,7 @@ import CartListContainer from './components/cart/cartListContainer'
 
 import TablaPrecios from './components/pricelist/pricelist'
 
-import Cabecera from './components/header/Header'
+import Header from './components/header/Header'
 import Footer from './components/footer/footer'
 export default function App() {
 
@@ -30,7 +30,7 @@ return (
   <Router basename={process.env.PUBLIC_URL}>
     <div className="App">
 
-      <Cabecera
+      <Header
                 titulo = 'La cocina de la Pipi' 
                 logo = {process.env.PUBLIC_URL + '/images/logo-transparente.png'}
                 enlaces="seccionesNavBar"
@@ -49,7 +49,7 @@ return (
             <TablaPrecios/>
           </Route>
    
-          <Route path="/profile">
+          <Route path="/mispedidos">
             <Profile/>
           </Route>
    

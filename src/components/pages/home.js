@@ -25,12 +25,12 @@ const imagenes_carrousel = [
 
 return(
 <>
-<div className="row justify-content-center py-3">    
-    <div className="col-12 pb-4">
+<div className="row py-3 justify-content-center">    
+    <div className="col-8 pb-4 align-self-center">
         <h1>No es solo hacer comida.</h1> 
     </div>
     
-    <div className="col-10 col-md-9 col-lg-8">
+    <div className="col-10 col-md-9 col-lg-8 align-self-center">
         <p>En este momento tan especial de aislamiento social obligatorio, solo se necesitan unos minutos de paseo en las distintas redes sociales -nuestro &uacute;nico encuentro posible con otros adem&aacute;s de la aventura de ir al s&uacute;per- para darnos cuenta de un fen&oacute;meno clar&iacute;simo: cocinar se convirti&oacute; en una de las actividades estrella de la cuarentena.</p>    
         
         <p>Tiene todas las de ganar: es una actividad placentera que muchas veces no podemos hacer por falta de tiempo pero que ahora es un oasis para la cabeza de cada cocinero -aficionado, profesional o novato- en el medio de la incertidumbre y la ansiedad que trajo la pandemia del coronavirus.</p>
@@ -42,17 +42,18 @@ return(
 
 
 <div className="row justify-content-center">
-    <div className="col-6">
+    <div className="col-7">
         <div id="calesita" className="carousel slide" data-bs-ride="carousel">
             <div className="carousel-inner">
+                
                 {imagenes_carrousel.map((imagen,index)=>
                     <div key={index} className={index === 0 ? "carousel-item active" : "carousel-item"}>  
-                        <img key={index+1} className="d-block w-100" src={"./"+imagen.src} alt={imagen.alt}/>                            
+                        <img key={index+1} className="d-block w-100 mx-auto" style={{margin: "auto"}} src={"./"+imagen.src} alt={imagen.alt}/>                            
                     </div>
-                    )
-                }
-            </div>
+                )}
 
+            </div>
+            
             <a className="carousel-control-prev" href="#calesita" role="button" data-slide="prev">
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span className="sr-only">Previous</span>
@@ -61,11 +62,16 @@ return(
               <span className="carousel-control-next-icon" aria-hidden="true"></span>
               <span className="sr-only">Next</span>
             </a>
-
+            
         </div>
-        <p className="pt-4">Nuestro objetivo es simple, compartir el amor que le ponemos a la comida, para que todos puedan comer rico y sano =)</p>
+    </div>
+</div>      
+    <div className="row justify-content-center">
+        <div className="col-8 align-self-center">
+            <p className="pt-2">Nuestro objetivo es simple, compartir el amor que le ponemos a la comida, para que todos puedan comer rico y sano =)</p>
+        </div> 
     </div> 
-</div> 
+
 
 
 </>

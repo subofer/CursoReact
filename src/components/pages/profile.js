@@ -9,11 +9,9 @@ export default function Profile(){
     const [email,setEmail] = useState('')
     const [pass,setPass] = useState('')
 
-useEffect(() => {
+    useEffect(() => {
 
-}, [user])
-
-
+    }, [user])
 
 const sender = (event) => {
     event.preventDefault()
@@ -36,7 +34,9 @@ const recuperarCuenta = (event) => {
 }
 
 
-
+const mostrarUsuario = (event) => {
+    event.preventDefault()
+}
 
 return(
 
@@ -44,30 +44,28 @@ return(
     <div className="col-12 pb-4">
         <h1>Bienvenidos!</h1> 
     </div>
-    
-    <div className="col-10 col-md-9 col-lg-8">
+{user?
+    <div className="col-8 col-md-7 col-lg-6">
         <form id="FireLogin" name="fireLogin">
-                <div className="input-group input-group-lg">
-                  <span className="input-group-addon" id="sizing-addon1"><i className="glyphicon glyphicon-envelope"/></span>
-                  <input type="email" className="form-control" name="correo" placeholder="Correo" id="Correo" aria-describedby="sizing-addon1" 
-                    onChange={event => setEmail(event.target.value)}
-                  required/>
+                <div className="input-group input-group-lg row">
+                  <div className="col-5">
+                  <input type="email" className="form-control" name="Nombre" placeholder={(user && user.displayName) || "Ingrese nombre"} id="nombre" aria-describedby="sizing-addon1" />
+                </div>  
+                <div className="col-2"/>
+                    <div className="col-5">
+                  <input type="email" className="form-control" name="correo" placeholder={(user && user.email)||"No se puede cambiar el correo"} id="Correo" aria-describedby="sizing-addon1" disabled="true"/>
+                  </div>
                 </div>
+
                 <br/>
-                <div className="input-group input-group-lg">
-                  <span className="input-group-addon" id="sizing-addon1"><i className="glyphicon glyphicon-lock"/></span>
-                  <input id="pass" type="password" name="contra" className="form-control" placeholder="******" aria-describedby="sizing-addon1" 
-                    onChange={event => setPass(event.target.value)}
-                  required/>
-                </div>
-                <br/>
-                <button className="btn btn-lg btn-primary btn-block btn-signin" id="logIn" onClick={sender}>Entrar - La academia</button>
-                <button className="btn btn-lg btn-primary btn-block btn-signin" id="logIn" onClick={nueva}>guardar nueva cuenta</button>
-                <button className="btn btn-lg btn-primary btn-block btn-signin" id="LogOut" onClick={logOut}>Salir</button>
-                <div className="opcioncontra"><a href="" onClick={recuperarCuenta}>Olvidaste tu contraseña?</a></div>
-                <div className="opcioncontra"><a href="">Crear Cuenta</a></div>
+
+                <button className="btn btn-lg btn-primary btn-block btn-signin" id="logIn" onClick={e=>mostrarUsuario(e)}>Guardar Usuario</button>
+
         </form>        
     </div>
+    :
+    <div><h2>Debe ingresar a su cuenta para ver el perfil.</h2></div>
+}
 </div>
 
 

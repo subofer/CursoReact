@@ -1,175 +1,123 @@
 import React, { useState,useEffect } from 'react'
 import {Link} from "react-router-dom";
 
-import {fire} from '../../firebase'
-
 import {useUserContext} from '../../context/userContext'
-import Modal from '../modal/modal'
+import {Loading} from '../../helpers/helpers'
 
+import {fire}       from '../../firebase'
+import Modal        from '../modal/modal'
+import BotonLogin   from './botonLogin'
+import MultiButton  from './multiButton'
+import MultiInput   from './multiInput'
+import Tabs         from './tabs'
 
+export default function Login({classNameCont}) {
 
-export default function Login() {
-
+    const idForm = "FireLogin"
+    const idModalSesion = "Inicia_Sesion"
 
     const [user,userTask] = useUserContext()
 
-    const [email,setEmail] = useState('')
-    const [pass,setPass] = useState('')
+    const clearForm = {mail:"",pass:"",name:"",action:null}
+    const [form,setForm] = useState(clearForm)
     const [mensaje,setMensaje] = useState('Iniciar sesion')
+    const [activeTab,setActiveTab] = useState(0)
 
+    const [loading,setLoading] = useState(false)
 
-    const [activeTab,setActiveTab] = useState(1)
-
-    const modalSesion = "Inicia_Sesion"
-    
 
     useEffect(() => {
-        setMensaje(user? user.email:"Iniciar sesion")
-        document.getElementById("botonCls").click()
+        userTask.active()
+    }, [])  
+
+
+
+    useEffect(() => {
+        setLoading(false)
+
+    }, [user])  
+
+    useEffect(() => {
+      setLoading(false)
+      
+    }, [userTask.error,mensaje])      
+
+    useEffect(() => {
+       user && document.getElementById("botonCls").click()
+       setTimeout(() => {setMensaje(user ? user.displayName:"Iniciar sesion")}, 500);
      }, [user])
 
     useEffect(() => {
-
-    }, [mensaje])    
-
-
-
-    const cc = (e) =>{
-       return (e.target.form.correo.value && e.target.form.pass.value) ?
-            {mail:e.target.form.correo.value,pass:e.target.form.pass.value}
-            :
-            false
-    }
-
-    const sender = (e) => {
-        e.preventDefault()
-        userTask.login(cc(e).mail,cc(e).pass)
-    }
-    
-    const logOut = (e) => {
-        e.preventDefault()
-        userTask.logout()
-    }
-    
-    const nueva = (e) => {
-        e.preventDefault()
-        userTask.create(cc(e).mail,cc(e).pass)
-    }
-    
-    const recuperarCuenta = (e) => {
-        e.preventDefault()
-        let recuperarCorreo = e.target.offsetParent.childNodes[1][0].value
-        
-        if (recuperarCorreo){
-            userTask.recuperarCuenta(recuperarCorreo)
-             document.getElementById("botonCls").click(); // Click on the checkbox
-        }else{
-
-            alert("pintar campo en rojo")
+       if(form.action){
+          userTask.[form.action](form.mail,form.pass,form.name)
+          setLoading(true)
         }
+     }, [form])
 
 
+    const inputs = (clear=false,run=null) => {
+      let fr = document.getElementById(idForm)
+      clear && fr.reset() && setForm(clearForm)
+      let res = fr.getElementsByTagName("input")
+      return clear ? clearForm
+                  :{mail:res.mail.value, pass:res.pass.value, name:res.name.value,action:run}
+      }
 
 
-    }
-    
-    const ActiveTabButton = () =>{
-        let style={backgroundColor:"#c2bb5f",borderColor: "#c2bb5f"}
-        let clase="btn btn-lg btn-primary btn-block btn-signin"
-     let BotonL
-           switch (activeTab) {
-            case 1:
-                 return <button style={style} className={clase} id="logIn" onClick={(e)=>sender(e)} disabled={user?true:false}>Ingresar</button>
-            break;
-            case 2:
-                 return <button style={style} className={clase} id="logIn" onClick={(e)=>nueva(e)} disabled={user?true:false}>Crear cuenta</button>
-            break;
-        }
-    }
-    
-    const Tabs = () =>{
-        return (
-            <ul className="nav nav-tabs">
-              <li className="nav-item">
-                <a className={activeTab==1?"nav-link active":"nav-link"} href="#" onClick={()=>setActiveTab(1)}>Iniciar sesion</a>
-              </li>
-              <li className="nav-item">
-                <a className={activeTab==2?"nav-link active":"nav-link"} href="#" onClick={()=>setActiveTab(2)}>Crear cuenta</a>
-              </li>
-            </ul>
-        )
-    }
-    
-    //onChange={event => setPass(event.target.value)}
-    const Formulario = () => {
-        return (
-            <>
-            <Tabs tabs={[
-                          {name:"Iniciar sesion"},
-                          {name:"Crear cuenta"}
-                          
-              ]}/>
-
-            <form id="FireLogin" name="fireLogin">
-                    <div className="input-group input-group-lg">
-                      <span className="input-group-addon" id="sizing-addon1"><i className="glyphicon glyphicon-envelope"/></span>
-                      <input type="email" className="form-control" name="correo" placeholder="Ingrese su Correo" 
-                        id="Correo" aria-describedby="sizing-addon1" 
-                        required disabled={user?true:false}/>
-                    </div>
-                    <br/>
-                    <div className="input-group input-group-lg">
-                      <span className="input-group-addon" id="sizing-addon1"><i className="glyphicon glyphicon-lock"/></span>
-                      <input id="pass" type="password" name="contra" className="form-control" 
-                        placeholder="Contraseña" aria-describedby="sizing-addon1" 
-                        required disabled={user?true:false}/>
-                    </div>
-                    <br/>
-
-                    <ActiveTabButton/>
-
-                    <button 
-                        style={{backgroundColor:"#c2bb5f",borderColor: "#c2bb5f"}}
-                        className="btn btn-lg btn-primary btn-block btn-signin" id="LogOut" disabled={user?false:true} onClick={logOut}>Cerrar Sesion</button>
-                    
-            </form>    
-            </>
-        )
+    const accion = (e,run) =>{
+      e.preventDefault()
+      setForm(inputs(false,run))
     }
 
-return (
-            <>
-            <div className="btn-group">
-              
-                <button className="btn btn-secondary btn-sm" type="button"
-                        data-toggle="modal" data-target={"#"+modalSesion}
-                        onClick={()=>setActiveTab(1)}
-                >
-                    {mensaje}
-                
-                </button>
+ return (
+    <div className={classNameCont}>
+        <BotonLogin idModalDestino = {idModalSesion}
+                    click = {()=>{inputs(true); setActiveTab(0)}}
+                    textoBoton={mensaje}
+                    menu={[ 
+                            {titulo:"Mis Pedidos"        ,to:"/mispedidos"},
+                            {Linea:"divisora"},
+                            {titulo:"Cerrar sesion"      ,to:"/home" ,click:userTask.logout},
+                            {titulo:"Informar"           ,to:"/home" ,click:userTask.active},
+                        ]}
+        />
 
-              
-              
-              <button type="button" className="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span className="sr-only">Toggle Dropdown</span>
-              </button>
-              
-              <div className="dropdown-menu">
-                <Link className="dropdown-item" to="/home">Ver Pedidos</Link>
+        <Modal  titulo = "Inicio de Sesion" id={idModalSesion} error={userTask.error} >
+          {/*Body del modal*/}  
+          <div>
+           <Tabs tabcontrol={[activeTab,setActiveTab]} tabs={[ {name:"Iniciar Sesion"},{name:"Crear cuenta"} ]}></Tabs>
+            <form id={idForm} name="fireLogin" >
+                 <MultiInput active={activeTab} error={userTask}
+                             inputList={[
+                                     {in:["*"] , name:"mail" , type:"email"    , place:"Ingrese su correo"      , disabled:user},
+                                     {in:["*"] , name:"pass" , type:"password" , place:"Ingrese una Contraseña" , disabled:user},
+                                     {in:[1]   , name:"name" , type:"name"     , place:"Ingrese su Nombre"      , disabled:user}
+                                  ]}
+                 />
+                 <MultiButton active={activeTab} callback={accion}
+                              buttonList={[
+                                            {in:[0]   , text:"Ingresar"        , click:"login"  , disabled:user},
+                                            {in:[1]   , text:"Crear cuenta"    , click:"create" , disabled:user},
+                                            {in:["*"] , text:"Cerrar Sesion"   , click:"logout" , disabled:!user}
+                                        ]}
+                 />
+            </form> 
+          </div>
 
-                <Link className="dropdown-item" to="/profile">Perfil</Link>
+          {/*Mensaje de error de parte de firebase*/}
+          {userTask.error.error ? <h6>{userTask.error.full.message}</h6>: <></>}
+          {/*Pie del modal*/}
+          <div className="opcioncontra">
+            <a href="" onClick={e=>accion(e,"recuperarCuenta")}>
+              Olvidaste tu contraseña?
+            </a>
+          </div>
+          {/*Overlay de loading*/}
+          {loading && <Loading size="6"/>}
+        </Modal>
+    </div>
+ )
+}
 
-                <div className="dropdown-divider"></div>
-                <Link className="dropdown-item" onClick={userTask.logout}>Cerrar sesion</Link>
-              </div>
-            </div>
 
-            <Modal  id={modalSesion}
-                    titulo= "Inicio de Sesion"   
-                    contenido={<Formulario/>}
-                    footer={<div className="opcioncontra"><a href="" onClick={e => recuperarCuenta(e)}>Olvidaste tu contraseña?</a></div>}
-                />
-            </>
-        )
-    }
+

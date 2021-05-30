@@ -68,6 +68,8 @@ task.active = () =>{
 	auth.onAuthStateChanged(us => {
   		setUser(us)
  	})
+
+ 	//setUser(auth.currentUser)
 }
 
 

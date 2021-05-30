@@ -104,7 +104,12 @@ export default function Login() {
     const Formulario = () => {
         return (
             <>
-            <Tabs/>
+            <Tabs tabs={[
+                          {name:"Iniciar sesion"},
+                          {name:"Crear cuenta"}
+                          
+              ]}/>
+
             <form id="FireLogin" name="fireLogin">
                     <div className="input-group input-group-lg">
                       <span className="input-group-addon" id="sizing-addon1"><i className="glyphicon glyphicon-envelope"/></span>

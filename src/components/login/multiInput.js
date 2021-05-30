@@ -14,7 +14,6 @@ export default function MultiInput({inputList,error,active}){
                             disabled={input.disabled} 
                             onFocus = {()=>error.clearError()}
                             required 
-
                     />
                 </div>
                 <br/>

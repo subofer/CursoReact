@@ -85,34 +85,6 @@ fire.deleteCollectionDoc = (collectionName, doc,callback) => {
 
 
 
-fire.activeUser = (callback) => {
-  let us = {}
-  auth.onAuthStateChanged((user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    var uid = user.uid;
-  us.name = user.displayName;
-  us.email = user.email;
-  us.photoUrl = user.photoURL;
-  us.emailVerified = user.emailVerified;
-  us.uid = user.uid;
-  
-  
-  
-  callback && callback(us)
-  
-    
-    // ...
-  } else {
-    // User is signed out
-    // ...
-  }
-});
-}
-
-
-
 fire.getActiveUserOrders = (callback) =>{
 
 fire.activeUser(callback)

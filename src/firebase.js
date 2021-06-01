@@ -77,6 +77,15 @@ fire.updateCollectionDoc = (collectionName, doc, values) => {
 }
 
 
+fire.updateStock = (collectionName, doc, values) => {
+  
+  db.collection(collectionName)
+    .doc(doc)
+    .update({stock:firebase.firestore.FieldValue.increment(values)})
+    .catch( error  => {console.error ("Error updating document: "   , error    ) })
+}
+
+
 fire.deleteCollectionDoc = (collectionName, doc,callback) => {
     db.collection(collectionName).doc(doc).delete()
     callback(null)

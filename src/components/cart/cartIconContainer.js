@@ -1,4 +1,4 @@
-import React ,{useEffect}from 'react'
+import React ,{useEffect,useState}from 'react'
 import CartIcon from './cartIcon'
 import {Link} from "react-router-dom";
 
@@ -8,11 +8,15 @@ import {useCartContext} from '../../context/cartContext'
 export default function CartIconContainer(){
 
 	const [cart, cartTask] = useCartContext()
+	const [loading,setLoading] = useState(false)
+
+	useEffect(()=>{
+		 setLoading(false)
+	},[cartTask.order])
 	
 	useEffect(()=>{
-
+		 
 	},[cart])
-
 
 const TablaPedidos = () =>{
 return(
@@ -69,6 +73,8 @@ return(
 			cartTask = {cartTask}
 			cart ={cart}
 			DetallePedido = {TablaPedidos}
+			loading = {loading}
+			setLoading = {setLoading}
 		/>
 	)
 }

@@ -9,7 +9,7 @@ export const useUserContext = () => useContext(UserContext)
 export const FireUser = ({children}) => {
 
 	//muestra los errores o los console.log
-	const verboso = true
+	const verboso = false
 	//valor en segundos que se muestran los errores de usuario
 	const tiempoErrores = 10
 

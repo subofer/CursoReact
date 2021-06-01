@@ -10,7 +10,7 @@ export default function Footer(props){
     useEffect(() => {
         let opciones = {sort:{key:"orden",order:"asc"}}
         fire.getCollection(setListaNav, props.enlaces, opciones)
-    },[]);
+    },[props.enlaces]);
 
    return(
     <div className="row porta_footer justify-content-center mb-0 pb-0">

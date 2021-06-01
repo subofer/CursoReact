@@ -1,18 +1,24 @@
 import './Header.css'
 import React, { useState,useEffect } from 'react'
-import {NavLink,Link} from "react-router-dom";
+import {Link } from 'react-router-dom'
+
 import {fire} from '../../firebase'
 import NavBar from '../navbar/NavBar'
 import Login from '../login/login'
 
 export default function Header({titulo,logo,enlaces}) {
-   
+
     const [listaNav, setListaNav] = useState([])
 
     useEffect(() => {
         let opciones = {sort:{key:"orden",order:"asc"}}
         fire.getCollection(setListaNav,enlaces,opciones)
-    },[]);
+    },[enlaces]);
+    
+    useEffect(() => {
+
+    },[listaNav]);
+
 
  return(
    <header className="row pt-2 justify-content-center align-items-center no-gutters">
@@ -21,10 +27,10 @@ export default function Header({titulo,logo,enlaces}) {
 
 
         <div className="col-8 border-bottom pb-1 header-logo">
-            <a href={listaNav.length>0? listaNav[0].enlace:""}>
+            <Link to={listaNav.length>0? listaNav[0].enlace:""}>
                 <img className="img-fluid figure-img" src={logo} alt={titulo} />
                 <p>{titulo}</p>
-            </a>
+            </Link>
         </div>
 
         <div className="col-2 justify-content-start">

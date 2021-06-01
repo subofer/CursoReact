@@ -15,6 +15,8 @@ export const useCartContext = () => useContext(CartContext)
 
 
 export const Carrito = ({children}) => {
+//Incio objeto caja de herramientas del carrito.
+	const task = {}
 
 	const carroVacio = []
 	const [cart, setCart] = useState(carroVacio)
@@ -25,33 +27,18 @@ export const Carrito = ({children}) => {
 	const [stockItem, setStockItem] = useState(carroVacio)
 
 	
-		useEffect(()=>{
-				order && console.log(order)
-		},[order])
+	useEffect(()=>{
+		task.setReservation(order)
+	},[order])
 
-	
-		useEffect(()=>{
+	useEffect(()=>{
 
-		},[cart])
-	
+	},[cart,stockItem,user])
 
-		useEffect(()=>{
-
-		},[stockItem])
-	
-
-		useEffect(()=>{
-			
-		},[user])
-
-
-//Incio objeto caja de herramientas del carrito.
-	const task = {}
-
-	task.order = order
-	task.setOrder = setOrder
 
 	task.cart = cart
+	task.order = order
+	task.setOrder = setOrder
 
 //Agregar item unico, o cantidad al existente.
 	task.addToCart = (i,q) => {
@@ -96,10 +83,11 @@ export const Carrito = ({children}) => {
 
 		task.set()
 	}
+
 //Completa el pedido, lo guarda en Firebase
 	task.buy = (buyer) => {
 		
-		if(user && user.emailVerified){
+		if(user && !user.emailVerified){
 			
 			let buyCollection = {
 			buyer:{id:user.uid,email:user.email,name:user.displayName},
@@ -107,6 +95,7 @@ export const Carrito = ({children}) => {
 			date: new Date(),
 			total: task.getTotal()
 				}
+		
 		order ?
 			task.update(order)
 			:
@@ -115,6 +104,15 @@ export const Carrito = ({children}) => {
 		
 		task.set()
 	}
+
+	task.setReservation = (n) => {
+		for(const item of cart){
+			//fire.updateCollectionDoc("items",item.codigo,{reserva:[{cantidad:item.cantidad,orden:order}]} )
+
+			//fire.updateStock("items",item.codigo,-item.cantidad )
+		}
+	}
+
 
 //Modifica el pedido ya guardado en Firebase.	
 	task.update = (order) => {
@@ -146,6 +144,11 @@ export const Carrito = ({children}) => {
 //
 	task.errores = (e) => {
 		//agregar manejo de errores del cart.. para otro dia.
+	}
+
+	task.clearOrder = () => {
+		setOrder(null)
+		setCart(carroVacio)
 	}
 
 

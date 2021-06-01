@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import {useUserContext} from '../../context/userContext'
 import {Loading} from '../../helpers/helpers'
 
-import {fire}       from '../../firebase'
 import Modal        from '../modal/modal'
 import BotonLogin   from './botonLogin'
 import MultiButton  from './multiButton'
@@ -32,35 +31,31 @@ export default function Login({classNameCont}) {
     }, [])  
 
     useEffect(() => {
-        setLoading(false)
-    }, [user])  
-
-    useEffect(() => {
       setLoading(false)
-     }, [userTask.error,mensaje])      
+     }, [user,userTask.error,mensaje])      
 
     useEffect(() => {
        user && document.getElementById("botonCls").click()
        setTimeout(() => {setMensaje(user ? user.displayName:"Iniciar sesion")}, 500);
-
      }, [user])
 
     useEffect(() => {
        if(form.action){
           userTask.[form.action](form.mail,form.pass,form.name)
           setLoading(true)
+          setForm(clearForm)
         }
-        console.log(form)
-     }, [form])
+     }, [form,userTask])
 
 
     const inputs = (clear=false,run=null) => {
       let fr = document.getElementById(idForm)
       clear && fr.reset() && setForm(clearForm)
+      
       let res = fr.getElementsByTagName("input")
-      return clear ? clearForm
-                  :{mail:res.mail.value, pass:res.pass.value, name:res.name.value,action:run}
-      }
+
+      return {mail:res.mail.value, pass:res.pass.value, name:res.name.value,action:run}
+    }
 
 
     const accion = (e,run) =>{
@@ -91,8 +86,11 @@ export default function Login({classNameCont}) {
         <Modal  titulo = "Inicio de Sesion" id={idModalSesion} error={userTask.error} >
           {/*Body del modal*/}  
           <div>
+           
            <Tabs tabcontrol={[activeTab,setActiveTab]} tabs={[ {name:"Iniciar Sesion"},{name:"Crear cuenta"} ]}></Tabs>
+           
             <form id={idForm} name="fireLogin" >
+                
                  <MultiInput active={activeTab} error={userTask} form={form} seter={setForm}
                              inputList={[
                                      {in:["*"] , name:"mail" , type:"email"    , place:"Ingrese su correo"      , disabled:user},
@@ -100,6 +98,7 @@ export default function Login({classNameCont}) {
                                      {in:[1]   , name:"name" , type:"name"     , place:"Ingrese su Nombre"      , disabled:user}
                                   ]}
                  />
+                 
                  <MultiButton active={activeTab} callback={accion}
                               buttonList={[
                                             {in:[0]   , text:"Ingresar"        , click:"login"  , disabled:user},
@@ -107,19 +106,21 @@ export default function Login({classNameCont}) {
                                             {in:["*"] , text:"Cerrar Sesion"   , click:"logout" , disabled:!user}
                                         ]}
                  />
+
             </form> 
+
           </div>
 
           {/*Mensaje de error de parte de firebase*/}
           {userTask.error.error ? <h6>{userTask.error.full.message}</h6>: <></>}
+         
           {/*Pie del modal*/}
           <div className="opcioncontra">
-            <a href="" onClick={e=>accion(e,"recuperarCuenta")}>
-              Olvidaste tu contraseña?
-            </a>
+            <Link to="" onClick={e=>accion(e,"recuperarCuenta")}>  Olvidaste tu contraseña? </Link>
           </div>
-          {/*Overlay de loading*/}
-          {loading && <Loading size="6"/>}
+          
+          {/*Overlay --> loading*/}
+            {loading && <Loading size="6"/>}
         </Modal>
     </div>
  )

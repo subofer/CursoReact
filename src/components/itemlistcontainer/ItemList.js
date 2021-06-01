@@ -32,15 +32,15 @@ export default function Productos({listaProductos}){
 /*Spiner numerico con comprobación de Stock*/
 export function InputSpiner(item){
   
-  const porcentual = (c,s) => 100-(c/s)*100 
+  //const porcentual = (c,s) => 100-(c/s)*100 
+  //const [porcentaje, setPorcentaje] = useState(0);
   
   const [cart, cartTask] = useCartContext()
   const [count, setCount] = useState(0);
   const [terminar, setTerminar] = useState(false);
-  const [porcentaje, setPorcentaje] = useState(0);
   
   const BotonAdd = (item) =>{
-   
+/*   
    return(
       <span className="ns-btna">
         {!terminar?
@@ -61,7 +61,16 @@ export function InputSpiner(item){
         }
       </span>
     )
-  }
+*/
+ return(
+      <span className="ns-btna">
+              <button onClick={()=>Agregado(item)} type="button" className="btn btn-danger botonCompra">
+              Agregar al carrito
+            </button>
+      </span>
+  )
+
+}
 
 
 /*
@@ -77,7 +86,7 @@ export function InputSpiner(item){
   const BotonProducto = ({dir}) => {
     return(
       <span className="ns-btn">
-        <a onClick={()=>cantidad(dir)} data-dir={dir}><span className={"icon-"+dir}/></a>
+        <Link to="#" onClick={()=>cantidad(dir)} data-dir={dir}><span className={"icon-"+dir}/></Link>
       </span>
     )
   }
@@ -93,14 +102,14 @@ export function InputSpiner(item){
 const styleSpiner = () => {
 //Si hago esta función, tira un error React, anda pero da error.
 //setPorcentaje(porcentual(count,item.stock))
- 
+ /*
      let estilo = { background: (porcentaje === 0 || isNaN(porcentaje)) ? 
       "rgba(255, 0, 0, 0.3)" 
         : 
       "linear-gradient(to right, rgba(0, 255, 0, 0.3)" + porcentaje + "%, white 0%)"
     }
-
-    estilo = {background:"white"}
+*/
+    let estilo = {background:"white"}
 return estilo
 }
 

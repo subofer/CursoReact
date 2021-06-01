@@ -66,10 +66,15 @@ return (
               <ItemListContainer/>
           </Route>
 
+          <Route path="/pedidos/:id">
+              <CartListContainer/>
+          </Route>
+          
           <Route path="/pedidos">
               <CartListContainer/>
           </Route>
-     
+          
+          
           <Route path="/">
             <OnLoadPage/>
           </Route>

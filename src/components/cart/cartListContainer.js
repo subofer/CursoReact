@@ -1,92 +1,120 @@
-import React ,{useEffect}from 'react'
+import React , {useEffect,useState} from 'react'
 import CartList from './cartList'
-import {Link} from "react-router-dom";
-
+import {Link,useParams} from "react-router-dom";
+import {fire} from '../../firebase'
+import {useUserContext} from '../../context/userContext'
 import {useCartContext} from '../../context/cartContext'
+import {dateToStr} from '../../helpers/helpers'
+
 
 
 
 
 export default function CartIconContainer(){
-
-	const [cart, cartTask] = useCartContext()
-
-
-
-	useEffect(()=>{
-
-	},[cart])
-
-
-const TablaPedidos = () =>{
-return(
-	<>
- 	{cart.length>0 ?
-    	<table className="table table-hover" id="tabla_pedidos_compuesta">
-    		<thead><tr><th scope="col">Producto</th><th scope="col">Cantidad</th><th scope="col">Precio</th><th scope="col">Parcial</th><th scope="col"></th></tr></thead>
-      {cart.map((producto,index) => {
-		return(
-			<tbody key={index}>
-			<tr>
-	   	    	<td>{producto.nombre}</td> 
-	   	        <td className="cantidad_unidades">
-	   	        	<button className="boton_menos" onClick={()=>cartTask.cantidades(producto,-1)}/>
-	   	        		{producto.cantidad}
-	   	        	<button className="boton_mas"   onClick={()=>cartTask.cantidades(producto,1)}/>
-	   	        </td>
-	   	        <td>{producto.precio}$</td>
-	   	        <td>{producto.precio*producto.cantidad}$</td>
-	   	        <td><button onClick={()=>cartTask.removeItem(producto)}>X</button></td>
-	   	    </tr>
-	   	    </tbody>
-	  )})}
-    	    <tbody>
-	    		<tr>
-
-	    			<th colSpan="3">Total</th>
-	    			<th>{cartTask.getTotal()}$</th>
-	    			<th colSpan="1"><button onClick={()=>cartTask.clearCart()}>Borrar</button></th>
-	    		
-				</tr>
-	    		<tr>
-	    			
-	    			<th colSpan="2"><button className="btn" onClick={()=>cartTask.buy()}>Guardar pedido</button></th>
-	    			<th colSpan="1"><button className="btn" disabled={cartTask.order==null} onClick={()=>cartTask.update(cartTask.order)}>Actualizar pedido</button></th>
-	    			<th colSpan="2"><button className="btn" disabled={cartTask.order==null} onClick={()=>cartTask.clearBuy(cartTask.order)}>Eliminar pedido</button></th>
-					
-				</tr>
-			</tbody>
-		</table>
-    :
-	    <table className="table table-hover" id="tabla_pedidos_compuesta">
-	    	<thead>
-	    		<tr>
-    	        	<th scope="col">El carrito esta Vacio</th>
-    	        </tr>
-    	    </thead>
-    	    <tbody>
-    	    	<tr>
-    	    		<td>
-    	    			<p>Hace tu pedido desde <Link to="/productos" data-toggle="modal">aqui</Link>, seleccionando los productos</p>
-    	    		</td>
-    	    	</tr>
-			</tbody>
-		</table>
 	
-	    }
-	</>
-	)	
-}
+	const {id} = useParams()
+	
+	const [cart, cartTask] = useCartContext()
+	const [user,userTask] = useUserContext()
+	const [orders, setOrders] = useState([])
+	const [idorder, setIdorders] = useState([])
 
-	return(	
-		<CartList 
-			cartTask = {cartTask}
-			cart ={cart}
-			DetallePedido = {TablaPedidos}
-		/>
+ useEffect(() => {
+	user? fire.getCollection(setOrders,"orders",{where:["buyer.id","==",user.uid]}) : setOrders([])
+ },[user]);
+
+
+useEffect(() => {
+	console.log(orders)
+ },[orders]);
+
+useEffect(() => {
+	id  ? fire.getCollection(setIdorders,"orders",{doc:id}) : setOrders([])
+ },[id]);
+
+
+
+const TablaPedidos = ({ordenes,estado}) =>{
+
+return(
+
+	<table className="accordion table table-condensed table-striped">
+    	<thead>
+    	    <tr>
+				<th>Fecha</th> <th>Total</th> <th>Estado</th> <th></th>
+    	    </tr>
+    	</thead>
+    <tbody>
+{ordenes.map( (order,index) =>
+	
+	order.estado === estado || !estado ?
+		<>
+        <tr id="tablaPedidos">
+            <td>{dateToStr(order.date)}</td>
+            <td>${order.total} </td>
+            <td>{order.estado} </td>
+
+           <td><button className="btn btn-default btn-xs"
+           			   data-toggle="collapse"
+           			   data-parent="#tablaPedidos"
+           			   data-target={"#orden-" + index}
+           			   aria-expanded="true"
+           		>
+           			Ver Detalle
+           		</button>
+           	</td>
+        </tr>
+      	
+      	<tr>
+          	<td colspan="12" className="hiddenRow">
+				<div className="accordian-body collapse" id={"orden-" + index} > 
+              		
+              		<table className="table table-striped">
+    				 <thead> <tr> <th scope="col">Producto</th> <th scope="col">Cantidad</th> <th scope="col">Precio</th> <th scope="col">Parcial</th></tr> </thead>
+					<tbody key={index}>
+							{order.cart.map((producto,index) =>
+							<tr>
+					   	    	<td>{producto.nombre}</td> 
+					   	        <td className="cantidad_unidades">{producto.cantidad}</td>
+					   	        <td>{producto.precio}$</td>
+					   	        <td>{producto.precio*producto.cantidad}$</td>
+					   	    </tr>	)}
+	   	    		</tbody>
+              		</table>
+				</div> 
+			</td>
+    	</tr>
+  		</> : ""
+	)}		
+
+
+   </tbody>
+ </table>
+
 	)
 }
 
 
 
+	return(	
+		user?
+		<CartList titulo={"Pedidos de " + user.displayName} >
+		
+			{/* Orden particular */}
+			{id ? <TablaPedidos ordenes={idorder}/>:""}
+			
+			{/* pedidos abiertos */}
+			<TablaPedidos ordenes={orders} estado="pendiende"/>
+			
+			{/* pedidos cerrados */}
+			<TablaPedidos ordenes={orders} estado="entregado"/>
+			
+		</CartList>
+		:
+		<CartList titulo={"Por favor inicie sesión"} >
+			
+			{id && <TablaPedidos ordenes={idorder}/>}
+		</CartList>
+	)
+}
 

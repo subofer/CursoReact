@@ -18,3 +18,8 @@ return(
 export function May(str){
 		return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function dateToStr(dd){
+	let nas = dd.toDate().toString().split(" ")
+	return nas[2] + "/" + nas[1] + "/" + nas[3] + " " + (nas[4].slice(0, -3))
+}

@@ -28,8 +28,9 @@ export const Carrito = ({children}) => {
 
 	
 	useEffect(()=>{
-		task.setReservation(order)
+		order && setCart(carroVacio)
 	},[order])
+
 
 	useEffect(()=>{
 
@@ -93,7 +94,8 @@ export const Carrito = ({children}) => {
 			buyer:{id:user.uid,email:user.email,name:user.displayName},
 			cart,
 			date: new Date(),
-			total: task.getTotal()
+			total: task.getTotal(),
+			estado:"pendiende"
 				}
 		
 		order ?
@@ -148,7 +150,7 @@ export const Carrito = ({children}) => {
 
 	task.clearOrder = () => {
 		setOrder(null)
-		setCart(carroVacio)
+		//setCart(carroVacio)
 	}
 
 

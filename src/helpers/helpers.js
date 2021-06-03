@@ -23,3 +23,7 @@ export function dateToStr(dd){
 	let nas = dd.toDate().toString().split(" ")
 	return nas[2] + "/" + nas[1] + "/" + nas[3] + " " + (nas[4].slice(0, -3))
 }
+
+export function randomKey(){ 
+	return Math.floor(Math.random() * 10000)
+}

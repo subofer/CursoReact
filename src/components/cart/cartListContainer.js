@@ -4,7 +4,7 @@ import {Link,useParams} from "react-router-dom";
 import {fire} from '../../firebase'
 import {useUserContext} from '../../context/userContext'
 import {useCartContext} from '../../context/cartContext'
-import {dateToStr} from '../../helpers/helpers'
+import {dateToStr,randomKey,May} from '../../helpers/helpers'
 
 
 
@@ -17,104 +17,122 @@ export default function CartIconContainer(){
 	const [cart, cartTask] = useCartContext()
 	const [user,userTask] = useUserContext()
 	const [orders, setOrders] = useState([])
-	const [idorder, setIdorders] = useState([])
+	const [idorder, setIdorders] = useState(null)
+	const [disparo, setDisparo] = useState()
 
  useEffect(() => {
-	user? fire.getCollection(setOrders,"orders",{where:["buyer.id","==",user.uid]}) : setOrders([])
- },[user]);
-
-
-useEffect(() => {
-	console.log(orders)
- },[orders]);
+	user ? fire.getCollection(setOrders,"orders",{where:["buyer.id","==",user.uid]}) : setOrders([])
+ },[user,disparo]);
 
 useEffect(() => {
-	id  ? fire.getCollection(setIdorders,"orders",{doc:id}) : setOrders([])
- },[id]);
+	id  ? fire.getCollection(setIdorders,"orders",{doc:id}) : setIdorders(null)
+ },[id,disparo]);
 
-
-
-const TablaPedidos = ({ordenes,estado}) =>{
-
-return(
-
-	<table className="accordion table table-condensed table-striped">
-    	<thead>
-    	    <tr>
-				<th>Fecha</th> <th>Total</th> <th>Estado</th> <th></th>
-    	    </tr>
-    	</thead>
-    <tbody>
-{ordenes.map( (order,index) =>
+useEffect(() => {
 	
-	order.estado === estado || !estado ?
+ },[orders,idorder]);
+
+
+const Tabla = ({ordenes,estado,callback,data}) =>{
+return(
+	<table id="tablaPedidos" className="table table-condensed table-hover">
+		<thead>
+		{ordenes ?	
+			<tr>
+				<th>Fecha</th>
+				<th>Total</th>
+				<th>Estado</th>
+				<th>Acciones</th>
+			</tr>
+			:
+			<tr>
+				<th>Orden no encontrada</th>
+			</tr>
+		}
+		</thead>
+		
+		<tbody className="table-hover">
+{ordenes ? ordenes.map( (order,index) =>
+	
+	(order.estado === estado || !estado) ?
 		<>
-        <tr id="tablaPedidos">
-            <td>{dateToStr(order.date)}</td>
-            <td>${order.total} </td>
-            <td>{order.estado} </td>
-
-           <td><button className="btn btn-default btn-xs"
-           			   data-toggle="collapse"
-           			   data-parent="#tablaPedidos"
-           			   data-target={"#orden-" + index}
-           			   aria-expanded="true"
-           		>
-           			Ver Detalle
-           		</button>
-           	</td>
-        </tr>
-      	
-      	<tr>
-          	<td colspan="12" className="hiddenRow">
-				<div className="accordian-body collapse" id={"orden-" + index} > 
-              		
-              		<table className="table table-striped">
-    				 <thead> <tr> <th scope="col">Producto</th> <th scope="col">Cantidad</th> <th scope="col">Precio</th> <th scope="col">Parcial</th></tr> </thead>
-					<tbody key={index}>
-							{order.cart.map((producto,index) =>
-							<tr>
-					   	    	<td>{producto.nombre}</td> 
-					   	        <td className="cantidad_unidades">{producto.cantidad}</td>
-					   	        <td>{producto.precio}$</td>
-					   	        <td>{producto.precio*producto.cantidad}$</td>
-					   	    </tr>	)}
-	   	    		</tbody>
-              		</table>
-				</div> 
+		<tr style={{height: '3.2rem'}}>
+			<td>{dateToStr(order.date)}</td>
+			<td>${order.total}</td>
+			<td>{May(order.estado)}</td>
+			<td><button className="btn btn-default btn-xs btn-danger"
+						disabled= {estado==="entregado"}
+						style={{padding: '5px'}}
+						onClick={()=> {
+							setDisparo(true)
+							fire.deleteCollectionDoc("orders",order.id,callback,orders.filter(i=>i.id!=order.id))
+						}}
+				> Eliminar </button>&nbsp;&nbsp;&nbsp;&nbsp;
+			
+			<button className="btn btn-default btn-xs btn-secondary"
+						style={{padding: '5px'}}
+						data-toggle="collapse"
+						data-target={"#orden-" + index}
+						aria-expanded="true"
+				> Ver Detalle</button>
 			</td>
-    	</tr>
-  		</> : ""
-	)}		
 
-
-   </tbody>
- </table>
-
+		</tr>
+		<tr>
+			<td colSpan="12" className="hiddenRow">
+				<div   className="accordian-body collapse" id={"orden-"+index} > 
+					<table className="table table-sm">
+						<thead>
+							<tr>
+								<th scope="col">Producto</th>
+								<th scope="col">Cantidad</th>
+								<th scope="col">Precio</th>
+								<th scope="col">Parcial</th>
+							</tr>
+						</thead>
+						<tbody>
+					{order.cart.map((producto,index) =>
+							<tr>
+								<td>{producto.nombre}</td>
+								<td className="cantidad_unidades">{producto.cantidad}</td>
+								<td>{producto.precio}$</td>
+								<td>{producto.precio*producto.cantidad}$</td>
+							</tr>
+					)}
+						</tbody>
+					</table>
+				</div>
+			</td>
+		</tr>
+			</> : null
+		)
+		:
+		<tr><td colSpan="12">Por favor, compruebe el numero ingresado</td></tr>
+}		
+		</tbody>
+	</table>
 	)
 }
-
-
 
 	return(	
 		user?
 		<CartList titulo={"Pedidos de " + user.displayName} >
 		
 			{/* Orden particular */}
-			{id ? <TablaPedidos ordenes={idorder}/>:""}
-			
+			{id && idorder ? <Tabla ordenes={idorder} callback={setIdorders}/> : <hide></hide>}
+			 
 			{/* pedidos abiertos */}
-			<TablaPedidos ordenes={orders} estado="pendiende"/>
+			<Tabla ordenes={orders} estado="pendiende" callback={setOrders}/>
 			
 			{/* pedidos cerrados */}
-			<TablaPedidos ordenes={orders} estado="entregado"/>
+			<Tabla ordenes={orders} estado="entregado" callback={setOrders}/>
 			
 		</CartList>
 		:
 		<CartList titulo={"Por favor inicie sesión"} >
 			
-			{id && <TablaPedidos ordenes={idorder}/>}
+			{id ? <Tabla ordenes={idorder}/> : <hide></hide>}
+
 		</CartList>
 	)
 }
-

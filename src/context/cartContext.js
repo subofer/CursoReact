@@ -87,7 +87,7 @@ export const Carrito = ({children}) => {
 
 //Completa el pedido, lo guarda en Firebase
 	task.buy = (buyer) => {
-		
+		//cambiar el ! para la version final, avisar si no esta verificado..
 		if(user && !user.emailVerified){
 			
 			let buyCollection = {
@@ -98,21 +98,16 @@ export const Carrito = ({children}) => {
 			estado:"pendiende"
 				}
 		
-		order ?
-			task.update(order)
-			:
-			fire.setCollection("orders",[buyCollection],"",setOrder)
-		}
+			order ?
+				task.update(order)
+				:
+				fire.setCollection("orders",[buyCollection],"",setOrder)
 		
-		task.set()
-	}
-
-	task.setReservation = (n) => {
-		for(const item of cart){
-			//fire.updateCollectionDoc("items",item.codigo,{reserva:[{cantidad:item.cantidad,orden:order}]} )
-
-			//fire.updateStock("items",item.codigo,-item.cantidad )
+			for(const item of cart){
+				task.updateStock("items",item.codigo,item.stock-item.cantidad )
+			}
 		}
+		task.set()
 	}
 
 
@@ -133,11 +128,8 @@ export const Carrito = ({children}) => {
 
 
 //Actualiza	el stock de la base de datos, con respecto al pedido
-	task.updatesStock = () => {
-		//tengo que poner en firebase, el batch, para cambiar los stocks.
-			cart.forEach(item => {
-					fire.updateCollectionDoc("items",item.codigo,{stock:item.stock-item.cantidad})
-			})
+	task.updateStock = (collection,id,n) => {
+					fire.updateCollectionDoc(collection,id,{stock:n})
 	}
 
 //Devuelve la cantidad total de items en el carrito.

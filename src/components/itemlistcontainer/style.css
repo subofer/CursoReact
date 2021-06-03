@@ -329,3 +329,7 @@ form {
         font-size: 38px;
         line-height: 35px;
         font-weight: bold; }
+		.table td { 
+		padding:0;
+		vertical-align: middle;
+		}

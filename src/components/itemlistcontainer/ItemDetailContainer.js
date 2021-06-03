@@ -15,12 +15,11 @@ export default function ItemDetailContainer() {
     const {id} = useParams()
 
     useEffect(() => {
-      let opciones = {doc:id}
 
-      fire.getCollection(SetListadoProductos,"items",opciones)
-      
+      fire.getCollection(SetListadoProductos,"items",{doc:id})
+ 
+     },[id]);
 
-    },[id]);
 
 return(
   ListadoProductos.length > 0 ? 

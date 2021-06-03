@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
+
 
 export default function Modal({id,titulo,error,children}){
-  
-  //useEffect(() => {}, [error,children])    
-  
+ 
   let childs = React.Children.toArray(children)
 
 	return(

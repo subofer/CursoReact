@@ -35,7 +35,6 @@ export const FireUser = ({children}) => {
 
 
 task.login = (userEmail,password) => {
-	console.log(userEmail,password)
  		auth.signInWithEmailAndPassword(userEmail, password)
 	    .then((userCredential) => {
 	    	task.active() 

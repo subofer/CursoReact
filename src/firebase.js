@@ -37,15 +37,27 @@ let fireGet = db.collection(collection);
   let wh    =  opt.where ? fireGet.where(opt.where[0],opt.where[1],opt.where[2]): dc
   let geter =  opt.sort  ? wh.orderBy(opt.sort.key,opt.sort.order)              : wh
 
+
   geter.get()
   .then( querySnapshot  => {
+  opt.doc && !querySnapshot.exists ? callback(null)  
+    :
       callback(opt.doc ?
-                    [querySnapshot.data()]
-                :
-                    querySnapshot.docs.map( i => i.data() )
-      )
-  })
-  .catch( error => {console.error("Error geting documents: ", error)} )
+                      [{...querySnapshot.data(),id:querySnapshot.id}]
+                      :
+                      querySnapshot.docs.map( i => {
+                        return(  {...i.data(),id:i.id} )
+                      })
+                  )
+
+       
+ 
+   })
+  .catch( error => {
+    
+    console.error("Error geting documents: ", error)
+
+  } )
 };
 
 
@@ -86,9 +98,10 @@ fire.updateStock = (collectionName, doc, values) => {
 }
 
 
-fire.deleteCollectionDoc = (collectionName, doc,callback) => {
+fire.deleteCollectionDoc = (collectionName, doc,callback,option) => {
     db.collection(collectionName).doc(doc).delete()
-    callback(null)
+    
+    callback(option?option:null)
 }
 
 

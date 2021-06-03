@@ -24,6 +24,6 @@ export function dateToStr(dd){
 	return nas[2] + "/" + nas[1] + "/" + nas[3] + " " + (nas[4].slice(0, -3))
 }
 
-export function randomKey(){ 
-	return Math.floor(Math.random() * 10000)
+export function randomKey(tam=10000){ 
+	return Math.floor(Math.random() * tam)
 }

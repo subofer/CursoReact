@@ -1,6 +1,6 @@
 import React from 'react'
 import {NavLink} from "react-router-dom";
-
+import {May} from '../../helpers/helpers'
 
 export default function NavBar({listaNav,user,setUser}) {
 
@@ -34,7 +34,7 @@ export default function NavBar({listaNav,user,setUser}) {
         {drop.map( (dropItem, index) => 
           <NavLink  key = {index+"drop-item"} className="dropdown-item" to={to+dropItem.enlace}>
         
-            {dropItem.nombre}
+            {May(dropItem.nombre)}
         
           </NavLink>
         )}

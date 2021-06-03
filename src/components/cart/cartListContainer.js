@@ -32,100 +32,105 @@ useEffect(() => {
 	
  },[orders,idorder]);
 
+//Etaba probando como leer el nombre del tag enviado como children.
+const Hide = () => <hide></hide>
 
-const Tabla = ({ordenes,estado,callback,data}) =>{
+const Tabla = ({listado,callback,data}) =>{
 return(
+
+listado && listado.length >0? 
 	<table id="tablaPedidos" className="table table-condensed table-hover">
 		<thead>
-		{ordenes ?	
 			<tr>
 				<th>Fecha</th>
 				<th>Total</th>
 				<th>Estado</th>
 				<th>Acciones</th>
 			</tr>
-			:
-			<tr>
-				<th>Orden no encontrada</th>
-			</tr>
-		}
 		</thead>
 		
 		<tbody className="table-hover">
-{ordenes ? ordenes.map( (order,index) =>
-	
-	(order.estado === estado || !estado) ?
-		<>
-		<tr style={{height: '3.2rem'}}>
-			<td>{dateToStr(order.date)}</td>
-			<td>${order.total}</td>
-			<td>{May(order.estado)}</td>
-			<td><button className="btn btn-default btn-xs btn-danger"
-						disabled= {estado==="entregado"}
+		{listado.map((orden,index) =>
+			<>
+			<tr style={{height: '3.2rem'}}>
+				<td>{dateToStr(orden.date)}</td>
+				<td>${orden.total}</td>
+				<td>{May(orden.estado)}</td>
+				<td><button className="btn btn-default btn-xs btn-danger"
+						disabled= {orden.estado ==="entregado"}
 						style={{padding: '5px'}}
 						onClick={()=> {
 							setDisparo(true)
-							fire.deleteCollectionDoc("orders",order.id,callback,orders.filter(i=>i.id!=order.id))
+							fire.deleteCollectionDoc("orders",orden.id,callback,orders.filter(i=>i.id!=orden.id))
 						}}
-				> Eliminar </button>&nbsp;&nbsp;&nbsp;&nbsp;
-			
-			<button className="btn btn-default btn-xs btn-secondary"
+					> Eliminar </button>
+			  			&nbsp;&nbsp;&nbsp;&nbsp;
+					<button className="btn btn-default btn-xs btn-secondary"
 						style={{padding: '5px'}}
 						data-toggle="collapse"
-						data-target={"#orden-" + index}
+						data-target={"#orden-" + orden.id}
 						aria-expanded="true"
-				> Ver Detalle</button>
-			</td>
+					> Ver Detalle  </button>
+				</td>
+			</tr>
+			<tr>
+				<td colSpan="12" className="hiddenRow">
+					<div   className="accordian-body collapse" id={"orden-" + orden.id} > 
+						<table className="table table-sm">
+							<thead>
+								<tr>
+									<th scope="col">Producto</th>
+									<th scope="col">Cantidad</th>
+									<th scope="col">Precio</th>
+									<th scope="col">Parcial</th>
+								</tr>
+							</thead>
+							<tbody>
+							
+							{orden.cart.map((producto,index) =>
 
-		</tr>
-		<tr>
-			<td colSpan="12" className="hiddenRow">
-				<div   className="accordian-body collapse" id={"orden-"+index} > 
-					<table className="table table-sm">
-						<thead>
-							<tr>
-								<th scope="col">Producto</th>
-								<th scope="col">Cantidad</th>
-								<th scope="col">Precio</th>
-								<th scope="col">Parcial</th>
-							</tr>
-						</thead>
-						<tbody>
-					{order.cart.map((producto,index) =>
-							<tr>
-								<td>{producto.nombre}</td>
-								<td className="cantidad_unidades">{producto.cantidad}</td>
-								<td>{producto.precio}$</td>
-								<td>{producto.precio*producto.cantidad}$</td>
-							</tr>
-					)}
-						</tbody>
-					</table>
-				</div>
-			</td>
-		</tr>
-			</> : null
-		)
-		:
-		<tr><td colSpan="12">Por favor, compruebe el numero ingresado</td></tr>
-}		
+								<tr>
+									<td><Link to={"/productos/"+producto.familia+"/"+producto.id}>{producto.nombre}</Link></td>
+									<td className="cantidad_unidades">{producto.cantidad}</td>
+									<td>{producto.precio}$</td>
+									<td>{producto.precio*producto.cantidad}$</td>
+								</tr>
+							)}
+
+							</tbody>
+						</table>
+					</div>
+				</td>
+			</tr>
+			</>
+		)}		
+		</tbody>
+	</table>
+
+:
+	<table id="tablaPedidos" className="table table-condensed table-hover">
+		<thead><tr><th>No se encuentran pedidos</th></tr></thead>
+		<tbody className="table-hover">
+			<tr><td>No hay pedidos para mostrar en este campo</td></tr>
 		</tbody>
 	</table>
 	)
 }
 
+
+
 	return(	
 		user?
 		<CartList titulo={"Pedidos de " + user.displayName} >
-		
+			
 			{/* Orden particular */}
-			{id && idorder ? <Tabla ordenes={idorder} callback={setIdorders}/> : <hide></hide>}
-			 
+			{id && idorder ? <Tabla listado={idorder} callback={setIdorders}/>: <Hide/>}
+
 			{/* pedidos abiertos */}
-			<Tabla ordenes={orders} estado="pendiende" callback={setOrders}/>
+			<Tabla listado={orders.filter(l => l.estado === "pendiende")} callback={setOrders}/>
 			
 			{/* pedidos cerrados */}
-			<Tabla ordenes={orders} estado="entregado" callback={setOrders}/>
+			<Tabla listado={orders.filter(l => l.estado === "entregado")} callback={setOrders}/>
 			
 		</CartList>
 		:

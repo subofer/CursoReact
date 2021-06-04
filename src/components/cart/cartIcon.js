@@ -68,10 +68,7 @@ let total = cartTask.getCantidadTotal>0?cartTask.getCantidadTotal:""
 		  			data-dismiss={total>0?"":"modal"} 
 		  			className="btn btn-secondary">Finalizar</button></>
 			</Modal>
-
 		}
-
-
 		  </div>
 	)
 }

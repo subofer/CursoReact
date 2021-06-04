@@ -88,9 +88,13 @@ fire.updateCollectionDoc = (collectionName, doc, values) => {
     .catch( error  => {console.error ("Error updating document: "   , error    ) })
 }
 
+fire.togleDeliver = (order) => {
+  fire.updateCollectionDoc("orders", order.id, {entregado: !order.entregado})
+}
+
+
 
 fire.updateStock = (collectionName, doc, values) => {
-  
   db.collection(collectionName)
     .doc(doc)
     .update({stock:firebase.firestore.FieldValue.increment(values)})
@@ -106,7 +110,7 @@ fire.deleteCollectionDoc = (collectionName, doc,callback,option) => {
 
 
 
-
+/*
 fire.getActiveUserOrders = (callback) =>{
 
 fire.activeUser(callback)
@@ -114,7 +118,7 @@ fire.activeUser(callback)
 
 
 }
-
+*/
 
 
 //fire.login("pepe@hotmail.com","123456",console.log)

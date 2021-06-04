@@ -26,14 +26,17 @@ return(
  	{cart.length>0 ?
 		<table className="table table-hover" id="tabla_pedidos_compuesta">
 			<thead>
-				<tr key={randomKey()}>
-					<th scope="col">Producto</th><th scope="col">Cantidad</th><th scope="col">Precio</th><th scope="col"></th>
+				<tr>
+					<th scope="col">Producto</th>
+					<th scope="col">Cantidad</th>
+					<th scope="col">Precio</th>
+					<th scope="col"></th>
 				</tr>
 			</thead>
 			
 			<tbody>
 		{cart.map((producto,index) => 
-			<tr key={randomKey()}>
+			<tr>
 				<td>{producto.nombre}</td>
 				<td className="cantidad_unidades">
 					<button className="boton_menos" onClick={()=>cartTask.cantidades(producto,-1)}/>
@@ -47,7 +50,7 @@ return(
 			</tbody>
 
 			<tbody>
-				<tr key={randomKey()}>
+				<tr>
 				<td></td>
 					<th>Total</th>
 					<th>{cartTask.getTotal()}$</th>
@@ -57,12 +60,12 @@ return(
 		:
 		<table className="table table-hover" id="tabla_pedidos_compuesta">
 			<thead>
-				<tr key={randomKey()}>
+				<tr>
 					<th scope="col">El carrito esta Vacio</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr key={randomKey()}>
+				<tr>
 					<td>
 						<p>Hace tu pedido desde <Link to="/productos" data-toggle="modal">aqui</Link>, seleccionando los productos</p>
 					</td>

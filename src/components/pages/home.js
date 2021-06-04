@@ -25,7 +25,8 @@ const imagenes_carrousel = [
 
 return(
 <>
-<div className="row py-3 justify-content-center">    
+
+<div className="row py-3 align-items-center justify-content-center">    
     <div className="col-8 pb-4 align-self-center">
         <h1>No es solo hacer comida.</h1> 
     </div>
@@ -41,9 +42,9 @@ return(
 
 
 
-<div className="row justify-content-center">
-    <div className="col-7">
-        <div id="calesita" className="carousel slide" data-bs-ride="carousel">
+<div className="row align-items-center justify-content-center">
+    <div className="col-5">
+        <div id="calesita" className="col-8 carousel slide" data-bs-ride="carousel">
             <div className="carousel-inner">
                 
                 {imagenes_carrousel.map((imagen,index)=>
@@ -66,7 +67,7 @@ return(
         </div>
     </div>
 </div>      
-    <div className="row justify-content-center">
+    <div className="row align-items-center justify-content-center">
         <div className="col-8 align-self-center">
             <p className="pt-2">Nuestro objetivo es simple, compartir el amor que le ponemos a la comida, para que todos puedan comer rico y sano =)</p>
         </div> 

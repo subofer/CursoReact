@@ -27,7 +27,7 @@ export const Carrito = ({children}) => {
 	const [stockItem, setStockItem] = useState(carroVacio)
 
 	useEffect(()=>{
-		//order && setCart(carroVacio)
+		order && setCart(carroVacio)
 	},[order])
 
 	useEffect(() => {
@@ -102,25 +102,24 @@ export const Carrito = ({children}) => {
 
 //Completa el pedido, lo guarda en Firebase
 	task.buy = (buyer) => {
-		//cambiar el ! para la version final, avisar si no esta verificado..
-		if(user && !user.emailVerified){
+		//cambiar para la version final, avisar si el correo no esta verificado..
+		//if(user && user.emailVerified ){
+		if(user){
 			
 			let buyCollection = {
 			buyer:{id:user.uid,email:user.email,name:user.displayName},
 			cart,
 			date: new Date(),
 			total: task.getTotal(),
-			estado:"pendiende"
+			entregado:false
 				}
 		
 			order ?
 				task.update(order)
 				:
 				fire.setCollection("orders",[buyCollection],"",setOrder)
-		
-			for(const item of cart){
-				task.updateStock("items",item.codigo,item.stock-item.cantidad )
-			}
+					
+				cart.forEach(item => task.updateItemStock(item) )
 		}
 		task.set()
 	}
@@ -143,8 +142,8 @@ export const Carrito = ({children}) => {
 
 
 //Actualiza	el stock de la base de datos, con respecto al pedido
-	task.updateStock = (collection,id,n) => {
-					fire.updateCollectionDoc(collection,id,{stock:n})
+	task.updateItemStock = (item) => {
+		fire.updateCollectionDoc("items",item.id,{stock:item.stock-item.cantidad})
 	}
 
 //Devuelve la cantidad total de items en el carrito.

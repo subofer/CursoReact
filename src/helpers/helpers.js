@@ -19,11 +19,49 @@ export function May(str){
 		return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export function dateToStr(dd){
+export function dateToStr(dd,type=1){
 	let nas = dd.toDate().toString().split(" ")
-	return nas[2] + "/" + nas[1] + "/" + nas[3] + " " + (nas[4].slice(0, -3))
+	switch (type){
+		case 1:
+			return nas[2] + "/" + nas[1] + "/" + nas[3] + " " + (nas[4].slice(0, -3))
+		break;
+		case 2:
+			return nas[2] + "/" + nas[1]
+		break;
+	}
 }
 
-export function randomKey(tam=10000){ 
+export function randomKey(tam=1000000){ 
 	return Math.floor(Math.random() * tam)
+}
+
+
+export function FloatLoading( {size=5,space=5,text="Loading...",show=false} ){
+
+return(
+
+show &&
+
+<div style={{
+	width: "50%",
+    height: "100%",
+    position: "relative",
+    top: "10px",
+    left: "-5%"
+	
+    
+}}>
+
+        <div className={"spinner-border text-primary m-"+space} 
+        	 style={{
+				width: "100%",
+  				height: "80%",
+  				position: "absolute",
+        	 	opacity:"1", 
+				zIndex: "9000",
+        	 	width: size+"rem", height: size+"rem"}} 
+        	  role="status">
+        </div>
+</div>
+)
 }

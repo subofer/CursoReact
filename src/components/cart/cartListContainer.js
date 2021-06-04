@@ -134,9 +134,9 @@ listado && listado.length >0?
 			
 		</CartList>
 		:
-		<CartList titulo={"Por favor inicie sesión"} >
+		<CartList titulo={"Por favor inicie sesión para ver todas sus ordenes"} >
 			
-			{id ? <Tabla ordenes={idorder}/> : <hide></hide>}
+			{id && idorder ? <Tabla listado={idorder}/> : <Hide/>}
 
 		</CartList>
 	)

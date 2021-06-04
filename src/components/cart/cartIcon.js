@@ -17,7 +17,8 @@ let total = cartTask.getCantidadTotal>0?cartTask.getCantidadTotal:""
 			    </button>
 
 			    <button data-toggle="modal" type="button" className="btn btn-danger btn-lg order_mobile"  data-target="#pedido_online" >
-			    	<span id="total_carro_m" className="badge bg-secondary">{total}</span>    
+			    	<img src="images/icon/shopping-cart.svg"/>
+			    	<span id="total_carro_m" className="badge badge-pill">{total}</span>    
 			   	</button>
 
 			</div>
@@ -25,13 +26,19 @@ let total = cartTask.getCantidadTotal>0?cartTask.getCantidadTotal:""
 		{!cartTask.order?
 			<Modal id="pedido_online" titulo= "Detalle del pedido">
 		  		<DetallePedido/>
-		  		<></>
+		  		<>{!cartTask.user && total>0 ?"Debe iniciar sesion para poder comprar":""}</>
 		  		<>
+	 			
 	 			{total>0 ? <button type="reset" onClick={() => cartTask.clearCart()} className="btn btn-danger">Vaciar carrito</button>:null}
 	 			
-	 			{total>0 ? <button type="button" onClick={() => {setLoading(true);cartTask.buy();}} value="Enviar" className="btn btn-success">Terminar Compra</button> 
-	 				:
-	 					<button type="button" value="Enviar" data-dismiss="modal" className="btn btn-secondary">Seguir Comprando</button>
+	 			{total>0 ? 
+	 			  (cartTask.user?
+	 				<button type="button" onClick={() => {setLoading(true);cartTask.buy()}} value="Enviar" className="btn btn-success">Terminar Compra</button> 
+					:	 				
+					<button className="btn btn-secondary" type="button" data-dismiss="modal" data-toggle="modal" data-target={"#Inicia_Sesion"}>Iniciar sesion</button>
+				  )
+ 				:
+ 					<button type="button" value="Enviar" data-dismiss="modal" className="btn btn-secondary">Seguir Comprando</button>
 		 		} 
 
 	            </>

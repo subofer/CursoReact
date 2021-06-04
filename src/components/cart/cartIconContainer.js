@@ -15,7 +15,7 @@ export default function CartIconContainer(){
 	},[cartTask.order])
 	
 	useEffect(()=>{
-		 
+		setLoading(false)
 	},[cart])
 
 

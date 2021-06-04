@@ -17,20 +17,17 @@ export default function NavBar({listaNav,user,setUser}) {
     
     :
     
-      <li key={id+"li"} className="nav-item dropdown">
-        <NavLink  key={id+"nav"} activeClassName="activo" className='nav-link dropdown-toggle' aria-haspopup="true" 
-                  aria-expanded="true" id="navbarDropdown" role="button" data-toggle="dropdown" to={to}>
-          
+      <li key={id+"li"} className="nav-item dropdown btn-group">
+
+        <NavLink to={to} key={id+"nav"} id="navbarDropdown" style={{marginRight: '0'}}  activeClassName="activo" className="nav-link">
           {contenido}
-        
         </NavLink>
-        
+        <a style={{paddingLeft: '0',marginLeft: '0px',marginRight: '10px',transform: "translate(-5px,0px)"}}
+            className="nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </a>
+
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <NavLink  key="original-drop-item" className="dropdown-item" to={to}>                 
-        
-            {contenido}
-        
-          </NavLink>
+
         {drop.map( (dropItem, index) => 
           <NavLink  key = {index+"drop-item"} className="dropdown-item" to={to+dropItem.enlace}>
         

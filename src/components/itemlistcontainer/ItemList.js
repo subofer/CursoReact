@@ -144,10 +144,11 @@ export function ProductCard({nombre,texto,img,stock,botonera,detalle}){
         <img className="card-img-top" src={process.env.PUBLIC_URL + img} alt={nombre}/>
         <div className="card-body">
           <h5 className="card-title">{nombre}</h5>
-          <p className="card-text"></p>
           <p className="card-text">{texto}</p>
-              {botonera} {detalle}
-          <p className="card-text"></p>
+        </div>
+        <div className="card-footer" style={{backgroundColor: 'lightgrey'}}>
+          <div className="card-text" style={{marginVertical: '-10px'}}>{botonera}</div>
+          <div className="card-text" style={{marginVertical: '-10px'}}>{detalle}</div>
         </div>
       </div>
     </div>

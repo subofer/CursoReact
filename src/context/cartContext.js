@@ -2,7 +2,7 @@ import React, {useState,useEffect,useContext} from 'react'
 import {fire} from '../firebase'
 import {useUserContext} from './userContext'
 
-
+import {randomKey} from '../helpers/helpers'
 //agregar, guardar el cart en el local storage y recuperarlo...
 //restar stock de la base de datos una vez generada la orden del usuario o una vez "despachado"
 	//general la task.dispachOrder()
@@ -26,20 +26,35 @@ export const Carrito = ({children}) => {
 
 	const [stockItem, setStockItem] = useState(carroVacio)
 
-	
 	useEffect(()=>{
-		order && setCart(carroVacio)
+		//order && setCart(carroVacio)
 	},[order])
 
-
+	useEffect(() => {
+		task.readFromLocal('tempCart',setCart,user)
+	}, [user])
+	
 	useEffect(()=>{
-
+		task.saveToLocal('tempCart',cart!=carroVacio,user)
 	},[cart,stockItem,user])
 
-
+	task.user = user
+	task.userTask = userTask
 	task.cart = cart
 	task.order = order
 	task.setOrder = setOrder
+
+
+	task.readFromLocal = (key, callback,user) =>{
+		key = user?key+user.uid:key
+		let lst = JSON.parse(localStorage.getItem(key)) || carroVacio
+		return callback(lst) || lst
+	}
+	
+	task.saveToLocal = (key,condition,user) =>{
+		key = user?key+user.uid:key
+		condition && localStorage.setItem(key, JSON.stringify(cart));
+	}
 
 //Agregar item unico, o cantidad al existente.
 	task.addToCart = (i,q) => {

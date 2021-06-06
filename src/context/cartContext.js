@@ -145,7 +145,10 @@ export const Carrito = ({children}) => {
 
 //Actualiza	el stock de la base de datos, con respecto al pedido
 	task.updateItemStock = (item) => {
+
+
 		fire.updateCollectionDoc("items",item.id,{stock:item.stock-item.cantidad})
+
 	}
 
 //Devuelve la cantidad total de items en el carrito.

@@ -95,6 +95,19 @@ fire.updateStock = (collectionName, doc, values) => {
     .catch( error  => {console.error ("Error updating document: "   , error    ) })
 }
 
+fire.updateStock2 = (carro) => {
+  const updates = {};
+
+  carro.forEach(item => {
+   updates[`items/${item.codigo}/stock`] = firebase.firestore.FieldValue.increment(1);
+  })
+  
+   db.ref.update(updates);
+}
+
+
+
+
 
 fire.deleteCollectionDoc = (collectionName, doc,callback,option) => {
     db.collection(collectionName).doc(doc).delete()

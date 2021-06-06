@@ -5,7 +5,8 @@ export default function ItemDetail({nombre,familia,precio,texto,img,stock,botone
 
 return (
 <section className="row align-items-center justify-content-center mb-5">
-<div className="col-10">
+<div className="col-10 col-sm-8 col-md-10 col-lg-9 col-xl-8">
+
 
 <div className="card mb-3 my-5 align-self-center">
   <div className="row no-gutters">

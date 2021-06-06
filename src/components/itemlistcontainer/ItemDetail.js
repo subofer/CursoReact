@@ -7,11 +7,11 @@ return (
 <section className="row align-items-center justify-content-center mb-5">
 <div className="col-10">
 
-<div class="card mb-3 my-5 align-self-center">
-  <div class="row no-gutters">
+<div className="card mb-3 my-5 align-self-center">
+  <div className="row no-gutters">
     
 
-    <div class="col-md-4 col-xl-3">
+    <div className="col-md-4 col-xl-3">
       <a href={process.env.PUBLIC_URL + img}>
           <img src={process.env.PUBLIC_URL + img} alt={nombre}
                 className="img-fluid z-depth-1"

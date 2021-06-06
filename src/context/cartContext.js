@@ -46,9 +46,11 @@ export const Carrito = ({children}) => {
 
 
 	task.readFromLocal = (key, callback,user) =>{
-		key = user?key+user.uid:key
-		let lst = JSON.parse(localStorage.getItem(key)) || carroVacio
-		return callback(lst) || lst
+		//key = user?key+user.uid:key
+		//let lst = JSON.parse(localStorage.getItem(key)) || carroVacio
+		//return callback(lst) || lst
+
+		return callback(JSON.parse(localStorage.getItem(user?key+user.uid:key)) || carroVacio)
 	}
 	
 	task.saveToLocal = (key,condition,user) =>{

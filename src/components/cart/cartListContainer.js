@@ -63,7 +63,7 @@ listado && listado.length>0?
 			<>
 			<tr style={{height: '3.2rem'}}>
 				<td><Link to={"/pedidos/"+orden.id}>{orden.id.slice(0,3)+"..."+orden.id.slice(-3)}</Link></td>
-				<td>{dateToStr(orden.date,2)}</td>
+				<td>{dateToStr(orden.date,3)}</td>
 				<td>${orden.total}</td>
 				<td>{May(orden.entregado?"Entregado":"Pendiente")}</td>
 				<td><button key={"eliminar"+orden.id}
@@ -93,7 +93,7 @@ listado && listado.length>0?
 						style={{padding: '5px'}}
 						aria-expanded="true"
 						onClick={()=> {
-						fire.togleDeliver(orden)
+						fire.toggleDeliver(orden)
 						setDisparo(true)
 						}}
 					> {orden.entregado ? "Devolver":"Entregar" }</button>

@@ -65,7 +65,7 @@ export function InputSpiner(item){
    return(
       <span className="ns-btna">
               <button onClick={()=>Agregado(item)} type="button" className="btn btn-danger botonCompra" disabled={item.item.stock == 0}>
-              {item.item.stock == 0?"Sin Stock":"Agregar al carrito"}
+              {item.item.stock == 0?"Sin Stock":"Agregar"}
             </button>
       </span>
   )

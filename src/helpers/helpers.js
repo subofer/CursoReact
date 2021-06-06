@@ -20,15 +20,13 @@ export function May(str){
 }
 
 export function dateToStr(dd,type=1){
-	let nas = dd.toDate().toString().split(" ")
-	switch (type){
-		case 1:
-			return nas[2] + "/" + nas[1] + "/" + nas[3] + " " + (nas[4].slice(0, -3))
-		break;
-		case 2:
-			return nas[2] + "/" + nas[1]
-		break;
-	}
+let nas = dd.toDate().toString().split(" ")
+return[
+		{date:"Horario"},
+		{date: nas[2] + "/" + nas[1] + "/" + nas[3] + " " + (nas[4].slice(0, -3)) },
+		{date: nas[2] + "/" + nas[1] + "/" + nas[3] },
+		{date: nas[2] + "/" + nas[1] }
+	][type].date
 }
 
 export function randomKey(tam=1000000){ 

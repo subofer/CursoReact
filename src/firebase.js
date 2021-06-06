@@ -60,17 +60,13 @@ let fireGet = db.collection(collection);
   } )
 };
 
-
-
-
-
 fire.setCollection = (collectionName, array, id,callback) => {
-  let fire = db.collection(collectionName)
+  let fr = db.collection(collectionName)
   array.forEach(item => 
     { item[id]? 
-        fire.doc(item[id]).set(item)  
+        fr.doc(item[id]).set(item)  
           :  
-        fire.add(item)
+        fr.add(item)
 
       .then ( docRef => {
         console.log   ("Document written with ID: ", docRef.id) 
@@ -88,11 +84,9 @@ fire.updateCollectionDoc = (collectionName, doc, values) => {
     .catch( error  => {console.error ("Error updating document: "   , error    ) })
 }
 
-fire.togleDeliver = (order) => {
+fire.toggleDeliver = (order) => {
   fire.updateCollectionDoc("orders", order.id, {entregado: !order.entregado})
 }
-
-
 
 fire.updateStock = (collectionName, doc, values) => {
   db.collection(collectionName)

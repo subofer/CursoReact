@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Bienvenido a mi primer aplicación React.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Esta claro que el diseño y la estetica no son mi fuerte, pero con un poco de voluntad y perceberancia consegui una aplicación que cumple con su objetivo y funciona de manera eficiente.
 
-## Available Scripts
 
-In the project directory, you can run:
+# Tecnologias aplicadas.
 
-### `npm start`
+Luego de hacer el curso de Html, css, Js y React, he podido completar este proyecto, el cual fue una adaptación del proyecto HTML a React.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Instalación
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Este proyecto se creo usando la herramienta **Create-React-App.**
+Podes instalarlo clonado el repositorio Git "git clone https://github.com/subofer/CursoReact.git"
+Una vez descargado, usar "npm install" para descargar las dependencias.
+Finalmente, "npm start" para montar el live server.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Contenido
 
-### `npm run build`
+Se trata de un e-comerce con gestión de usuarios, control de stock y conexión a Firebase.
+Mas adelante se planea agregar calculo automatico de materiales, costos y precios de venta.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+|                |Local                          |Remoto                       |
+|----------------|-------------------------------|-----------------------------|
+|Header          |`Contenido estatico`           	|Enlaces                    |
+|NavBar          |`Formato`                      	|Enlaces					   |
+|Contenido	 	 |`Información y texto`          	|Valores, precios, productos. |
+|Modals			 |`Ventanas Modal para Login y cart`|Información de productos y usuarios.|
+|Footer			 |`Enlaces redes sociales, info`	|Enlaces navegación|
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Diagrama limitado del funcionamiento de la App
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Un pequeño esquema de funcionamiento de la Aplicación, mas que nada para probar el MD.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```mermaid
+sequenceDiagram
+Home->> Productos: React Router
+Note right of Home: Login usuarios, <br/> Redirecciones.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Productos->>Cart: Productos seleccionados
+Note right of Productos: Se reservan el stock<br/>solo se descuenta al<br/>completar el envio.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Cart->> Firebase: Guardar pedidos
+Note right of Cart: El pedido se guarda en<br/>Firebase si ya existe<br/>solo se modifica.
+```
 
-## Learn More
+Flow de datos al crear una nueva orden:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```mermaid
+graph LR
+A((Cart)) -- Pedido --> B(Guardar pedido)
+A -- Comprobar --> C(Editar pedido)
+B --> D{Firebase}
+C --> D
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Animación, simulador.
+![](LaCocina.gif)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

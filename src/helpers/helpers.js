@@ -35,31 +35,29 @@ export function randomKey(tam=1000000){
 
 
 export function FloatLoading( {size=5,space=5,text="Loading...",show=false} ){
-
 return(
+ show &&
+  <div style={{
+    			position: "relative",
+    			top: "10px", left: "-5%",
+				width: "50%", height: "100%"
+			}}
+	>
 
-show &&
-
-<div style={{
-	width: "50%",
-    height: "100%",
-    position: "relative",
-    top: "10px",
-    left: "-5%"
-	
-    
-}}>
-
-        <div className={"spinner-border text-primary m-"+space} 
-        	 style={{
-				width: "100%",
-  				height: "80%",
-  				position: "absolute",
-        	 	opacity:"1", 
-				zIndex: "9000",
-        	 	width: size+"rem", height: size+"rem"}} 
-        	  role="status">
-        </div>
-</div>
-)
+    <div className={"spinner-border text-primary m-"+space} 
+         style={{
+  					position: "absolute",
+					width: "100%",height: "80%",
+        	 		opacity:"1", zIndex: "9000",
+        	 		width: size+"rem", 
+        	 		height: size+"rem"
+        	 	}} 
+          role="status">
+    </div>
+  </div>
+ )
 }
+
+
+
+

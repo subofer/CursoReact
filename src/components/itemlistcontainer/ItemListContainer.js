@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {useParams} from 'react-router-dom'
 
 import Productos from './ItemList'
+import {useCartContext} from '../../context/cartContext'
 import {Loading} from '../../helpers/helpers'
 import {fire} from '../../firebase'
 
@@ -10,6 +11,7 @@ import './style.css'
 export default function ItemListContainer() {
  
     const [ListadoProductos, SetListadoProductos] = useState([])
+    const [cart, cartTask] = useCartContext()
     const {familia} = useParams()
 
  useEffect(() => {
@@ -17,7 +19,7 @@ export default function ItemListContainer() {
     let opciones = {where:familia?["familia","==",familia]:false}
     fire.getCollection(SetListadoProductos,"items",opciones)
 
- },[familia]);
+ },[familia,cart]);
 
  return(
     

@@ -42,10 +42,8 @@ return (
           <Route path="/home">
             <Home/>
           </Route>
-          
-
-              
-          <Route path="/precios">
+   
+         <Route path="/precios">
             <TablaPrecios/>
           </Route>
    
@@ -53,7 +51,6 @@ return (
             <Profile/>
           </Route>
    
-
           <Route exact path="/productos/:familia/:id">
               <ItemDetailContainer/>
           </Route>
@@ -73,8 +70,7 @@ return (
           <Route path="/pedidos">
               <CartListContainer/>
           </Route>
-          
-          
+             
           <Route path="/">
             <OnLoadPage/>
           </Route>
@@ -100,9 +96,6 @@ return (
 
 function OnLoadPage() {
   const history = useHistory();
-    history.push('/home');
-    return(
-        <>
-        </>
-      )
+    history.push('/productos');
+    return(<></>)
   }

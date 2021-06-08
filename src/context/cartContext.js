@@ -106,7 +106,9 @@ export const Carrito = ({children}) => {
 	task.buy = (buyer) => {
 		//cambiar para la version final, avisar si el correo no esta verificado..
 		//if(user && user.emailVerified ){
-		if(user){
+		
+		let controlStok = fire.batchSellStock(cart)
+		if(user && controlStok){
 			
 			let buyCollection = {
 			buyer:{id:user.uid,email:user.email,name:user.displayName},
@@ -121,10 +123,11 @@ export const Carrito = ({children}) => {
 				:
 				fire.setCollection("orders",[buyCollection],"",setOrder)
 					
-				cart.forEach(item => task.updateItemStock(item) )
+				
 		}
 		task.set()
 	}
+
 
 
 //Modifica el pedido ya guardado en Firebase.	
@@ -137,18 +140,11 @@ export const Carrito = ({children}) => {
 		task.set()
 	}
 
-//Bora el pedido guardado en Firebase
-	task.clearBuy = (order) => {
-		order && fire.deleteCollectionDoc("orders",order,setOrder)
-	}
 
 
-//Actualiza	el stock de la base de datos, con respecto al pedido
+//Actualiza	el stock de un item.
 	task.updateItemStock = (item) => {
-
-
 		fire.updateCollectionDoc("items",item.id,{stock:item.stock-item.cantidad})
-
 	}
 
 //Devuelve la cantidad total de items en el carrito.

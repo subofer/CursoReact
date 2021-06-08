@@ -142,11 +142,25 @@ export function ProductCard({nombre,texto,img,stock,botonera,detalle}){
     <div className="col-12 col-md-6 col-xl-4 d-flex align-items-stretch cartas_productos">
       <div className="card mt-3">
         <img className="card-img-top" src={process.env.PUBLIC_URL + img} alt={nombre}/>
-        <div className="card-body">
+        
+        {stock>0 && stock < 10 &&
+        <div class="card-img-overlay">
+            <h3><span class="badge badge-pill badge-warning">Quedan pocas!!!</span></h3>
+        </div>
+        }
+
+        {stock <= 0 &&
+        <div class="card-img-overlay">
+            <h3><span class="badge badge-pill badge-danger">SIN STOCK</span></h3>
+        </div>
+        }
+
+       <div className="card-body">
           <h5 className="card-title">{nombre}</h5>
           <p className="card-text">{texto}</p>
         </div>
         <div className="card-footer" style={{backgroundColor: 'lightgrey'}}>
+          {stock > 0 ? <p className="card-text">{stock}Kg en Stock</p>: <p className="card-text">Sin Stock</p>}
           <div className="card-text" style={{marginVertical: '-10px'}}>{botonera}</div>
           <div className="card-text" style={{marginVertical: '-10px'}}>{detalle}</div>
         </div>

@@ -27,7 +27,9 @@ fire.getCollection = (callback,collection,opt={}) => {
   /*
   options = { 
             where:["familia","==","milanesas"]
-            sort:{key:"orden",order:"asc"},
+              ||
+            sort:{key:"orden",order:"asc"}
+              ||
             doc:"id"
           }
   */
@@ -49,9 +51,6 @@ let fireGet = db.collection(collection);
                         return(  {...i.data(),id:i.id} )
                       })
                   )
-
-       
- 
    })
   .catch( error => {
     
@@ -88,61 +87,42 @@ fire.toggleDeliver = (order) => {
   fire.updateCollectionDoc("orders", order.id, {entregado: !order.entregado})
 }
 
-fire.updateStock = (collectionName, doc, values) => {
-  db.collection(collectionName)
-    .doc(doc)
-    .update({stock:firebase.firestore.FieldValue.increment(values)})
-    .catch( error  => {console.error ("Error updating document: "   , error    ) })
-}
-
-fire.updateStock2 = (carro) => {
-  const updates = {};
-
-  carro.forEach(item => {
-   updates[`items/${item.codigo}/stock`] = firebase.firestore.FieldValue.increment(1);
-  })
-  
-   db.ref.update(updates);
-}
-
-
-
-
-
 fire.deleteCollectionDoc = (collectionName, doc,callback,option) => {
     db.collection(collectionName).doc(doc).delete()
-    
-    callback(option?option:null)
+     callback(option?option:null)
+}
+
+
+
+fire.batchReturnStock = (ordenToReturn,callback) => {
+  fire.batchUpdateStock(ordenToReturn.cart,1) && callback()
+}
+
+fire.batchSellStock = (currentCart) => {
+  return  fire.batchUpdateStock(currentCart,-1)
+}
+
+fire.batchUpdateStock = (cart,direction) => {
+var batch = db.batch();
+ cart.forEach(item => {
+    if(item.stock + (direction * item.cantidad) >= 0){
+      batch.update( db.collection("items").doc(item.id), 
+                 {stock:firebase.firestore.FieldValue.increment(direction*item.cantidad)}
+                
+                );
+    }else{
+        return false
+      }
+    })
+  
+  batch.commit()
+  .then(() => {});
+    return true
 }
 
 
 
 /*
-fire.getActiveUserOrders = (callback) =>{
-
-fire.activeUser(callback)
-
-
-
-}
-*/
-
-
-//fire.login("pepe@hotmail.com","123456",console.log)
-//fireLogin("marcos@hotmail.com","1234567",console.log)
-
-//fireRegisterUser("marcos@hotmail.com","1234567",console.log)
-
-//fireLogin("marcos@hotmail.com","12345",console.log)
-
-
-
-//import {ListaProductos} from './components/values/values'
-//fire.setCollection("items",ListaProductos(),"codigo")
-//fire.setCollection("items",ListaProductos())
-
-
-
 export const seccionesNavBar = [
     {
       orden:1,
@@ -157,16 +137,16 @@ export const seccionesNavBar = [
       nombre: "Productos", 
       enlace:"/productos", 
       drop:[{
-          nombre:"milanesas",
+          nombre:"Milanesas ",
           enlace:"/milanesas"
         },{
-          nombre:"hamburguesas",
+          nombre:"Hamburguesas ",
           enlace:"/hamburguesas"
         }]
     },{
       orden:4,
-      nombre: "Recetas", 
-      enlace:"/recetas"
+      nombre: "Carrito", 
+      enlace:"/carrito"
     },{ 
       orden:5,
       nombre: "Pedidos", 
@@ -174,4 +154,7 @@ export const seccionesNavBar = [
     }
 ]
 
-//fire.setCollection("seccionesNavBar",seccionesNavBar,"nombre")
+//Con esto setie inicialmente la base de datos.
+fire.setCollection("seccionesNavBar",seccionesNavBar,"nombre")
+
+*/

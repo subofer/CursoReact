@@ -10,9 +10,10 @@ header {
       header nav li a {
         color: white;
         font-size: clamp(1rem, 3vw, 1.53rem);
-        margin: 0px 20px; }
+        margin: 0px 15px; }
         header nav li a:hover, header nav li a.activo {
-          color: white;
+
+		  color: white;
           background: linear-gradient(90deg, #c2bb5f 0%, rgba(140, 140, 70, 0.6) 50%, #c2bb5f 100%); }
 
 

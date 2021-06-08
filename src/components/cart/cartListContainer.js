@@ -14,12 +14,12 @@ export default function CartIconContainer(){
 	
 	const {id} = useParams()
 	
-	const [cart, cartTask] = useCartContext()
-	const [user,userTask] = useUserContext()
-	const [orders, setOrders] = useState([])
+	const [cart   , cartTask]    = useCartContext()
+	const [user   , userTask]    = useUserContext()
+	const [orders , setOrders]   = useState([])
 	const [idorder, setIdorders] = useState(null)
-	const [disparo, setDisparo] = useState(false)
-	const [loading, setLoading] = useState(true)
+	const [disparo, setDisparo]  = useState(false)
+	const [loading, setLoading]  = useState(true)
 
  useEffect(() => {
 	if(user){
@@ -28,7 +28,7 @@ export default function CartIconContainer(){
 	}else{
 		setOrders([])
 	}
- },[user,disparo]);
+ },[user,disparo,cart]);
 
 useEffect(() => {
 	id ? fire.getCollection(setIdorders,"orders",{doc:id}) : setIdorders(null)
@@ -72,7 +72,11 @@ listado && listado.length>0?
 						style={{padding: '5px'}}
 						onClick={()=> {
 							setDisparo(true)
-							fire.deleteCollectionDoc("orders",orden.id,callback,orders.filter(i=>i.id!=orden.id))
+							
+							fire.batchReturnStock(orders.find(i=>i.id=orden.id),()=>{
+								fire.deleteCollectionDoc("orders",orden.id,callback,orders.filter(i=>i.id!=orden.id))
+							})
+
 						}}
 					> Eliminar </button>
 			 			

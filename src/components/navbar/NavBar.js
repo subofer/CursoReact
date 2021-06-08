@@ -19,11 +19,10 @@ export default function NavBar({listaNav,user,setUser}) {
     
       <li key={id+"li"} className="nav-item dropdown btn-group">
 
-        <NavLink to={to} key={id+"nav"} id="navbarDropdown" style={{marginRight: '0'}}  activeClassName="activo" className="nav-link">
+        <NavLink to={to} key={id+"nav"} id="navbarDropdown" activeClassName="activo" className="nav-link">
           {contenido}
         </NavLink>
-        <a style={{paddingLeft: '0',marginLeft: '0px',marginRight: '10px',transform: "translate(-5px,0px)"}}
-            className="nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a className="nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         </a>
 
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -55,6 +54,3 @@ export default function NavBar({listaNav,user,setUser}) {
     </nav>
   )
 }
-
-
-            //<EnlaceNav key="email" id={1} contenido={user} to=""/> 

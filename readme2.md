@@ -10,15 +10,19 @@ Luego de hacer el curso de Html, css, Js y React, he podido completar este proye
 ## Instalación
 
 Este proyecto se creo usando la herramienta **Create-React-App.**
+Podes instalarlo clonado el repositorio Git "git clone https://github.com/subofer/CursoReact.git"
+Una vez descargado, usar "npm install" para descargar las dependencias.
+Finalmente, "npm start" para montar el live server.
 
 
 ## Contenido
 
-Se trata de un e-comerce con gestion de usuarios y conexion a Firebase.
+Se trata de un e-comerce con gestion de usuarios, control de stock y conexion a Firebase.
+Mas adelante se planea agregar calculo automatico de materiales, costos y precios de venta.
 
 |                |Local                          |Remoto                       |
 |----------------|-------------------------------|-----------------------------|
-|Header          |`Contenido estatico`         	|"Enlaces"                    |
+|Header          |`Contenido estatico`           	|Enlaces                    |
 |NavBar          |`Formato`                      	|Enlaces					   |
 |Contenido	 	 |`Información y texto`          	|Valores, precios, productos. |
 |Modals			 |`Ventanas Modal para Login y cart`|Información de productos y usuarios.|
@@ -28,7 +32,7 @@ Se trata de un e-comerce con gestion de usuarios y conexion a Firebase.
 
 ## Diagrama limitado del funcionamiento de la App
 
-Un pequeño esquema de funcionamiento de la Aplicación.
+Un pequeño esquema de funcionamiento de la Aplicación, mas que nada para probar el MD.
 
 ```mermaid
 sequenceDiagram
@@ -51,3 +55,7 @@ A -- Comprobar --> C(Editar pedido)
 B --> D{Firebase}
 C --> D
 ```
+
+
+## Animación, simulador.
+![](LaCocina.gif)

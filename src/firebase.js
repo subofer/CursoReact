@@ -143,14 +143,14 @@ export const seccionesNavBar = [
           nombre:"Hamburguesas ",
           enlace:"/hamburguesas"
         }]
-    },{
-      orden:4,
-      nombre: "Carrito", 
-      enlace:"/carrito"
     },{ 
-      orden:5,
+      orden:4,
       nombre: "Pedidos", 
       enlace:"/pedidos"
+    },{
+      orden:5,
+      nombre: "Carrito", 
+      enlace:"/cart"
     }
 ]
 

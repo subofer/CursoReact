@@ -76,7 +76,7 @@ export default function Login({classNameCont}) {
                     click = {()=>{onModalOpen()}}
                     textoBoton={mensaje}
                     menu={[ 
-                            {titulo:"Mis Pedidos"        ,to:"/mispedidos"},
+                            {titulo:"Mis Pedidos"        ,to:"/pedidos"},
                             {Linea:"divisora"},
                             {titulo:"Cerrar sesion"      ,to:"/home" ,click:userTask.logout},
                             {titulo:"Informar"           ,to:"/home" ,click:userTask.active},

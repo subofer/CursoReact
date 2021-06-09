@@ -22,16 +22,16 @@ export default function NavBar({listaNav,user,setUser}) {
         <NavLink to={to} key={id+"nav"} id="navbarDropdown" activeClassName="activo" className="nav-link">
           {contenido}
         </NavLink>
-        <a className="nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a className="nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         </a>
 
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
         {drop.map( (dropItem, index) => 
           <NavLink  key = {index+"drop-item"} className="dropdown-item" to={to+dropItem.enlace}>
-        
+
             {May(dropItem.nombre)}
-        
+
           </NavLink>
         )}
 

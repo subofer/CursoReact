@@ -111,8 +111,10 @@ task.verificateEmail = () =>{
 
 
 task.active = () =>{
-	auth.currentUser && setUser(auth.currentUser)
+	auth.currentUser && setUser(auth.currentUser) 
+	auth.currentUser && console.log(auth.currentUser.displayName)
 	auth.onAuthStateChanged(usuario => setUser(usuario) )
+	
 }
 
 
@@ -164,3 +166,4 @@ return (
     </UserContext.Provider>
   )
 }
+

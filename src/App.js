@@ -4,19 +4,25 @@ import {BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-
 import {Carrito} from './context/cartContext'
 import {FireUser} from './context/userContext'
 
-
-
+//Home
 import Home from './components/pages/home'
+
+//Perfil de usuario (no)
 import Profile from './components/pages/profile'
    
-
+//Lista de productos
 import ItemListContainer from './components/itemlistcontainer/ItemListContainer'
 import ItemDetailContainer from './components/itemlistcontainer/ItemDetailContainer'
 
 
+//Cart list
 import CartIconContainer from './components/cart/cartIconContainer'
 import CartListContainer from './components/cart/cartListContainer'
 
+//Order list
+import OrderListContainer from './components/orders/orderListContainer'
+
+//Precios
 import TablaPrecios from './components/pricelist/pricelist'
 
 import Header from './components/header/Header'
@@ -47,10 +53,11 @@ return (
             <TablaPrecios/>
           </Route>
    
+          {/*
           <Route path="/mispedidos">
             <Profile/>
           </Route>
-   
+          */}
           <Route exact path="/productos/:familia/:id">
               <ItemDetailContainer/>
           </Route>
@@ -63,12 +70,20 @@ return (
               <ItemListContainer/>
           </Route>
 
-          <Route path="/pedidos/:id">
+          <Route path="/cart/:id">
               <CartListContainer/>
           </Route>
           
-          <Route path="/pedidos">
+          <Route path="/cart">
               <CartListContainer/>
+          </Route>
+
+          <Route path="/pedidos/:id">
+              <OrderListContainer/>
+          </Route>
+          
+          <Route path="/pedidos">
+              <OrderListContainer/>
           </Route>
              
           <Route path="/">

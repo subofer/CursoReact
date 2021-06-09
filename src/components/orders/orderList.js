@@ -1,7 +1,7 @@
 import React from 'react'
 import {randomKey} from '../../helpers/helpers'
 
-export default function CartList({titulo,children}){
+export default function OrderList({titulo,children}){
 return(
     <div className="row justify-content-center py-3">   
         <div className="col-12 pb-4">

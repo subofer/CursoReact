@@ -26,7 +26,9 @@ fire.auth = auth
 fire.getCollection = (callback,collection,opt={}) => {
   /*
   options = { 
-            where:["familia","==","milanesas"]
+            where:["familia","==","milanesas"] 
+            ws:[wh:["familia","==","milanesas"],wh:["precio","<=","150"]]
+            let ws    =  opt.ws ? opt.ws.forEach(o => fireGet.where(o.wh[0],o.wh[1],o.wh[2])) : dc
               ||
             sort:{key:"orden",order:"asc"}
               ||
@@ -35,9 +37,9 @@ fire.getCollection = (callback,collection,opt={}) => {
   */
 let fireGet = db.collection(collection);
 
-  let dc    =  opt.doc   ? fireGet.doc(opt.doc)                                 : fireGet
-  let wh    =  opt.where ? fireGet.where(opt.where[0],opt.where[1],opt.where[2]): dc
-  let geter =  opt.sort  ? wh.orderBy(opt.sort.key,opt.sort.order)              : wh
+  let dc    =  opt.doc   ? fireGet.doc(opt.doc)                                     : fireGet
+  let wh    =  opt.where ? fireGet.where(opt.where[0],opt.where[1],opt.where[2])    : dc
+  let geter =  opt.sort  ? wh.orderBy(opt.sort.key,opt.sort.order)                  : wh
 
 
   geter.get()
@@ -53,10 +55,8 @@ let fireGet = db.collection(collection);
                   )
    })
   .catch( error => {
-    
     console.error("Error geting documents: ", error)
-
-  } )
+  })
 };
 
 fire.setCollection = (collectionName, array, id,callback) => {
@@ -71,7 +71,9 @@ fire.setCollection = (collectionName, array, id,callback) => {
         console.log   ("Document written with ID: ", docRef.id) 
         callback(docRef.id)
       })
-      .catch( error  => {console.error ("Error adding document: "   , error    ) })
+      .catch( error  => {
+        console.error ("Error adding document: "   , error    ) 
+      })
     }
   )
 }

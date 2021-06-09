@@ -22,8 +22,14 @@ export default function OrderListContainer(){
 
  useEffect(() => {
 
-	setLoading(true)
-	user? fire.getCollection(setOrders,"orders",{where:["buyer.id","==",user.uid]})	: setOrders([])
+	setLoading(true) 
+
+
+	let options = {where:["buyer.id","==",user.uid]}
+
+	user ? fire.getCollection(setOrders,"orders", options  ) : setOrders([])
+
+
  },[user,disparo,cart]);
 
 

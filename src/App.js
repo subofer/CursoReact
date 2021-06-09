@@ -6,6 +6,7 @@ import {FireUser} from './context/userContext'
 
 //Home
 import Home from './components/pages/home'
+import NotFound from './components/pages/NotFound'
 
 //Perfil de usuario (no)
 import Profile from './components/pages/profile'
@@ -85,10 +86,13 @@ return (
           <Route path="/pedidos">
               <OrderListContainer/>
           </Route>
-             
-          <Route path="/">
+          
+
+          <Route exact path="/">
             <OnLoadPage/>
           </Route>
+
+          <Route path="/*" component={NotFound} />
          
         </Switch>
       </main>

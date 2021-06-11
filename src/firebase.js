@@ -106,6 +106,7 @@ fire.batchSellStock = (currentCart) => {
 
 fire.batchUpdateStock = (cart,direction) => {
 var batch = db.batch();
+let respuesta = []
  cart.forEach(item => {
     if(item.stock + (direction * item.cantidad) >= 0){
       batch.update( db.collection("items").doc(item.id), 
@@ -113,13 +114,15 @@ var batch = db.batch();
                 
                 );
     }else{
-        return false
+        respuesta.push({...item,mensaje:"Stock insuficiente"})
       }
+    
     })
-  
-  batch.commit()
-  .then(() => {});
-    return true
+  if (respuesta.lenght==0){
+    batch.commit()
+    .then(() => {});
+  }
+    return respuesta
 }
 
 

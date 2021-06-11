@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import {May} from '../../helpers/helpers'
 import {useCartContext} from '../../context/cartContext'
@@ -6,6 +6,13 @@ import {useCartContext} from '../../context/cartContext'
 
 /*Item List generator*/
 export default function Productos({listaProductos}){
+  
+  const [cart, cartTask] = useCartContext()
+
+useEffect(() => {
+
+}, [cart])
+
   return(
     <div className="row" id="lista_productos"> 
       {listaProductos.map( (item,index) =>
@@ -39,7 +46,7 @@ export function InputSpiner(item){
   const BotonAdd = ({item,noStock}) =>{
     return(
       <span className="ns-btna">
-        <button disabled={noStock} type="button" className={"btn-danger btn botonCompra"} onClick={()=>cartTask.addToCart(item.item , count)}>
+        <button disabled={noStock} type="button" className={"btn-danger btn botonCompra"} onClick={()=>cartTask.addToCart(item, count)}>
            {noStock?"Sin Stock":"Agregar"}
         </button>
       </span>
@@ -78,7 +85,7 @@ return (
       
        <img className="card-img-top" src={process.env.PUBLIC_URL + img} alt={nombre}/> 
 
-       <div class="card-img-overlay" style={{marginVertical: '-10px'}}>
+       <div className="card-img-overlay" style={{marginVertical: '-10px'}}>
            <h3><span className={"badge badge-pill badge-"+badge.type}>{badge.msg}</span></h3>
        </div>
 

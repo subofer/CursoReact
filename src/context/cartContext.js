@@ -108,7 +108,7 @@ export const Carrito = ({children}) => {
 		//if(user && user.emailVerified ){
 		
 		let controlStok = fire.batchSellStock(cart)
-		if(user && controlStok){
+		if(user && controlStok.lenght==0){
 			
 			let buyCollection = {
 			buyer:{id:user.uid,email:user.email,name:user.displayName},
@@ -124,6 +124,13 @@ export const Carrito = ({children}) => {
 				fire.setCollection("orders",[buyCollection],"",setOrder)
 					
 				
+		}else{
+			//Ahora es un Alert, pero va a ser un Modal 
+			//con la lista de productos que no se pueden agregar por falta de Stock
+			alert( 'El pedido no se genero, por los siguientes motivos:\n'
+					+ controlStok.map(x=> "\n"+ x.id +" "+x.nombre +"   Stock: "+ x.stock+"     "+x.mensaje)
+					+ "\n\n Retire al menos 1 item de cada articulo agotado para comprar el stock"
+				)
 		}
 		task.set()
 	}

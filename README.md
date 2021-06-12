@@ -1,6 +1,6 @@
 # Bienvenido a mi primer aplicación React.
 
-Esta claro que el diseño y la estetica no son mi fuerte, pero con un poco de voluntad y perceberancia consegui una aplicación que cumple con su objetivo y funciona de manera eficiente.
+Esta claro que el diseño y la estetica no son mi fuerte, pero con un poco de voluntad y perseberancia consegui una aplicación que cumple con su objetivo y funciona de manera eficiente.
 
 
 # Tecnologias aplicadas.

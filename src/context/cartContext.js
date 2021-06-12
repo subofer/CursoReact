@@ -127,7 +127,8 @@ export const Carrito = ({children}) => {
 		}else{
 			//Ahora es un Alert, pero va a ser un Modal 
 			//con la lista de productos que no se pueden agregar por falta de Stock
-			alert( 'El pedido no se genero, por los siguientes motivos:\n'
+			alert( 
+					'El pedido no se genero, por los siguientes motivos:\n'
 					+ controlStok.map(x=> "\n"+ x.id +" "+x.nombre +"   Stock: "+ x.stock+"     "+x.mensaje)
 					+ "\n\n Retire al menos 1 item de cada articulo agotado para comprar el stock"
 				)

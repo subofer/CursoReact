@@ -56,18 +56,18 @@ export function InputSpiner(item){
   const BotonProducto = ({dir,d=dir>0?"plus":"minus"}) => {
     return(
       <span className="ns-btn">
-        <Link to="#" data-dir={d} onClick={() => setCount(count+dir<=0?0:item.stock<count+dir?item.stock:count+dir)}>
-          <span className={"icon-"+d}/>
-        </Link>
+        <a><span className={"icon-"+d} onClick={() => setCount(count+dir<=0?0:item.stock<count+dir?item.stock:count+dir)}/></a>
       </span>
     )
   }
 
+        //<Contador value={count}/> 
  return(
     <div className="botonera_productos">
       <div className="number-spinner">
         <BotonProducto dir={-1}/> 
-        <Contador value={count}/> 
+        <input type="text" className="pl-ns-value" maxLength="2" defaultValue={count}/>
+
         <BotonProducto dir={1}/> 
         <BotonAdd item={item} noStock={item.stock == 0}/>
       </div>
